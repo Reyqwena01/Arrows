@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform _arrowContainer;
+    [SerializeField] private GameObject _arrow; 
+
+    private void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Instantiate(_arrow, transform.position, Quaternion.identity, _arrowContainer); 
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
