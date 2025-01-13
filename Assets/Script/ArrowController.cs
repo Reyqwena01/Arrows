@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rigidbody = null;
+    //[SerializeField] private Rigidbody2D _rigidbody = null;
     // Start is called before the first frame update
     #region "Methode"
     void Start()
@@ -25,13 +25,13 @@ public class ArrowController : MonoBehaviour
 
     private void Shoot()
     {
-        _rigidbody.simulated = true;
-        _rigidbody.AddForce(Vector2.right * GameManager.Instance.ShootForce);
+        //_rigidbody.simulated = true;
+        //_rigidbody.AddForce(Vector2.right * GameManager.Instance.ShootForce);
     }
 
     private void CalculateAngle()
     {
-        Convert. = Input.mousePosition - transform.position;
+       // Convert. = Input.mousePosition - transform.position;
     }
 
     #endregion
