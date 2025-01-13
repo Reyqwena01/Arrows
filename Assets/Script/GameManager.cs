@@ -6,12 +6,11 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private static GameManager _instance = null;
-    [SerializeField] private float _shootForce = 1f;
 
     #region "Methode"
     void Start()
     {
-        FindAnyObjectByType<GameManager>();
+        _instance = FindAnyObjectByType<GameManager>();
         DontDestroyOnLoad(_instance);
     }
 
@@ -29,8 +28,6 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance
         { get { return _instance; } }
-    public float ShootForce
-    { get { return _shootForce; } }
 
     #endregion
 
