@@ -7,7 +7,7 @@ public class ArrowController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody = null;
     [SerializeField] private GameObject _arrowOrigine = null;
-    [SerializeField] private float  _shootForce = 1.0f;
+    [SerializeField] private float  _shootForce = 6.0f;
 
     private bool _isShoot = false;
     // Start is called before the first frame update
@@ -30,6 +30,8 @@ public class ArrowController : MonoBehaviour
         {
             Shoot();
         }
+
+        //_lastVelocity = _arrowRb.velocity;  
     }
 
     private void Shoot()
@@ -49,6 +51,23 @@ public class ArrowController : MonoBehaviour
 
         transform.right = -direction;
         Debug.Log(transform.right);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //float speed = _lastVelocity.magnitude;
+        //Vector2 direction = Vector2.Reflect(_lastVelocity.normalized, collision.contacts[0].normal);
+        //_arrowRb.velocity = direction * Mathf.Max(_speed, 0f);
+        //Debug.Log("Touch");
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Vector2 wallNormal = collision.contacts[0].normal;
+            Vector2 dir = Vector2.Reflect(_rigidbody.velocity, wallNormal).normalized;
+
+            _rigidbody.velocity = dir * _shootForce;
+        }
+
     }
 
     #endregion
