@@ -7,7 +7,7 @@ public class ArrowController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody = null;
     [SerializeField] private GameObject _arrowOrigine = null;
-    [SerializeField] private float  _shootForce = 6.0f;
+    [SerializeField] private float  _shootForce = 1.0f;
 
     private bool _isShoot = false;
     // Start is called before the first frame update
@@ -66,6 +66,7 @@ public class ArrowController : MonoBehaviour
             Vector2 dir = Vector2.Reflect(_rigidbody.velocity, wallNormal).normalized;
 
             _rigidbody.velocity = dir * _shootForce;
+            transform.right = - _rigidbody.velocity;
         }
 
     }
