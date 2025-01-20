@@ -30,7 +30,8 @@ public class ArrowController : MonoBehaviour
         {
             Shoot();
         }
-
+        if (_rigidbody.velocity != Vector2.zero)
+            transform.right = -_rigidbody.velocity.normalized;
         //_lastVelocity = _arrowRb.velocity;  
     }
 
@@ -65,6 +66,7 @@ public class ArrowController : MonoBehaviour
             Vector2 wallNormal = collision.contacts[0].normal;
             Vector2 dir = Vector2.Reflect(_rigidbody.velocity, wallNormal).normalized;
 
+            //_rigidbody.AddForce(dir * _rigidbody.velocity, ForceMode2D.Impulse);
             _rigidbody.velocity = dir * _shootForce;
             transform.right = - _rigidbody.velocity;
         }
