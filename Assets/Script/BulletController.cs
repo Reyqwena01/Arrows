@@ -81,9 +81,12 @@ public class BulletController : MonoBehaviour
         _controllable = true;
     }
 
-    public void Kill()
+    public void Kill(Camera enemyCamera)
     {
-        
+        _moving = false;
+        _camera.enabled = false;
+        enemyCamera.enabled = true;
+        _rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     void Start()
