@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private Rigidbody _rb = null;
 
     [SerializeField] private Camera _camera = null;
+    private Camera _enemyCamera = null;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
 
     [SerializeField] private Vector3 _direction = Vector3.zero;
@@ -84,9 +85,17 @@ public class BulletController : MonoBehaviour
     public void Kill(Camera enemyCamera)
     {
         _moving = false;
-        _camera.enabled = false;
-        enemyCamera.enabled = true;
+        _enemyCamera = enemyCamera;
         _rb.constraints = RigidbodyConstraints.FreezeAll;
+        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 5));
+        Invoke("TurnAround", 1f);
+    }
+
+    private void TurnAround()
+    {
+        _enemyCamera.transform.position = _camera.transform.position;
+        _camera.enabled = false;
+        _enemyCamera.enabled = true;
     }
 
     void Start()
