@@ -7,10 +7,14 @@ public class BulletController : MonoBehaviour
 {
     [SerializeField] private float _speed = 1f;
     [SerializeField] private Rigidbody _rb = null;
+
     [SerializeField] private Camera _camera = null;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
+
     [SerializeField] private Vector3 _direction = Vector3.zero;
     [SerializeField] private Collider _bulletCollider = null;
     private bool _controllable = true;
+    private bool _moving = true;
 
     private float _rotationX = 0f;
     private float _rotationY = 0f;
@@ -51,16 +55,18 @@ public class BulletController : MonoBehaviour
     {
         _rb.AddForce(transform.forward * _speed, ForceMode.Acceleration);
         _controllable = false;
+        _moving = true;
     }
     
     public void Bounce()
     {
         //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 3); //Bullet clipping failsafe
 
+        _virtualCamera.m_Lens.FieldOfView = 40;
         _rb.constraints = RigidbodyConstraints.FreezeAll;
         MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 5));
         Invoke("ZoomIn", 0.75f);
-
+        _moving = false;
     }
 
     private void ZoomIn()
@@ -77,12 +83,13 @@ public class BulletController : MonoBehaviour
 
     public void Kill()
     {
-
+        
     }
 
     void Start()
     {
         _camera.enabled = true;
+        _virtualCamera.Follow = null;
         Cursor.visible = false;
     }
 
@@ -111,6 +118,12 @@ public class BulletController : MonoBehaviour
             {
                 Shoot();
             }
+        }
+        else if (_moving)
+        {
+            _rb.AddForce(transform.forward * _speed*0.0005f, ForceMode.Acceleration);
+            _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f;
+            _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, 40, 160);
         }
 
         transform.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
