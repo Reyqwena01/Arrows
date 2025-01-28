@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb = null;
-    [SerializeField] private Camera _camera = null;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -14,13 +13,13 @@ public class EnemyController : MonoBehaviour
         if (bullet != null)
         {
             Die();
-            bullet.Kill(_camera);
+            bullet.Kill(transform);
         }
     }
 
     private void Die()
     {
-        _rb.constraints = RigidbodyConstraints.FreezeAll;
+        //_rb.constraints = RigidbodyConstraints.FreezePosition;
     }
 
     // Start is called before the first frame update
@@ -32,7 +31,6 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _camera.transform.LookAt(transform);
-        _camera.transform.Translate(Vector3.right * 30 * Time.deltaTime);
+        
     }
 }
