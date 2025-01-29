@@ -152,7 +152,6 @@ public class BulletController : MonoBehaviour
         if (_enemyToTrack != null)
         {
             _camera.transform.LookAt(_enemyToTrack);
-            Debug.Log(_camera.transform.forward);
             
             if (_cameraRotationSpeed > 0f)
             {
