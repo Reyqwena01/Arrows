@@ -14,6 +14,7 @@ public class BulletController : MonoBehaviour
 
     [SerializeField] private Vector3 _direction = Vector3.zero;
     [SerializeField] private Collider _bulletCollider = null;
+
     private bool _controllable = true;
     private bool _moving = true;
 
@@ -132,6 +133,8 @@ public class BulletController : MonoBehaviour
         _virtualCamera.Follow = null;
         Cursor.visible = false;
     }
+
+
 
     // Update is called once per frame
     void Update()
