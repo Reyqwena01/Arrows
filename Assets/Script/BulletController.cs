@@ -101,19 +101,19 @@ public class BulletController : MonoBehaviour
     public void Kill(Transform enemyToTrack)
     {
         Time.timeScale = 0.45f;
-        _rb.velocity = _direction * 2.5f;
+        _rb.velocity = _direction * 3f;
         _moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
-        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 15));
-        Invoke("TurnAround", 1f);
+        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 10));
+        Invoke("TurnAround", 0.4f);
     }
 
     private void TurnAround()
     {
         Time.timeScale = 0.3f;
-        _cameraRotationSpeed = 90f;
-        Invoke("StopTurnAround", 1f);
+        _cameraRotationSpeed = 60f;
+        Invoke("StopTurnAround", 1.2f);
     }
 
     private void StopTurnAround()
