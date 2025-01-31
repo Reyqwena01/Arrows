@@ -5,18 +5,36 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    #region parameters
     [SerializeField] private float _speed = 1f;
+    [Space(10)]
+    [SerializeField] private float _sensitivity = 15f;
+    [SerializeField] private float _aimAssistStrength = 0.5f;
+    [Space(10)]
+    [SerializeField] private float _speedEffectStrength = 1f;
+    [SerializeField] private float _minFovEffect = 40f;
+    [SerializeField] private float _maxFovEffect = 160f;
+    [Space(10)]
+    [SerializeField] private LayerMask _raycastLayer = 0;
+    #endregion
+
+    #region references
+    [Space(25)]
     [SerializeField] private Rigidbody _rb = null;
-
     [SerializeField] private Camera _camera = null;
-    private Camera _enemyCamera = null;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
-
-    [SerializeField] private Vector3 _direction = Vector3.zero;
     [SerializeField] private Collider _bulletCollider = null;
+    #endregion
 
+    #region booleans
     private bool _controllable = true;
     private bool _moving = true;
+    private bool _aimAssistActive = false;
+    #endregion
+
+    #region technical
+
+    private Vector3 _direction = Vector3.zero;
 
     private float _rotationX = 0f;
     private float _rotationY = 0f;
@@ -34,8 +52,9 @@ public class BulletController : MonoBehaviour
 
     private Vector3 _cameraStartRot = Vector3.zero;
     private Vector3 _cameraTargetRot = Vector3.zero;
+    #endregion
 
-    [SerializeField] private float _sensitivity = 15f;
+    
 
     // Start is called before the first frame update
 
@@ -68,7 +87,7 @@ public class BulletController : MonoBehaviour
         _rb.AddForce(_direction * _speed, ForceMode.Acceleration);
         _controllable = false;
         _moving = true;
-        Invoke("ResetCollision", 0.25f);
+        Invoke("ResetCollision", 0.15f);
     }
 
     private void ResetCollision()
@@ -102,7 +121,7 @@ public class BulletController : MonoBehaviour
     public void Kill(Transform enemyToTrack)
     {
         Time.timeScale = 0.45f;
-        _rb.velocity = _direction * 3f;
+        _rb.velocity = _direction * 2f;
         _moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
@@ -164,6 +183,20 @@ public class BulletController : MonoBehaviour
 
         if (_controllable)
         {
+            RaycastHit hit;
+            Physics.Raycast(transform.position, transform.forward, out hit, 1000f, _raycastLayer);
+
+            if (hit.collider != null && hit.collider.CompareTag("Enemy") && !_aimAssistActive)
+            {
+                _aimAssistActive = true;
+                _sensitivity /= _aimAssistStrength;
+            }
+            else if (hit.collider == null && _aimAssistActive)
+            {
+                _aimAssistActive = false;
+                _sensitivity *= _aimAssistStrength;
+            }
+
             _rotationY += Input.GetAxis("Mouse X") * _sensitivity;
             _rotationX += Input.GetAxis("Mouse Y") * -1 * _sensitivity;
 
@@ -174,11 +207,12 @@ public class BulletController : MonoBehaviour
         }
         else if (_moving)
         {
-            _rb.AddForce(transform.forward * _speed*0.0005f, ForceMode.Acceleration);
-            _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f;
-            _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, 40, 160);
+            _rb.AddForce(transform.forward * _speed*0.0005f*_speedEffectStrength, ForceMode.Acceleration);
+            _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength;
+            _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
         }
 
         transform.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
+
     }
 }
