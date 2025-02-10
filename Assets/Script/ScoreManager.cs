@@ -10,13 +10,13 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private BulletController _playerBullet = null;
 
-    [SerializeField] private int _bronzeMedalMaxBounces = 0;
+    [SerializeField] private int _bronzeMedalMaxBounces = 15;
     [SerializeField] private int _bronzeMedalMultiplier = 2;
 
-    [SerializeField] private int _silverMedalMaxBounces = 0;
+    [SerializeField] private int _silverMedalMaxBounces = 10;
     [SerializeField] private int _silverMedalMultiplier = 3;
 
-    [SerializeField] private int _goldMedalMaxBounces = 0;
+    [SerializeField] private int _goldMedalMaxBounces = 5;
     [SerializeField] private int _goldMedalMultiplier = 4;
 
     private static ScoreManager _instance = null;

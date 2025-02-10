@@ -116,7 +116,7 @@ public class HUDManager : MonoBehaviour
     {
         _alpha = 0f;
         _score = ScoreManager.Instance.Score;
-        Invoke("ShowBronzeMedal", 3f);
+        Invoke("ShowBronzeMedal", 1f);
     }
 
     private void ShowBronzeMedal()
@@ -125,7 +125,7 @@ public class HUDManager : MonoBehaviour
         {
             _bronzeMedalText.color = Color.white;
             _multiplier *= ScoreManager.Instance.BronzeMedalMultiplier;
-            Invoke("ShowSilverMedal", 1.5f);
+            Invoke("ShowSilverMedal", 0.8f);
         }
 
         else
@@ -140,7 +140,7 @@ public class HUDManager : MonoBehaviour
         {
             _silverMedalText.color = Color.white;
             _multiplier *= ScoreManager.Instance.SilverMedalMultiplier;
-            Invoke("ShowGoldMedal", 1.5f);
+            Invoke("ShowGoldMedal", 0.8f);
         }
 
         else
@@ -155,7 +155,7 @@ public class HUDManager : MonoBehaviour
         {
             _goldMedalText.color = Color.white;
             _multiplier *= ScoreManager.Instance.GoldMedalMultiplier;
-            Invoke("ShowFinalScore", 1.5f);
+            Invoke("ShowFinalScore", 0.8f);
         }
 
         else
