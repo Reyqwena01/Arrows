@@ -12,6 +12,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private BulletController _playerBullet = null;
 
     [SerializeField] private RawImage _crosshair = null;
+    [SerializeField] private RawImage _powerUpWind = null;
+    [SerializeField] private RawImage _powerUpPierce = null;
+
     [SerializeField] private Canvas _gameOverScreen = null;
 
     [SerializeField] private Canvas _flightScreen = null;
@@ -25,6 +28,17 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Canvas _aimScreen = null;
     [SerializeField] private TMP_Text _aimTimer = null;
 
+    [SerializeField] private Canvas _finalScoreScreen = null;
+    [SerializeField] private TMP_Text _scoreText = null;
+    [SerializeField] private TMP_Text _bronzeMedalText = null;
+    [SerializeField] private TMP_Text _silverMedalText = null;
+    [SerializeField] private TMP_Text _goldMedalText = null;
+
+    private int _score = 0;
+    private int _multiplier = 1;
+    private int _finalScore = 0;
+    private float _alpha = 0f;
+
     public static HUDManager Instance { get => _instance; set => _instance = value; }
     
     // Start is called before the first frame update
@@ -33,12 +47,29 @@ public class HUDManager : MonoBehaviour
         _instance = FindObjectOfType<HUDManager>();
         Object.DontDestroyOnLoad(gameObject);
 
+        SetPowerUpVisibility(Power.Wind, false);
+        SetPowerUpVisibility(Power.Pierce, false);
+
         ToggleScreen(Screen.None);
+        SetCrosshairVisibility(true);
     }
 
     public void SetCrosshairVisibility(bool value)
     {
         _crosshair.enabled = value;
+    }
+
+    public void SetPowerUpVisibility(Power power, bool value)
+    {
+        switch (power)
+        {
+            case Power.Wind:
+                _powerUpWind.enabled = value; 
+                break;
+            case Power.Pierce:
+                _powerUpPierce.enabled = value;
+                break;
+        }
     }
 
     public void UpdateHUD()
@@ -55,11 +86,12 @@ public class HUDManager : MonoBehaviour
         _flightScreen.enabled = false;
         _killScreen.enabled = false;
         _aimScreen.enabled = false;
+        _finalScoreScreen.enabled = false;
+        SetCrosshairVisibility(false);
 
         switch (screen)
         {
             case Screen.GameOver:
-                SetCrosshairVisibility(false);
                 _gameOverScreen.enabled = true;
                 break;
             case Screen.Flight:
@@ -72,8 +104,72 @@ public class HUDManager : MonoBehaviour
                 SetCrosshairVisibility(true);
                 _aimScreen.enabled = true;
                 break;
+            case Screen.FinalScore:
+                _finalScoreScreen.enabled = true;
+                ShowCurrentScore();
+                break;
         }
     }
+
+    #region finalscorescreen
+    private void ShowCurrentScore()
+    {
+        _alpha = 0f;
+        _score = ScoreManager.Instance.Score;
+        Invoke("ShowBronzeMedal", 3f);
+    }
+
+    private void ShowBronzeMedal()
+    {
+        if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.BronzeMedalMaxBounces)
+        {
+            _bronzeMedalText.color = Color.white;
+            _multiplier *= ScoreManager.Instance.BronzeMedalMultiplier;
+            Invoke("ShowSilverMedal", 1.5f);
+        }
+
+        else
+        {
+            ShowFinalScore();
+        }
+    }
+
+    private void ShowSilverMedal()
+    {
+        if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.SilverMedalMaxBounces)
+        {
+            _silverMedalText.color = Color.white;
+            _multiplier *= ScoreManager.Instance.SilverMedalMultiplier;
+            Invoke("ShowGoldMedal", 1.5f);
+        }
+
+        else
+        {
+            ShowFinalScore();
+        }
+    }
+
+    private void ShowGoldMedal()
+    {
+        if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.GoldMedalMaxBounces)
+        {
+            _goldMedalText.color = Color.white;
+            _multiplier *= ScoreManager.Instance.GoldMedalMultiplier;
+            Invoke("ShowFinalScore", 1.5f);
+        }
+
+        else
+        {
+            ShowFinalScore();
+        }
+    }
+
+    private void ShowFinalScore()
+    {
+        _alpha = 0f;
+        _finalScore = _score * _multiplier;
+    }
+    #endregion finalscorescreen
 
     public void DisplayKillScreen(int score)
     {
@@ -85,5 +181,17 @@ public class HUDManager : MonoBehaviour
     void Update()
     {
         UpdateHUD();
+
+        if (_finalScore > 0 && _alpha < 1)
+        {
+            _scoreText.text = Mathf.Round(Mathf.Lerp(_score, _finalScore, _alpha)).ToString();
+            _alpha += 0.001f;
+        }
+
+        else if (_score > 0 && _alpha < 1)
+        {
+            _scoreText.text = Mathf.Round(Mathf.Lerp(0, _score, _alpha)).ToString();
+            _alpha += 0.001f;
+        }
     }
 }

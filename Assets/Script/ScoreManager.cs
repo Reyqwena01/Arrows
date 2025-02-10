@@ -10,20 +10,45 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private BulletController _playerBullet = null;
 
+    [SerializeField] private int _bronzeMedalMaxBounces = 0;
+    [SerializeField] private int _bronzeMedalMultiplier = 2;
+
+    [SerializeField] private int _silverMedalMaxBounces = 0;
+    [SerializeField] private int _silverMedalMultiplier = 3;
+
+    [SerializeField] private int _goldMedalMaxBounces = 0;
+    [SerializeField] private int _goldMedalMultiplier = 4;
+
     private static ScoreManager _instance = null;
 
     private int _bounces = 0;
     private int _score = 0;
 
     public static ScoreManager Instance { get => _instance; set => _instance = value; }
-    public int Bounces { get => _bounces; set => _bounces = value; }
+    public int Bounces { 
+        get => _bounces;
+        set
+        {
+            _bounces = value;
+            Debug.Log(_bounces);
+        }
+    }
     public int Score { get => _score; set => _score = value; }
+    public int BronzeMedalMaxBounces { get => _bronzeMedalMaxBounces; set => _bronzeMedalMaxBounces = value; }
+    public int SilverMedalMaxBounces { get => _silverMedalMaxBounces; set => _silverMedalMaxBounces = value; }
+    public int GoldMedalMaxBounces { get => _goldMedalMaxBounces; set => _goldMedalMaxBounces = value; }
+
+    public int BronzeMedalMultiplier { get => _bronzeMedalMultiplier; set => _bronzeMedalMultiplier = value; }
+    public int SilverMedalMultiplier { get => _silverMedalMultiplier; set => _silverMedalMultiplier = value; }
+    public int GoldMedalMultiplier { get => _goldMedalMultiplier; set => _goldMedalMultiplier = value; }
+
 
     // Start is called before the first frame update
     void Start()
     {
         _instance = FindObjectOfType<ScoreManager>();
         Object.DontDestroyOnLoad(gameObject);
+        Score += 1570;
     }
 
     public int GetScoreOnKill(float speed, string bodypart)

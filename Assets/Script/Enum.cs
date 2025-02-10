@@ -9,6 +9,7 @@ public enum Screen
     Flight,
     Kill,
     Aim,
+    FinalScore,
     None
 }
 

@@ -37,6 +37,9 @@ public class BulletController : MonoBehaviour
     private bool _dropped = false;
     private bool _moving = true;
     private bool _aimAssistActive = false;
+
+    private bool _windPowerUp = false;
+    private bool _piercePowerUp = false;
     #endregion
 
     #region technical
@@ -74,6 +77,23 @@ public class BulletController : MonoBehaviour
         get => Velocity/_maxSpeed;
     }
     public float TimeoutCounter { get => _timeoutCounter; }
+    
+    public bool WindPowerUp { 
+        get => _windPowerUp;
+        set
+        {
+            _windPowerUp = value;
+            HUDManager.Instance.SetPowerUpVisibility(Power.Wind, value);
+        }
+    }
+    public bool PiercePowerUp { 
+        get => _piercePowerUp;
+        set
+        {
+            _piercePowerUp = value;
+            HUDManager.Instance.SetPowerUpVisibility(Power.Pierce, value);
+        }
+    }
 
     #endregion properties
 
@@ -120,6 +140,21 @@ public class BulletController : MonoBehaviour
         HUDManager.Instance.SetCrosshairVisibility(false);
 
         Invoke("ResetCollision", 0.15f);
+    }
+
+    private void GetPowerUp(Power power)
+    {
+        switch (power)
+        {
+            case Power.Wind:
+                WindPowerUp = true;
+                Debug.Log("Wind PowerUp Acquired !");
+                break;
+            case Power.Pierce:
+                PiercePowerUp = true;
+                Debug.Log("Pierce PowerUp Acquired !");
+                break;
+        }
     }
 
     private void ResetCollision()
@@ -219,6 +254,7 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Bouncy") && !_dropped)
         {
             Bounce();
@@ -232,13 +268,19 @@ public class BulletController : MonoBehaviour
 
             Kill(collision.gameObject.transform);
         }
-        else if (!_dropped && collision.gameObject.CompareTag("Powerup"))
-        {
-            EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
-        }
         else if (!_dropped)
         {
             Drop();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_dropped && other.gameObject.CompareTag("Powerup"))
+        {
+            Powerup powerup = other.gameObject.GetComponent<Powerup>();
+            GetPowerUp(powerup.Type);
+            Destroy(other.gameObject);
         }
     }
 
@@ -252,7 +294,7 @@ public class BulletController : MonoBehaviour
 
             if (TimeoutCounter <= 0)
             {
-                Drop();
+                Shoot();
             }
         }
         
@@ -302,12 +344,23 @@ public class BulletController : MonoBehaviour
             {
                 Shoot();
             }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                HUDManager.Instance.ToggleScreen(Screen.FinalScore);
+            }
         }
         else if (_moving)
         {
             _rb.AddForce(transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 0.02f, ForceMode.Acceleration);
             _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 0.02f;
             _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
+
+            if (Input.GetKeyDown(KeyCode.Space) && WindPowerUp)
+            {
+                Bounce();
+                WindPowerUp = false;
+            }
         }
 
         transform.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
