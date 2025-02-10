@@ -26,21 +26,26 @@ public class CameraBehavior : MonoBehaviour
         }
       
     }
-   
 
+    private void Start()
+    {
+        //_callActions();
+        //CallActions += MoveCamera; 
+    }
 
-    
-    
-    
-    
     private void Update()
     {
-        
+        MoveCamera();
     }
 
     private void MoveCamera()
     {
-        //transform.position = Vector3.Lerp(transform.position, )
+        if (CanMove) 
+        { 
+            transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
+            transform.rotation = Quaternion.Euler(90, 0, 0); 
+        }
+
     }
 
 
