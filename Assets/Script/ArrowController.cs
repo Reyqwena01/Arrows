@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    public float initialSpeed = 20f; // Vitesse initiale de la flèche
-    public float horizontalSpeed = 5f; // Vitesse de déplacement horizontal
+    [SerializeField] private float initialSpeed = 20f; // Vitesse initiale de la flèche
+    [SerializeField] private float horizontalSpeed = 5f; // Vitesse de déplacement horizontal
+    [SerializeField] private float verticalSpeed = 5f; // Vitesse de déplacement vertical
+    [SerializeField] private AudioSource _shootSound = null; // Source audio pour le son de tir
+    [SerializeField] private Rigidbody _rb = null;
 
     private Vector3 velocity; // Vecteur de vitesse
 
@@ -11,21 +14,33 @@ public class ArrowController : MonoBehaviour
     {
         // Initialiser la vitesse avec une direction vers l'avant
         velocity = transform.forward * initialSpeed;
+        _rb.drag = 10;
+
+        // Jouer le son au démarrage si une source audio est définie
+        if (_shootSound != null)
+        {
+            _shootSound.Play();
+        }
     }
 
     void Update()
     {
-        // Gérer le déplacement horizontal via les touches gauche et droite
+        // Gérer les entrées utilisateur
         float horizontalInput = Input.GetAxis("Horizontal"); // Valeur entre -1 et 1
+        float verticalInput = Input.GetAxis("Vertical"); // Valeur entre -1 et 1
+
+        // Calculer les mouvements horizontaux et verticaux
         Vector3 horizontalMovement = transform.right * horizontalInput * horizontalSpeed;
+        Vector3 verticalMovement = transform.up * verticalInput * verticalSpeed;
 
-        // Ajouter le mouvement horizontal à la position
-        transform.position += (velocity + horizontalMovement) * Time.deltaTime;
+        // Mettre à jour la position de la flèche
+        transform.position += (velocity + horizontalMovement + verticalMovement) * Time.deltaTime;
 
-        // Ajuster la rotation pour que la flèche pointe dans la direction de la vitesse
-        if (velocity + horizontalMovement != Vector3.zero)
+        // Ajuster la rotation pour que la flèche pointe dans la direction du mouvement
+        Vector3 movementDirection = velocity + horizontalMovement + verticalMovement;
+        if (movementDirection != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(velocity + horizontalMovement);
+            transform.rotation = Quaternion.LookRotation(movementDirection);
         }
     }
 }
