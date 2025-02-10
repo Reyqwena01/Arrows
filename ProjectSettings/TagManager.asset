@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Bouncy
+  - Head
+  - Torso
+  - Arm
+  - Leg
+  - Powerup
   layers:
   - Default
   - TransparentFX

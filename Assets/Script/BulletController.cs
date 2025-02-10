@@ -7,6 +7,7 @@ public class BulletController : MonoBehaviour
 {
     #region parameters
     [SerializeField] private float _speed = 1f;
+    [SerializeField] private float _maxSpeed = 200f;
     [Space(10)]
     [SerializeField] private float _sensitivity = 15f;
     [SerializeField] private float _aimAssistStrength = 0.5f;
@@ -15,24 +16,32 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float _minFovEffect = 40f;
     [SerializeField] private float _maxFovEffect = 160f;
     [Space(10)]
+    [SerializeField] private float _timeoutTimer = 10f;
+    [Space(10)]
     [SerializeField] private LayerMask _raycastLayer = 0;
     #endregion
 
     #region references
     [Space(25)]
     [SerializeField] private Rigidbody _rb = null;
-    [SerializeField] private Camera _camera = null;
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private Collider _bulletCollider = null;
+    [Space(10)]
+    [SerializeField] private Camera _camera = null;
+    [SerializeField] private Camera _dropCamera = null;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
+
     #endregion
 
     #region booleans
     private bool _controllable = true;
+    private bool _dropped = false;
     private bool _moving = true;
     private bool _aimAssistActive = false;
     #endregion
 
     #region technical
+
+    private float _timeoutCounter = 0f;
 
     private Vector3 _direction = Vector3.zero;
 
@@ -54,7 +63,19 @@ public class BulletController : MonoBehaviour
     private Vector3 _cameraTargetRot = Vector3.zero;
     #endregion
 
-    
+    #region properties
+    public float Velocity
+    {
+        get => Mathf.Round(_rb.velocity.magnitude);
+    }
+
+    public float CurrentSpeedPerc
+    {
+        get => Velocity/_maxSpeed;
+    }
+    public float TimeoutCounter { get => _timeoutCounter; }
+
+    #endregion properties
 
     // Start is called before the first frame update
 
@@ -80,13 +101,24 @@ public class BulletController : MonoBehaviour
 
     public void Shoot()
     {
+        Time.timeScale = 1f;
+
+        _timeoutCounter = 0f;
+
+        HUDManager.Instance.ToggleScreen(Screen.Flight);
+
         if (_direction == Vector3.zero)
         {
             _direction = transform.forward;
         }
+        
         _rb.AddForce(_direction * _speed, ForceMode.Acceleration);
+
         _controllable = false;
         _moving = true;
+
+        HUDManager.Instance.SetCrosshairVisibility(false);
+
         Invoke("ResetCollision", 0.15f);
     }
 
@@ -95,32 +127,49 @@ public class BulletController : MonoBehaviour
         _bulletCollider.enabled = true;
     }
 
+    #region Bounce
     public void Bounce()
     {
-        //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 3); //Bullet clipping failsafe
+        HUDManager.Instance.ToggleScreen(Screen.None);
+
+        ScoreManager.Instance.Bounces++;
+
+        Time.timeScale = 0.1f;
+
         _direction = Vector3.zero;
+
         _virtualCamera.m_Lens.FieldOfView = 40;
+
         _rb.constraints = RigidbodyConstraints.FreezeAll;
+        
         MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 5));
-        Invoke("ZoomIn", 0.75f);
         _moving = false;
+
+        Invoke("ZoomIn", 0.75f * Time.timeScale);
     }
 
     private void ZoomIn()
     {
         _rb.constraints = RigidbodyConstraints.None;
         MoveCamera(_cameraStartPos, transform.forward);
-        Invoke("TakeControl", 1f);
+        Invoke("TakeControl", 1f * Time.timeScale);
     }
 
     private void TakeControl()
     {
         _controllable = true;
-    }
 
+        _timeoutCounter = _timeoutTimer;
+
+        HUDManager.Instance.ToggleScreen(Screen.Aim);
+    }
+    #endregion Bounce
+
+    #region Kill
     public void Kill(Transform enemyToTrack)
     {
         Time.timeScale = 0.45f;
+
         _rb.velocity = _direction * 2f;
         _moving = false;
         _enemyToTrack = enemyToTrack;
@@ -145,6 +194,21 @@ public class BulletController : MonoBehaviour
         Invoke("Shoot", 1f);
         _camera.transform.localEulerAngles = Vector3.zero;
     }
+    #endregion Kill
+
+    private void Drop()
+    {
+        Time.timeScale = 1f;
+
+        _dropped = true;
+        _controllable = false;
+        _rb.useGravity = true;
+
+        _camera.enabled = false;
+        _dropCamera.enabled = true;
+
+        HUDManager.Instance.ToggleScreen(Screen.GameOver);
+    }
 
     void Start()
     {
@@ -153,11 +217,45 @@ public class BulletController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bouncy") && !_dropped)
+        {
+            Bounce();
+        }
+        else if (!_dropped && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Head") || collision.gameObject.CompareTag("Torso") || collision.gameObject.CompareTag("Arm") || collision.gameObject.CompareTag("Leg"))
+        {
+            //EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
+            //enemy.Die();
 
+            HUDManager.Instance.DisplayKillScreen(ScoreManager.Instance.GetScoreOnKill(Velocity, collision.gameObject.tag));
+
+            Kill(collision.gameObject.transform);
+        }
+        else if (!_dropped && collision.gameObject.CompareTag("Powerup"))
+        {
+            EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
+        }
+        else if (!_dropped)
+        {
+            Drop();
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (TimeoutCounter > 0)
+        {
+            _timeoutCounter -= Time.deltaTime/Time.timeScale;
+
+            if (TimeoutCounter <= 0)
+            {
+                Drop();
+            }
+        }
+        
         if (_cameraMovementAlpha < 1f)
         {
             _camera.transform.localPosition = Vector3.Lerp(_cameraStartPos, _cameraTargetPos, _cameraMovementAlpha);
@@ -186,7 +284,7 @@ public class BulletController : MonoBehaviour
             RaycastHit hit;
             Physics.Raycast(transform.position, transform.forward, out hit, 1000f, _raycastLayer);
 
-            if (hit.collider != null && hit.collider.CompareTag("Enemy") && !_aimAssistActive)
+            if (hit.collider != null && !_aimAssistActive && (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Head") || hit.collider.CompareTag("Torso") || hit.collider.CompareTag("Arm") || hit.collider.CompareTag("Leg")))
             {
                 _aimAssistActive = true;
                 _sensitivity /= _aimAssistStrength;
@@ -207,8 +305,8 @@ public class BulletController : MonoBehaviour
         }
         else if (_moving)
         {
-            _rb.AddForce(transform.forward * _speed*0.0005f*_speedEffectStrength, ForceMode.Acceleration);
-            _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength;
+            _rb.AddForce(transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 0.02f, ForceMode.Acceleration);
+            _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 0.02f;
             _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
         }
 

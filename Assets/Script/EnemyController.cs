@@ -8,16 +8,16 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        BulletController bullet = collision.gameObject.GetComponent<BulletController>();
+        //BulletController bullet = collision.gameObject.GetComponent<BulletController>();
 
-        if (bullet != null)
-        {
-            Die();
-            bullet.Kill(transform);
-        }
+        //if (bullet != null)
+        //{
+        //    Die();
+        //    bullet.Kill(transform);
+        //}
     }
 
-    private void Die()
+    public void Die()
     {
         //_rb.constraints = RigidbodyConstraints.FreezePosition;
     }
