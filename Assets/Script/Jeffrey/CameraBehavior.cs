@@ -6,7 +6,8 @@ using UnityEngine;
 public class CameraBehavior : MonoBehaviour
 {
 
-    [SerializeField] private Transform _globalLocation = null; 
+    [SerializeField] private Transform _globalLocation = null;
+    [SerializeField] private Camera _camera;
     
     private bool _canMove = false;
     private static event Action _callActions; 
@@ -43,7 +44,7 @@ public class CameraBehavior : MonoBehaviour
         if (CanMove) 
         { 
             transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
-            transform.rotation = Quaternion.Euler(90, 0, 0); 
+            transform.rotation = Quaternion.Euler(90, 0, 0);          
         }
 
     }

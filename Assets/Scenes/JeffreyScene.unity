@@ -722,6 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _globalLocation: {fileID: 281068223}
+  _camera: {fileID: 744471361}
 --- !u!1 &1098424004
 GameObject:
   m_ObjectHideFlags: 0
