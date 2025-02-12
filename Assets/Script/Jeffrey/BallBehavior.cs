@@ -7,6 +7,7 @@ public class BallBehavior : MonoBehaviour
     [SerializeField] private float _speed = 2.0f;
     [SerializeField] private Rigidbody _bulletRb;
     [SerializeField] private CameraBehavior _cameraBehavior;
+    [SerializeField] private RewindTime _rewindTime = null; 
 
     private void Update()
     {
@@ -18,7 +19,17 @@ public class BallBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("TriggerObject"))
         {
             gameObject.transform.DetachChildren();
-            _cameraBehavior.CanMove = true; 
+            _cameraBehavior.CanMove = true;
+            _rewindTime.StartRewind();
+            //StartCoroutine(WaitForRewind(2));
         }
     }
+
+    IEnumerator WaitForRewind(float duration)
+    {
+
+        _rewindTime.StartRewind();
+        yield return new WaitForSeconds(duration);   
+    }
 }
+
