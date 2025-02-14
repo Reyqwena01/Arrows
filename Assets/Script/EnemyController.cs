@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb = null;
     [SerializeField] private bool _isTarget = false;
+    [SerializeField] private bool _isDead = false;
+    [SerializeField] private GameObject[] _bones = null;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,10 +23,6 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         //_rb.constraints = RigidbodyConstraints.FreezePosition;
-        if (_isTarget)
-        {
-
-        }
     }
 
     // Start is called before the first frame update

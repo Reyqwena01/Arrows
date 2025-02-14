@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         _instance = FindObjectOfType<AudioManager>();
+        Object.DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

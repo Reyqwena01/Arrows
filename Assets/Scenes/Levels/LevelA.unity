@@ -5737,6 +5737,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1304197255}
     m_Modifications:
+    - target: {fileID: 1581029295858148310, guid: 60e95dcd864a7c346961103669b52ecd, type: 3}
+      propertyPath: _bones.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2234689059374010879, guid: 60e95dcd864a7c346961103669b52ecd, type: 3}
       propertyPath: m_Name
       value: TestEnemy (4)
