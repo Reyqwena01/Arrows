@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb = null;
+    [SerializeField] private bool _isTarget = false;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -20,6 +21,10 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         //_rb.constraints = RigidbodyConstraints.FreezePosition;
+        if (_isTarget)
+        {
+
+        }
     }
 
     // Start is called before the first frame update
