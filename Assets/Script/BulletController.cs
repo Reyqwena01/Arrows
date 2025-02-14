@@ -29,6 +29,8 @@ public class BulletController : MonoBehaviour
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Camera _dropCamera = null;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
+    [SerializeField] private RewindTime _rewindTime = null;
+    [SerializeField] private CameraBehavior _camBehavior = null; 
 
     #endregion
 
@@ -270,6 +272,15 @@ public class BulletController : MonoBehaviour
 
             Kill(collision.gameObject.transform);
         }
+
+        else if (!_dropped && collision.gameObject.CompareTag("TriggerObject"))
+        {
+            gameObject.transform.DetachChildren();
+            _camBehavior.CanMove = true;
+            _rewindTime.StartRewind();
+            Debug.Log("Touch"); 
+        }
+
         else if (!_dropped)
         {
             Drop();
@@ -373,4 +384,5 @@ public class BulletController : MonoBehaviour
         transform.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
 
     }
+
 }
