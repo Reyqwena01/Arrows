@@ -7,7 +7,6 @@ public class CameraBehavior : MonoBehaviour
 {
 
     [SerializeField] private Transform _globalLocation = null;
-    [SerializeField] private Camera _camera;
     
     private bool _canMove = false;
     private static event Action _callActions; 
