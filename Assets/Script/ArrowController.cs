@@ -8,6 +8,8 @@ public class ArrowController : MonoBehaviour
     [SerializeField] private AudioSource _shootSound = null; // Source audio pour le son de tir
     [SerializeField] private Rigidbody _rb = null;
 
+    [SerializeField] private ParticleSystem _particleSystem = null;
+
     private Vector3 velocity; // Vecteur de vitesse
 
     void Start()
@@ -35,6 +37,10 @@ public class ArrowController : MonoBehaviour
 
         // Mettre à jour la position de la flèche
         transform.position += (velocity + horizontalMovement + verticalMovement) * Time.deltaTime;
+
+        // Mettre à jour la taille du système de particules en fonction de la vitesse totale
+        ParticleSystem.MainModule mainModule = _particleSystem.main;
+        mainModule.startSize = Mathf.Clamp((velocity + horizontalMovement + verticalMovement).magnitude * 0.1f, 0.1f, 1f);
 
         // Ajuster la rotation pour que la flèche pointe dans la direction du mouvement
         Vector3 movementDirection = velocity + horizontalMovement + verticalMovement;
