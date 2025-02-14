@@ -13,6 +13,7 @@ public class RewindTime : MonoBehaviour
 
 
     #region Structure
+    [System.Serializable]
     private struct PointInTime
     {
         public Vector3 _position;

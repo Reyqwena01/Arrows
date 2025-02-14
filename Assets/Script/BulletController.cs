@@ -42,11 +42,12 @@ public class BulletController : MonoBehaviour
     private bool _piercePowerUp = false;
     #endregion
 
-    #region technical
+    #region technical (ne pas touchew)
 
     private float _timeoutCounter = 0f;
 
     private Vector3 _direction = Vector3.zero;
+    private float _maxCurrentSpeed = 0f;
 
     private float _rotationX = 0f;
     private float _rotationY = 0f;
@@ -195,6 +196,7 @@ public class BulletController : MonoBehaviour
         _controllable = true;
 
         _timeoutCounter = _timeoutTimer;
+        _maxCurrentSpeed = 0f;
 
         HUDManager.Instance.ToggleScreen(Screen.Aim);
     }
@@ -264,7 +266,7 @@ public class BulletController : MonoBehaviour
             //EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
             //enemy.Die();
 
-            HUDManager.Instance.DisplayKillScreen(ScoreManager.Instance.GetScoreOnKill(Velocity, collision.gameObject.tag));
+            HUDManager.Instance.DisplayKillScreen(ScoreManager.Instance.GetScoreOnKill(_maxCurrentSpeed, collision.gameObject.tag));
 
             Kill(collision.gameObject.transform);
         }
@@ -355,6 +357,11 @@ public class BulletController : MonoBehaviour
             _rb.AddForce(transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 0.02f, ForceMode.Acceleration);
             _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 0.02f;
             _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
+
+            if (Velocity > _maxCurrentSpeed)
+            {
+                _maxCurrentSpeed = Velocity;
+            }
 
             if (Input.GetKeyDown(KeyCode.Space) && WindPowerUp)
             {

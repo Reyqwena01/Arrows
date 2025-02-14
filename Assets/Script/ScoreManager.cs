@@ -30,7 +30,6 @@ public class ScoreManager : MonoBehaviour
         set
         {
             _bounces = value;
-            Debug.Log(_bounces);
         }
     }
     public int Score { get => _score; set => _score = value; }
