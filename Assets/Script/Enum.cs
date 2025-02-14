@@ -18,3 +18,12 @@ public enum Power
     Wind,
     Pierce
 }
+
+public enum Animation
+{
+    Default,
+    BehindAWall,
+    Surprising,
+    LookingArround
+}
+
