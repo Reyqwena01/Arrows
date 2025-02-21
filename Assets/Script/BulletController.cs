@@ -98,6 +98,8 @@ public class BulletController : MonoBehaviour
         }
     }
 
+    public bool Moving { get => _moving; set => _moving = value; }
+
     #endregion properties
 
     // Start is called before the first frame update
@@ -138,7 +140,7 @@ public class BulletController : MonoBehaviour
         _rb.AddForce(_direction * _speed, ForceMode.Acceleration);
 
         _controllable = false;
-        _moving = true;
+        Moving = true;
 
         HUDManager.Instance.SetCrosshairVisibility(false);
 
@@ -181,7 +183,7 @@ public class BulletController : MonoBehaviour
         _rb.constraints = RigidbodyConstraints.FreezeAll;
         
         MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 5));
-        _moving = false;
+        Moving = false;
 
         Invoke("ZoomIn", 0.75f * Time.timeScale);
     }
@@ -210,7 +212,7 @@ public class BulletController : MonoBehaviour
         Time.timeScale = 0.45f;
 
         _rb.velocity = _direction * 2f;
-        _moving = false;
+        Moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
         MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 10));
@@ -245,6 +247,7 @@ public class BulletController : MonoBehaviour
 
         _camera.enabled = false;
         _dropCamera.enabled = true;
+        Moving = false; 
 
         HUDManager.Instance.ToggleScreen(Screen.GameOver);
     }
@@ -364,7 +367,7 @@ public class BulletController : MonoBehaviour
                 HUDManager.Instance.ToggleScreen(Screen.FinalScore);
             }
         }
-        else if (_moving)
+        else if (Moving)
         {
             _rb.AddForce(transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 0.02f, ForceMode.Acceleration);
             _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 0.02f;

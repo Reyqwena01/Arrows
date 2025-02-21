@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class RewindTime : MonoBehaviour
@@ -13,7 +14,9 @@ public class RewindTime : MonoBehaviour
     [SerializeField] private BulletController _bulletController;
 
     private int _indexPosition = 0;
-    private bool _canpPlayPosition = false; 
+    private bool _canpPlayPosition = false;
+    private int _rangeNumber = 5;
+    private bool _isPlayingRevrse = false; 
     #endregion
 
 
@@ -57,7 +60,16 @@ public class RewindTime : MonoBehaviour
     {
         if (_pointInTime.Count > 0)
         {
-            StartCoroutine(MoveTowardDirection()); 
+            if (_isPlayingRevrse)
+            {
+                StartCoroutine(MoveTowardDirection());
+            }
+
+            else
+            {
+                StartCoroutine(FakeMovement()); 
+            }
+             
         }
 
         else
@@ -91,44 +103,59 @@ public class RewindTime : MonoBehaviour
             {
                 PointInTime firstPosition = new PointInTime(new Vector3(11.7f, 1.99f, -2.54f), Quaternion.identity);
                 int index = _pointInTime.IndexOf(firstPosition);
+                Vector3 PositionOne = _pointInTime[lastIndex]._position;
 
-                if (Vector3.Distance(transform.position, _pointInTime[lastIndex]._position) > 0.1f && _pointInTime.Count > 52)
+                if (Vector3.Distance(transform.position, PositionOne) < 0.1f && _pointInTime.Count > _rangeNumber)
                 {
-                    Debug.Log("ff"); 
+                    StopRewind();
+                    if (!_isRewinding)
+                    {
+                        StartCoroutine(FakeMovement()); 
+                    }
                 }
 
-               
-
             }
-        }
-        
+        }       
 
     }
 
-    private void toto()
-    {
-        _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
-
-        PointInTime pointInTime = _pointInTime[_indexPosition];
-        transform.position = pointInTime._position;
-        transform.rotation = pointInTime._rotation;
-        _indexPosition++;
-
-    }
 
     IEnumerator MoveTowardDirection()
-    {
-        PointInTime pointInTime = _pointInTime[_indexPosition];
-
-        while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
+    {   
+        if (_isRewinding)
         {
-            transform.position = pointInTime._position;
-            transform.rotation = pointInTime._rotation;
-            yield return new WaitForFixedUpdate();
-        }
+            PointInTime pointInTime = _pointInTime[_indexPosition];
 
-        _indexPosition++;
-        _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
+            while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
+            {
+                transform.position = pointInTime._position;
+                transform.rotation = pointInTime._rotation;
+                yield return new WaitForFixedUpdate();
+            }
+
+            _indexPosition++;
+            _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
+        };
+    }
+
+    IEnumerator FakeMovement()
+    {
+        if (!_isRewinding)
+        {
+            int lastIndex = _pointInTime.Count - 1;
+            PointInTime pointInTime = _pointInTime[lastIndex];
+
+            while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
+            {
+                transform.position = pointInTime._position;
+                transform.rotation = pointInTime._rotation;
+                yield return new WaitForFixedUpdate();
+                Debug.Log(lastIndex); 
+            }
+
+            lastIndex--;
+            //lastIndex= Mathf.Clamp(lastIndex, 0, lastIndex);
+        };
     }
 
     public void StartRewind()
@@ -142,6 +169,7 @@ public class RewindTime : MonoBehaviour
     {
         _isRewinding = false;
         _ballRb.isKinematic = false; 
+        _bulletController.Moving = false;
     }
     #endregion
 
