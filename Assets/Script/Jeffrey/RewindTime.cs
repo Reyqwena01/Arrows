@@ -49,7 +49,7 @@ public class RewindTime : MonoBehaviour
             Record(); 
         }
 
-        FakeReplayPosition();
+        //FakeReplayPosition();
     }
 
     private void Replay()
@@ -57,11 +57,11 @@ public class RewindTime : MonoBehaviour
         if (_pointInTime.Count > 0)
         {
 
-            PointInTime pointInTime = _pointInTime[_indexPosition];
-            //StartCoroutine(MoveTowardDirection(5)); 
-            transform.position = pointInTime._position;
-            transform.rotation = pointInTime._rotation;
-            _pointInTime.RemoveAt(0);
+            //PointInTime pointInTime = _pointInTime[_indexPosition];
+            StartCoroutine(MoveTowardDirection()); 
+            //transform.position = pointInTime._position;
+            //transform.rotation = pointInTime._rotation;
+            //_pointInTime.RemoveAt(0);
 
         }
 
@@ -73,7 +73,7 @@ public class RewindTime : MonoBehaviour
 
     private void Record()
     {
-        if (_pointInTime.Count > Mathf.Round(5f / Time.fixedDeltaTime))
+        if (_pointInTime.Count > Mathf.Round(8f / Time.fixedDeltaTime))
         {
             _pointInTime.RemoveAt(0); 
         }
@@ -100,9 +100,10 @@ public class RewindTime : MonoBehaviour
 
     }
 
-    IEnumerator MoveTowardDirection(float duration)
+    IEnumerator MoveTowardDirection()
     {
         PointInTime pointInTime = _pointInTime[_indexPosition];
+        _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
 
         while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
         {
