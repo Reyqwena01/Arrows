@@ -304,6 +304,8 @@ MonoBehaviour:
   _isRewinding: 0
   _pointInTime: []
   _ballRb: {fileID: 9250152}
+  _speed: 2
+  _bulletController: {fileID: 9250153}
 --- !u!1 &16524763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,12 +2040,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ec12c1752c707428629076cf509898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerBullet: {fileID: 9250153}
-  _bronzeMedalMaxBounces: 0
+  _playerBullet: {fileID: 0}
+  _bronzeMedalMaxBounces: 15
   _bronzeMedalMultiplier: 2
-  _silverMedalMaxBounces: 0
+  _silverMedalMaxBounces: 10
   _silverMedalMultiplier: 3
-  _goldMedalMaxBounces: 0
+  _goldMedalMaxBounces: 5
   _goldMedalMultiplier: 4
 --- !u!1 &858357957
 GameObject:

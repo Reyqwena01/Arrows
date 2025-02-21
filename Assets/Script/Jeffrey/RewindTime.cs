@@ -9,7 +9,8 @@ public class RewindTime : MonoBehaviour
     [SerializeField] private bool _isRewinding = false;
     [SerializeField] List<PointInTime> _pointInTime = new List<PointInTime>();
     [SerializeField] private Rigidbody _ballRb;
-    [SerializeField] private float _speed = 2.0f; 
+    [SerializeField] private float _speed = 2.0f;
+    [SerializeField] private BulletController _bulletController;
 
     private int _indexPosition = 0;
     private bool _canpPlayPosition = false; 
@@ -34,7 +35,7 @@ public class RewindTime : MonoBehaviour
     #region Methods
     private void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -49,20 +50,14 @@ public class RewindTime : MonoBehaviour
             Record(); 
         }
 
-        //FakeReplayPosition();
+        FakeReplayPosition();
     }
 
     private void Replay()
     {
         if (_pointInTime.Count > 0)
         {
-
-            //PointInTime pointInTime = _pointInTime[_indexPosition];
             StartCoroutine(MoveTowardDirection()); 
-            //transform.position = pointInTime._position;
-            //transform.rotation = pointInTime._rotation;
-            //_pointInTime.RemoveAt(0);
-
         }
 
         else
@@ -78,45 +73,62 @@ public class RewindTime : MonoBehaviour
             _pointInTime.RemoveAt(0); 
         }
 
-        _pointInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+        else if (_bulletController.Moving)
+        {
+            _pointInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+        }
 
     }
 
     private void FakeReplayPosition()
     {
+        
         int lastIndex = _pointInTime.Count - 1; 
         
-        if (Vector3.Distance(transform.position, _pointInTime[lastIndex]._position) > 0.1f)
+        if (_bulletController != null)
         {
-            //PointInTime pointInTime = _pointInTime[_indexPosition]; 
+            if (_bulletController.Moving)
+            {
+                PointInTime firstPosition = new PointInTime(new Vector3(11.7f, 1.99f, -2.54f), Quaternion.identity);
+                int index = _pointInTime.IndexOf(firstPosition);
 
-            //transform.position = pointInTime._position;
-            //transform.rotation = pointInTime._rotation;
+                if (Vector3.Distance(transform.position, _pointInTime[lastIndex]._position) > 0.1f && _pointInTime.Count > 52)
+                {
+                    Debug.Log("ff"); 
+                }
 
-            //Debug.Log("Reached First Position"); 
+               
 
+            }
         }
         
+
+    }
+
+    private void toto()
+    {
+        _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
+
+        PointInTime pointInTime = _pointInTime[_indexPosition];
+        transform.position = pointInTime._position;
+        transform.rotation = pointInTime._rotation;
+        _indexPosition++;
 
     }
 
     IEnumerator MoveTowardDirection()
     {
         PointInTime pointInTime = _pointInTime[_indexPosition];
-        _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
 
         while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
         {
             transform.position = pointInTime._position;
             transform.rotation = pointInTime._rotation;
-            _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
             yield return new WaitForFixedUpdate();
         }
 
-        //transform.position = pointInTime._position;
-        //transform.rotation = pointInTime._rotation;
-
         _indexPosition++;
+        _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
     }
 
     public void StartRewind()
