@@ -341,10 +341,11 @@ public class BulletController : MonoBehaviour
 
             if (hit.collider != null && !_aimAssistActive && (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Head") || hit.collider.CompareTag("Torso") || hit.collider.CompareTag("Arm") || hit.collider.CompareTag("Leg")))
             {
+                Debug.Log("Aim assist active");
                 _aimAssistActive = true;
                 _sensitivity /= _aimAssistStrength;
             }
-            else if (hit.collider == null && _aimAssistActive)
+            else if (_aimAssistActive && (hit.collider == null || hit.collider.CompareTag("Bouncy")))
             {
                 _aimAssistActive = false;
                 _sensitivity *= _aimAssistStrength;
