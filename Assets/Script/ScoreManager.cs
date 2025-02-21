@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _instance = FindObjectOfType<ScoreManager>();
         Object.DontDestroyOnLoad(gameObject);
