@@ -37,7 +37,7 @@ public class BulletController : MonoBehaviour
     #region booleans
     private bool _controllable = true;
     private bool _dropped = false;
-    private bool _moving = true;
+    private bool _moving = false;
     private bool _aimAssistActive = false;
 
     private bool _windPowerUp = false;
