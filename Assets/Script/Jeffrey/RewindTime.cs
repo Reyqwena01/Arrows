@@ -12,17 +12,17 @@ public class RewindTime : MonoBehaviour
     [SerializeField] private Rigidbody _ballRb;
     [SerializeField] private float _speed = 2.0f;
     [SerializeField] private BulletController _bulletController;
+    [SerializeField] private RewindTime _rewindTime = null; 
 
     private int _indexPosition = 0;
-    private bool _canpPlayPosition = false;
     private int _rangeNumber = 5;
-    private bool _isPlayingRevrse = false; 
+    private bool _isPlayingReverse = false;
     #endregion
 
 
     #region Structure
     [System.Serializable]
-    private struct PointInTime
+    public struct PointInTime
     {
         public Vector3 _position;
         public Quaternion _rotation;
@@ -35,6 +35,13 @@ public class RewindTime : MonoBehaviour
     }
     #endregion
 
+    #region Propreties
+
+    public List<PointInTime> PointInTime1 { get => _pointInTime; set => _pointInTime = value; }
+    public bool IsPlayingReverse { get => _isPlayingReverse; set => _isPlayingReverse = value; }
+
+    #endregion
+
     #region Methods
     private void Update()
     {
@@ -45,73 +52,60 @@ public class RewindTime : MonoBehaviour
     {
         if (_isRewinding)
         {
-            Replay(); 
+            Replay();
+            CheckReplayPosition();
         }
 
         else
         {
             Record(); 
         }
-
-        FakeReplayPosition();
     }
 
     private void Replay()
     {
-        if (_pointInTime.Count > 0)
+        if (PointInTime1.Count > 0)
         {
-            if (_isPlayingRevrse)
+            if (!IsPlayingReverse)
             {
-                StartCoroutine(MoveTowardDirection());
-            }
-
-            else
-            {
-                StartCoroutine(FakeMovement()); 
+                StartCoroutine(FirtReplayTowardFirtPosition());
             }
              
-        }
-
-        else
-        {
-            StopRewind(); 
         }
     }
 
     private void Record()
     {
-        if (_pointInTime.Count > Mathf.Round(8f / Time.fixedDeltaTime))
+        if (PointInTime1.Count > Mathf.Round(8f / Time.fixedDeltaTime))
         {
-            _pointInTime.RemoveAt(0); 
+            PointInTime1.RemoveAt(0); 
         }
 
         else if (_bulletController.Moving)
         {
-            _pointInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+            PointInTime1.Insert(0, new PointInTime(transform.position, transform.rotation));
         }
 
     }
 
-    private void FakeReplayPosition()
+    private void CheckReplayPosition()
     {
         
-        int lastIndex = _pointInTime.Count - 1; 
+        int lastIndex = PointInTime1.Count - 1; 
         
         if (_bulletController != null)
         {
             if (_bulletController.Moving)
             {
-                PointInTime firstPosition = new PointInTime(new Vector3(11.7f, 1.99f, -2.54f), Quaternion.identity);
-                int index = _pointInTime.IndexOf(firstPosition);
-                Vector3 PositionOne = _pointInTime[lastIndex]._position;
+                Vector3 positionOne = PointInTime1[lastIndex]._position;
 
-                if (Vector3.Distance(transform.position, PositionOne) < 0.1f && _pointInTime.Count > _rangeNumber)
+                if (Vector3.Distance(transform.position, positionOne) < 0.1f && PointInTime1.Count > _rangeNumber)
                 {
+                    StopAllCoroutines();
                     StopRewind();
-                    if (!_isRewinding)
-                    {
-                        StartCoroutine(FakeMovement()); 
-                    }
+                    IsPlayingReverse = !IsPlayingReverse;
+                    //_rewindTime.enabled = false; 
+
                 }
 
             }
@@ -120,43 +114,36 @@ public class RewindTime : MonoBehaviour
     }
 
 
-    IEnumerator MoveTowardDirection()
-    {   
-        if (_isRewinding)
-        {
-            PointInTime pointInTime = _pointInTime[_indexPosition];
-
-            while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
-            {
-                transform.position = pointInTime._position;
-                transform.rotation = pointInTime._rotation;
-                yield return new WaitForFixedUpdate();
-            }
-
-            _indexPosition++;
-            _indexPosition = Mathf.Clamp(_indexPosition, 0, _pointInTime.Count - 1);
-        };
-    }
-
-    IEnumerator FakeMovement()
+    IEnumerator FirtReplayTowardFirtPosition()
     {
-        if (!_isRewinding)
+        PointInTime pointInTime = PointInTime1[_indexPosition];
+
+        while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
         {
-            int lastIndex = _pointInTime.Count - 1;
-            PointInTime pointInTime = _pointInTime[lastIndex];
+            transform.position = pointInTime._position;
+            transform.rotation = pointInTime._rotation;
+            yield return new WaitForFixedUpdate();
+        }
 
-            while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
-            {
-                transform.position = pointInTime._position;
-                transform.rotation = pointInTime._rotation;
-                yield return new WaitForFixedUpdate();
-                Debug.Log(lastIndex); 
-            }
-
-            lastIndex--;
-            //lastIndex= Mathf.Clamp(lastIndex, 0, lastIndex);
-        };
+        _indexPosition++;
+        _indexPosition = Mathf.Clamp(_indexPosition, 0, PointInTime1.Count - 1);
     }
+
+    //IEnumerator MakeObjectGoNormaly()
+    //{
+    //    int lastIndex = _pointInTime.Count - 1;
+    //    PointInTime pointInTime = _pointInTime[lastIndex];
+
+    //    while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
+    //    {
+    //        transform.position = pointInTime._position;
+    //        transform.rotation = pointInTime._rotation;
+    //        yield return new WaitForFixedUpdate();
+    //        Debug.Log(lastIndex);
+    //    }
+
+    //    lastIndex--;
+    //}
 
     public void StartRewind()
     {
@@ -170,6 +157,10 @@ public class RewindTime : MonoBehaviour
         _isRewinding = false;
         _ballRb.isKinematic = false; 
         _bulletController.Moving = false;
+    }
+    private void OnDisable()
+    {
+        //IsPlayingRevrse = !IsPlayingRevrse;
     }
     #endregion
 
