@@ -12,7 +12,8 @@ public class RewindTime : MonoBehaviour
     [SerializeField] private Rigidbody _ballRb;
     [SerializeField] private float _speed = 2.0f;
     [SerializeField] private BulletController _bulletController;
-    [SerializeField] private RewindTime _rewindTime = null; 
+    [SerializeField] private RewindTime _rewindTime = null;
+    [SerializeField] private MeshRenderer[] _meshesToDisable = null;
 
     private int _indexPosition = 0;
     private int _rangeNumber = 5;
@@ -132,6 +133,11 @@ public class RewindTime : MonoBehaviour
     {
         _isRewinding = true;
         _ballRb.isKinematic = true;
+
+        for (int i = 0; i < _meshesToDisable.Length; i++)
+        {
+            _meshesToDisable[i].enabled = false;
+        }
     }
 
     private void StopRewind()
@@ -139,18 +145,12 @@ public class RewindTime : MonoBehaviour
         _isRewinding = false;
         _ballRb.isKinematic = false; 
         _bulletController.Moving = false;
-
-        Invoke("EndLevel", 2f);
     }
     private void OnDisable()
     {
         //IsPlayingRevrse = !IsPlayingRevrse;
     }
     #endregion
-    public void EndLevel()
-    {
-        Time.timeScale = 0f;
-        HUDManager.Instance.ToggleScreen(Screen.FinalScore);
-    }
+    
 
 }

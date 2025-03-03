@@ -62,10 +62,18 @@ public class FakeBulletMovement : MonoBehaviour
             if (_lastIndex < 0)
             {
                 _isReplaying = false;
-                _canReplay = !_canReplay; 
+                _canReplay = !_canReplay;
+                Invoke("EndLevel", 2f);
             }
         }
 
+
+    }
+
+    public void EndLevel()
+    {
+        Time.timeScale = 0f;
+        HUDManager.Instance.ToggleScreen(Screen.FinalScore);
     }
 
 
