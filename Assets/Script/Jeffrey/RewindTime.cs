@@ -19,7 +19,6 @@ public class RewindTime : MonoBehaviour
     private bool _isPlayingReverse = false;
     #endregion
 
-
     #region Structure
     [System.Serializable]
     public struct PointInTime
@@ -103,7 +102,7 @@ public class RewindTime : MonoBehaviour
                 {
                     StopAllCoroutines();
                     StopRewind();
-                    IsPlayingReverse = !IsPlayingReverse;
+                    //IsPlayingReverse = !IsPlayingReverse;
                     //_rewindTime.enabled = false; 
 
                 }
@@ -128,22 +127,6 @@ public class RewindTime : MonoBehaviour
         _indexPosition++;
         _indexPosition = Mathf.Clamp(_indexPosition, 0, PointInTime1.Count - 1);
     }
-
-    //IEnumerator MakeObjectGoNormaly()
-    //{
-    //    int lastIndex = _pointInTime.Count - 1;
-    //    PointInTime pointInTime = _pointInTime[lastIndex];
-
-    //    while (Vector3.Distance(transform.position, pointInTime._position) > 0.1f)
-    //    {
-    //        transform.position = pointInTime._position;
-    //        transform.rotation = pointInTime._rotation;
-    //        yield return new WaitForFixedUpdate();
-    //        Debug.Log(lastIndex);
-    //    }
-
-    //    lastIndex--;
-    //}
 
     public void StartRewind()
     {

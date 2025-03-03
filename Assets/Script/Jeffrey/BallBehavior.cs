@@ -21,15 +21,9 @@ public class BallBehavior : MonoBehaviour
             gameObject.transform.DetachChildren();
             _cameraBehavior.CanMove = true;
             _rewindTime.StartRewind();
-            //StartCoroutine(WaitForRewind(2));
+            
         }
     }
 
-    IEnumerator WaitForRewind(float duration)
-    {
-
-        _rewindTime.StartRewind();
-        yield return new WaitForSeconds(duration);   
-    }
 }
 

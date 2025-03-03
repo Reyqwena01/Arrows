@@ -3583,6 +3583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _globalLocation: {fileID: 421228131}
+  _rewindTime: {fileID: 9250158}
+  _bulletTransform: {fileID: 9250157}
 --- !u!1 &1730190289
 GameObject:
   m_ObjectHideFlags: 0

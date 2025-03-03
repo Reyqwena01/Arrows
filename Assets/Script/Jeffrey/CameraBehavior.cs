@@ -7,6 +7,8 @@ public class CameraBehavior : MonoBehaviour
 {
 
     [SerializeField] private Transform _globalLocation = null;
+    [SerializeField] private RewindTime _rewindTime = null;
+    [SerializeField] private Transform _bulletTransform = null; 
     
     private bool _canMove = false;
     private static event Action _callActions; 
@@ -43,8 +45,23 @@ public class CameraBehavior : MonoBehaviour
         if (CanMove) 
         { 
             transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
-            transform.rotation = Quaternion.Euler(90, 0, 0);          
+            transform.rotation = Quaternion.Euler(90, 0, 0);
         }
+
+        if (Vector3.Distance(transform.position, _globalLocation.position) <= 2.5f)
+        {
+            _rewindTime.IsPlayingReverse = !_rewindTime.IsPlayingReverse;
+            //SwtichCameraPosition();
+            CanMove = false; 
+        }
+
+    }
+
+    private void SwtichCameraPosition()
+    {
+        Vector3 offset = new Vector3(0, 5, -8);
+        transform.position = _bulletTransform.position + offset;
+        transform.rotation = Quaternion.Euler(-90, 0, 0);
 
     }
 
