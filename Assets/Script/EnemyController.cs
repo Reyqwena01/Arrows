@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Animator _animator = null;
-    [SerializeField] private float _animationSelection = 0f;
+    [SerializeField] private int _animationSelection = 0;
     
     [SerializeField] private Rigidbody _rb = null;
     [SerializeField] private bool _isTarget = false;
@@ -26,13 +26,12 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         _animator.enabled = false;
-        _animator.SetFloat("SelectAnimation", _animationSelection);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _animator.SetInteger("SelectAnimation", _animationSelection);
     }
 
     // Update is called once per frame
