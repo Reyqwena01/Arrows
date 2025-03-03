@@ -40,13 +40,16 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TMP_Text _silverMedalText = null;
     [SerializeField] private TMP_Text _goldMedalText = null;
 
+    private Screen _currentScreen;
+
     private int _score = 0;
     private int _multiplier = 1;
     private int _finalScore = 0;
     private float _alpha = 0f;
 
     public static HUDManager Instance { get => _instance; set => _instance = value; }
-    
+    public Screen CurrentScreen { get => _currentScreen;}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,6 +97,8 @@ public class HUDManager : MonoBehaviour
         _aimScreen.enabled = false;
         _finalScoreScreen.enabled = false;
         SetCrosshairVisibility(false);
+
+        _currentScreen = screen;
 
         switch (screen)
         {

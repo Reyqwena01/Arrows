@@ -14,7 +14,7 @@ public class EnemyBone : MonoBehaviour
         {
             _enemy.Die();
         }
-        else
+        else if (bullet != null && _enemy.IsDead)
         {
             bullet.Drop();
         }

@@ -375,7 +375,7 @@ public class BulletController : MonoBehaviour
                 HUDManager.Instance.ToggleScreen(Screen.FinalScore);
             }
         }
-        else if (Moving)
+        else if (Moving && !(HUDManager.Instance.CurrentScreen == Screen.FinalScore))
         {
             _rb.AddForce(transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 0.02f, ForceMode.Acceleration);
             _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 0.02f;

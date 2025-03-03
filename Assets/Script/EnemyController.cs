@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
             {
                 Die();
             }
-            else
+            else if (IsDead)
             {
                 bullet.Drop();
             }
