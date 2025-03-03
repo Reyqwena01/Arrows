@@ -7842,6 +7842,7 @@ MonoBehaviour:
   _speed: 2500
   _bulletController: {fileID: 953789380}
   _rewindTime: {fileID: 953789385}
+  _meshesToDisable: []
 --- !u!114 &953789386
 MonoBehaviour:
   m_ObjectHideFlags: 0

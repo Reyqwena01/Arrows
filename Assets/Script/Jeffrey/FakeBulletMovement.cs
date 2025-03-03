@@ -63,7 +63,7 @@ public class FakeBulletMovement : MonoBehaviour
             {
                 _isReplaying = false;
                 _canReplay = !_canReplay;
-                Invoke("EndLevel", 2f);
+                Invoke("EndLevel", 1.25f);
             }
         }
 
