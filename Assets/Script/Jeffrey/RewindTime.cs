@@ -132,7 +132,6 @@ public class RewindTime : MonoBehaviour
     {
         _isRewinding = true;
         _ballRb.isKinematic = true;
-
     }
 
     private void StopRewind()
@@ -140,11 +139,18 @@ public class RewindTime : MonoBehaviour
         _isRewinding = false;
         _ballRb.isKinematic = false; 
         _bulletController.Moving = false;
+
+        Invoke("EndLevel", 2f);
     }
     private void OnDisable()
     {
         //IsPlayingRevrse = !IsPlayingRevrse;
     }
     #endregion
+    public void EndLevel()
+    {
+        Time.timeScale = 0f;
+        HUDManager.Instance.ToggleScreen(Screen.FinalScore);
+    }
 
 }

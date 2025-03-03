@@ -67,6 +67,8 @@ public class Rewind : MonoBehaviour
 
     private void StopRewind()
     {
+        Debug.Log("STOOOOOP");
         _isRewinding = false;
     }
+
 }

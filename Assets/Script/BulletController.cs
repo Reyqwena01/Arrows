@@ -30,7 +30,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private Camera _dropCamera = null;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
-    [SerializeField] private CameraBehavior _camBehavior = null; 
+    [SerializeField] private CameraBehavior _camBehavior = null;
 
     #endregion
 
@@ -284,14 +284,6 @@ public class BulletController : MonoBehaviour
             Kill(collision.gameObject.transform);
         }
 
-        else if (!_dropped && collision.gameObject.CompareTag("TriggerObject"))
-        {
-            gameObject.transform.DetachChildren();
-            _camBehavior.CanMove = true;
-            _rewindTime.StartRewind();
-            Debug.Log("Touch"); 
-        }
-
         else if (!_dropped)
         {
             Drop();
@@ -306,6 +298,13 @@ public class BulletController : MonoBehaviour
             GetPowerUp(powerup.Type);
             Destroy(other.gameObject);
         }
+    }
+
+    public void Rewind()
+    {
+        gameObject.transform.DetachChildren();
+        _camBehavior.CanMove = true;
+        _rewindTime.StartRewind();
     }
 
     // Update is called once per frame

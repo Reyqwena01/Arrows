@@ -39,14 +39,13 @@ public class EnemyController : MonoBehaviour
         if (_isTarget)
         {
             Debug.Log("Level Finished");
-            Invoke("EndLevel", 3f);
+            Invoke("StartRewind", 2f);
         }
     }
 
-    public void EndLevel()
+    public void StartRewind()
     {
-        Time.timeScale = 0f;
-        HUDManager.Instance.ToggleScreen(Screen.FinalScore);
+        GameManager.Instance.Bullet.Rewind();
     }
 
     // Start is called before the first frame update
