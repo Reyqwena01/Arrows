@@ -11,23 +11,29 @@ public class HUDManager : MonoBehaviour
 
     [SerializeField] private BulletController _playerBullet = null;
 
+    [Header("Crosshair")]
     [SerializeField] private RawImage _crosshair = null;
     [SerializeField] private RawImage _powerUpWind = null;
     [SerializeField] private RawImage _powerUpPierce = null;
 
+    [Header("Game Over")]
     [SerializeField] private Canvas _gameOverScreen = null;
 
+    [Header("Flight")]
     [SerializeField] private Canvas _flightScreen = null;
     [SerializeField] private TMP_Text _velocity = null;
     [SerializeField] private Color _velocityGradientStart = Color.white;
     [SerializeField] private Color _velocityGradientEnd = Color.red;
 
+    [Header("Kill")]
     [SerializeField] private Canvas _killScreen = null;
     [SerializeField] private TMP_Text _killScore = null;
 
+    [Header("Aim")]
     [SerializeField] private Canvas _aimScreen = null;
     [SerializeField] private TMP_Text _aimTimer = null;
 
+    [Header("Final Score")]
     [SerializeField] private Canvas _finalScoreScreen = null;
     [SerializeField] private TMP_Text _scoreText = null;
     [SerializeField] private TMP_Text _bronzeMedalText = null;

@@ -221,9 +221,17 @@ public class BulletController : MonoBehaviour
 
     private void TurnAround()
     {
-        Time.timeScale = 0.3f;
-        _cameraRotationSpeed = 60f;
-        Invoke("StopTurnAround", 1.2f);
+        if (!_dropped)
+        {
+            Time.timeScale = 0.3f;
+            _cameraRotationSpeed = 60f;
+            Invoke("StopTurnAround", 1.2f);
+        }
+        else if (_dropped)
+        {
+            Time.timeScale = 1f;
+            _bulletCollider.enabled = true;
+        }
     }
 
     private void StopTurnAround()
@@ -237,7 +245,7 @@ public class BulletController : MonoBehaviour
     }
     #endregion Kill
 
-    private void Drop()
+    public void Drop()
     {
         Time.timeScale = 1f;
 

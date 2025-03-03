@@ -12,26 +12,47 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool _isDead = false;
     [SerializeField] private GameObject[] _bones = null;
 
+    public bool IsDead { get => _isDead; set => _isDead = value; }
+
     private void OnCollisionEnter(Collision collision)
     {
-        //BulletController bullet = collision.gameObject.GetComponent<BulletController>();
+        BulletController bullet = collision.gameObject.GetComponent<BulletController>();
 
-        //if (bullet != null)
-        //{
-        //    Die();
-        //    bullet.Kill(transform);
-        //}
+        if (bullet != null)
+        {
+            if (!IsDead)
+            {
+                Die();
+            }
+            else
+            {
+                bullet.Drop();
+            }
+        }
     }
 
     public void Die()
     {
-        _animator.enabled = false;
+        IsDead = true;
+        Debug.Log("Dead");
+
+        if (_isTarget)
+        {
+            Debug.Log("Level Finished");
+            Invoke("EndLevel", 3f);
+        }
+    }
+
+    public void EndLevel()
+    {
+        Time.timeScale = 0f;
+        HUDManager.Instance.ToggleScreen(Screen.FinalScore);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _animator.SetInteger("SelectAnimation", _animationSelection);
+        
     }
 
     // Update is called once per frame
