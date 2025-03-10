@@ -57,8 +57,6 @@ public class FakeBulletMovement : MonoBehaviour
 
             _lastIndex--;
 
-            Debug.Log("le nombre d'éléments est" + _lastIndex);
-
             if (_lastIndex < 0)
             {
                 _isReplaying = false;

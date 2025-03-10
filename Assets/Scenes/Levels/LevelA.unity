@@ -16038,6 +16038,10 @@ PrefabInstance:
       propertyPath: _globalLocation
       value: 
       objectReference: {fileID: 761983476}
+    - target: {fileID: 1880084378178696539, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _meshesToDisable.Array.size
       value: 10
@@ -16120,6 +16124,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3578089628362174631, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907268255226555780, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

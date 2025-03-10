@@ -306,19 +306,20 @@ public class BulletController : MonoBehaviour
 
     public void Rewind()
     {
-        _camera.enabled = false;
-        _bulletTrail.SetActive(false);
+        //_camera.enabled = false;
+        _bulletTrail.SetActive(false); // ??? pourquoi le set a false 
+        Transform cam = gameObject.transform.GetChild(0);
+        cam.parent = null; 
 
         _camBehavior.CanMove = true;
-        HUDManager.Instance.Fade();
-        Debug.Log("Fade");
+        HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         if (TimeoutCounter > 0)
         {
             _timeoutCounter -= Time.deltaTime/Time.timeScale;

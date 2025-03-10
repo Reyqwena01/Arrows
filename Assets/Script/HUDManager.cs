@@ -64,6 +64,10 @@ public class HUDManager : MonoBehaviour
 
         ToggleScreen(Screen.None);
         SetCrosshairVisibility(true);
+
+        Color c = _imageToFade.color;
+        c.a = 1.0f;
+
     }
 
     public void SetCrosshairVisibility(bool value)
@@ -125,10 +129,6 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    public void Fade()
-    {
-        
-    }
 
     #region finalscorescreen
     private void ShowCurrentScore()
@@ -214,10 +214,19 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeInOut()
+    public IEnumerator FadeInOut()
     {
-        Color alpha = _imageToFade.color;
-        alpha.a = Mathf.Lerp(alpha.a, 0, 1);
+        Color c = _imageToFade.color;
+        c.a = 1.0f; 
+        c = Color.red;
         yield return null; 
+
+        //for (float alpha = 0f; alpha <= 1.0f; alpha += 0.1f)
+        //{
+        //    c.a = alpha;
+        //    Debug.Log(c.a);
+        //    yield return null;
+        //}
+
     }
 }
