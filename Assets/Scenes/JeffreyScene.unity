@@ -1243,7 +1243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _globalLocation: {fileID: 281068223}
-  _camera: {fileID: 744471361}
+  _rewindTime: {fileID: 0}
+  _bulletTransform: {fileID: 0}
 --- !u!114 &744471364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,7 +1511,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRewinding: 0
+  _pointInTime: []
   _ballRb: {fileID: 1098424010}
+  _speed: 2
+  _bulletController: {fileID: 0}
+  _rewindTime: {fileID: 0}
+  _meshesToDisable: []
 --- !u!114 &1098424012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,6 +1545,8 @@ MonoBehaviour:
   _camera: {fileID: 744471361}
   _dropCamera: {fileID: 0}
   _virtualCamera: {fileID: 744471364}
+  _rewindTime: {fileID: 0}
+  _camBehavior: {fileID: 0}
 --- !u!1 &1571707143
 GameObject:
   m_ObjectHideFlags: 0

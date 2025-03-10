@@ -40,6 +40,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TMP_Text _silverMedalText = null;
     [SerializeField] private TMP_Text _goldMedalText = null;
 
+    [Header("Fade")]
+    [SerializeField] private Image _imageToFade = null; 
+
     private Screen _currentScreen;
 
     private int _score = 0;
@@ -120,6 +123,11 @@ public class HUDManager : MonoBehaviour
                 ShowCurrentScore();
                 break;
         }
+    }
+
+    public void Fade()
+    {
+        
     }
 
     #region finalscorescreen
@@ -204,5 +212,12 @@ public class HUDManager : MonoBehaviour
             _scoreText.text = Mathf.Round(Mathf.Lerp(0, _score, _alpha)).ToString();
             _alpha += 0.001f;
         }
+    }
+
+    private IEnumerator FadeInOut()
+    {
+        Color alpha = _imageToFade.color;
+        alpha.a = Mathf.Lerp(alpha.a, 0, 1);
+        yield return null; 
     }
 }

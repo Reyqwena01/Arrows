@@ -307,6 +307,8 @@ public class BulletController : MonoBehaviour
     {
         gameObject.transform.DetachChildren();
         _camBehavior.CanMove = true;
+        HUDManager.Instance.Fade();
+        Debug.Log("Fade");
         _rewindTime.StartRewind();
     }
 
