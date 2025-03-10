@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 36395631}
   - component: {fileID: 36395630}
   m_Layer: 0
-  m_Name: Cube (15)
+  m_Name: Roof6
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1501,7 +1501,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1581029295858148310, guid: 60e95dcd864a7c346961103669b52ecd, type: 3}
       propertyPath: _isTarget
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2234689059374010879, guid: 60e95dcd864a7c346961103669b52ecd, type: 3}
       propertyPath: m_Name
@@ -4140,7 +4140,7 @@ GameObject:
   - component: {fileID: 618219734}
   - component: {fileID: 618219733}
   m_Layer: 0
-  m_Name: Cube (18)
+  m_Name: Roof3
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5016,7 +5016,7 @@ GameObject:
   - component: {fileID: 694036247}
   - component: {fileID: 694036246}
   m_Layer: 0
-  m_Name: Cube (22)
+  m_Name: Roof8
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6060,7 +6060,7 @@ GameObject:
   - component: {fileID: 810925332}
   - component: {fileID: 810925331}
   m_Layer: 0
-  m_Name: Cube (17)
+  m_Name: Roof5
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8595,7 +8595,7 @@ GameObject:
   - component: {fileID: 1067005189}
   - component: {fileID: 1067005188}
   m_Layer: 0
-  m_Name: Cube (21)
+  m_Name: Roof7
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9281,7 +9281,7 @@ GameObject:
   - component: {fileID: 1147484034}
   - component: {fileID: 1147484033}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Roof
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10839,6 +10839,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1304197255}
     m_Modifications:
+    - target: {fileID: 1581029295858148310, guid: 60e95dcd864a7c346961103669b52ecd, type: 3}
+      propertyPath: _isTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2234689059374010879, guid: 60e95dcd864a7c346961103669b52ecd, type: 3}
       propertyPath: m_Name
       value: TestEnemy (3)
@@ -11698,7 +11702,7 @@ GameObject:
   - component: {fileID: 1384810247}
   - component: {fileID: 1384810246}
   m_Layer: 0
-  m_Name: Cube (20)
+  m_Name: Roof9
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13656,7 +13660,7 @@ GameObject:
   - component: {fileID: 1766033404}
   - component: {fileID: 1766033403}
   m_Layer: 0
-  m_Name: Cube (19)
+  m_Name: Roof4
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14009,7 +14013,7 @@ GameObject:
   - component: {fileID: 1817839847}
   - component: {fileID: 1817839846}
   m_Layer: 0
-  m_Name: Cube (16)
+  m_Name: Roof2
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14880,7 +14884,7 @@ GameObject:
   - component: {fileID: 1914681043}
   - component: {fileID: 1914681042}
   m_Layer: 0
-  m_Name: Cube (23)
+  m_Name: Roof10
   m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15957,6 +15961,50 @@ PrefabInstance:
       propertyPath: _globalLocation
       value: 
       objectReference: {fileID: 761983476}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1147484035}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[1]
+      value: 
+      objectReference: {fileID: 1817839848}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[2]
+      value: 
+      objectReference: {fileID: 618219735}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[3]
+      value: 
+      objectReference: {fileID: 1766033405}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[4]
+      value: 
+      objectReference: {fileID: 810925333}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[5]
+      value: 
+      objectReference: {fileID: 36395632}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[6]
+      value: 
+      objectReference: {fileID: 1067005190}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[7]
+      value: 
+      objectReference: {fileID: 694036248}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[8]
+      value: 
+      objectReference: {fileID: 1384810248}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[9]
+      value: 
+      objectReference: {fileID: 1914681044}
     - target: {fileID: 3578089628362174631, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.89

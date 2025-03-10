@@ -71,8 +71,6 @@ public class ScoreManager : MonoBehaviour
                 finalScore = 30;
                 break;
         }
-
-        Score += finalScore;
         return (int)Mathf.Round(finalScore*speed);
     }
 

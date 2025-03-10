@@ -279,7 +279,10 @@ public class BulletController : MonoBehaviour
             //EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
             //enemy.Die();
 
-            HUDManager.Instance.DisplayKillScreen(ScoreManager.Instance.GetScoreOnKill(_maxCurrentSpeed, collision.gameObject.tag));
+            int score = ScoreManager.Instance.GetScoreOnKill(_maxCurrentSpeed, collision.gameObject.tag);
+
+            HUDManager.Instance.DisplayKillScreen(score);
+            ScoreManager.Instance.Score += score;
 
             Kill(collision.gameObject.transform);
         }
