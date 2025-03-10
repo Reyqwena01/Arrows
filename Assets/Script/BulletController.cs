@@ -31,6 +31,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private CameraBehavior _camBehavior = null;
+    [SerializeField] private GameObject _bulletTrail = null;
 
     #endregion
 
@@ -305,7 +306,9 @@ public class BulletController : MonoBehaviour
 
     public void Rewind()
     {
-        gameObject.transform.DetachChildren();
+        _camera.enabled = false;
+        _bulletTrail.SetActive(false);
+
         _camBehavior.CanMove = true;
         HUDManager.Instance.Fade();
         Debug.Log("Fade");

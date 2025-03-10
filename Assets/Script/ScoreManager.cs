@@ -46,7 +46,7 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         _instance = FindObjectOfType<ScoreManager>();
-        Object.DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
         Score += 1570;
     }
 
