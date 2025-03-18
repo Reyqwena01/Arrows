@@ -24,7 +24,7 @@ public class FakeBulletMovement : MonoBehaviour
         if (_rewindTime != null)
         {
 
-            if (_rewindTime.IsPlayingReverse && !_isReplaying)
+            if (_rewindTime.IsPlayingReverse && !_isReplaying && _rewindTime.IsLenghtFinish)
             {
                 _sphereCollider.enabled = false; // C'est pas la meilleur soluce, si on veut faire rewind les ennemis également    
                 _lastIndex = _rewindTime.PointInTime1.Count - 1;
@@ -51,11 +51,14 @@ public class FakeBulletMovement : MonoBehaviour
 
                 transform.position = pointInTime._position;
                 transform.rotation = pointInTime._rotation;
+                
+                Debug.Log("SecondRewind");
 
                 yield return new WaitForFixedUpdate();
             }
 
             _lastIndex--;
+            _rewindTime.PointInTime1.Remove(pointInTime);
 
             if (_lastIndex < 0)
             {

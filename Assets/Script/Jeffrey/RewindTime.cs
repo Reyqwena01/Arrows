@@ -18,6 +18,8 @@ public class RewindTime : MonoBehaviour
     private int _indexPosition = 0;
     private int _rangeNumber = 5;
     private bool _isPlayingReverse = false;
+    private bool _isLenghtFinish = false; 
+
     #endregion
 
     #region Structure
@@ -39,6 +41,7 @@ public class RewindTime : MonoBehaviour
 
     public List<PointInTime> PointInTime1 { get => _pointInTime; set => _pointInTime = value; }
     public bool IsPlayingReverse { get => _isPlayingReverse; set => _isPlayingReverse = value; }
+    public bool IsLenghtFinish { get => _isLenghtFinish; set => _isLenghtFinish = value; }
 
     #endregion
 
@@ -103,9 +106,8 @@ public class RewindTime : MonoBehaviour
                 {
                     StopAllCoroutines();
                     StopRewind();
+                    IsLenghtFinish = true;
                     //IsPlayingReverse = !IsPlayingReverse;
-                    //_rewindTime.enabled = false; 
-
                 }
 
             }
@@ -123,6 +125,7 @@ public class RewindTime : MonoBehaviour
             transform.position = pointInTime._position;
             transform.rotation = pointInTime._rotation;
             yield return new WaitForFixedUpdate();
+            Debug.Log("FirstRewind");
         }
 
         _indexPosition++;
@@ -145,10 +148,6 @@ public class RewindTime : MonoBehaviour
         _isRewinding = false;
         _ballRb.isKinematic = false; 
         _bulletController.Moving = false;
-    }
-    private void OnDisable()
-    {
-        //IsPlayingRevrse = !IsPlayingRevrse;
     }
     #endregion
     

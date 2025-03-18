@@ -51,7 +51,6 @@ public class CameraBehavior : MonoBehaviour
         if (Vector3.Distance(transform.position, _globalLocation.position) <= 2.5f)
         {
             _rewindTime.IsPlayingReverse = !_rewindTime.IsPlayingReverse;
-            //SwtichCameraPosition();
             CanMove = false; 
         }
 
