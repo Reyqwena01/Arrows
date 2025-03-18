@@ -130,6 +130,9 @@ public class BulletController : MonoBehaviour
 
     public void Shoot()
     {
+        _camera.transform.localPosition = Vector3.zero;
+        _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
         Time.timeScale = 1f;
 
         _timeoutCounter = 0f;
@@ -203,13 +206,16 @@ public class BulletController : MonoBehaviour
     private void TakeControl()
     {
         _bulletMesh.transform.forward = transform.forward;
-        
+
         _controllable = true;
 
         _timeoutCounter = _timeoutTimer;
         _maxCurrentSpeed = 0f;
 
         HUDManager.Instance.ToggleScreen(Screen.Aim);
+
+        _camera.transform.localPosition = Vector3.zero;
+        _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
     #endregion Bounce
 
@@ -249,6 +255,9 @@ public class BulletController : MonoBehaviour
         MoveCamera(_cameraStartPos);
         Invoke("Shoot", 1f);
         _camera.transform.localEulerAngles = Vector3.zero;
+
+        _camera.transform.localPosition = Vector3.zero;
+        _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
     #endregion Kill
 
