@@ -239,7 +239,7 @@ public class BulletController : MonoBehaviour
         Moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
-        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 25));
+        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 30));
         Invoke("TurnAround", 0.4f);
 
         Instantiate(_bloodImpactPrefab, transform.position, Quaternion.identity, transform);
