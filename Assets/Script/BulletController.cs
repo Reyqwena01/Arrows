@@ -103,6 +103,7 @@ public class BulletController : MonoBehaviour
     }
 
     public bool Moving { get => _moving; set => _moving = value; }
+    public GameObject BulletTrail { get => _bulletTrail; set => _bulletTrail = value; }
 
     #endregion properties
 
@@ -322,7 +323,7 @@ public class BulletController : MonoBehaviour
     public void Rewind()
     {
         //_camera.enabled = false;
-        _bulletTrail.SetActive(false); // ??? pourquoi le set a false 
+        BulletTrail.SetActive(false); // ??? pourquoi le set a false 
         Transform cam = gameObject.transform.GetChild(1);
         cam.parent = null; 
 
