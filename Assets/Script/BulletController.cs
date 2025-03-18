@@ -323,7 +323,7 @@ public class BulletController : MonoBehaviour
     {
         //_camera.enabled = false;
         _bulletTrail.SetActive(false); // ??? pourquoi le set a false 
-        Transform cam = gameObject.transform.GetChild(0);
+        Transform cam = gameObject.transform.GetChild(1);
         cam.parent = null; 
 
         _camBehavior.CanMove = true;
