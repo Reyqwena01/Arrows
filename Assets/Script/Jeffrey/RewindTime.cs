@@ -71,7 +71,8 @@ public class RewindTime : MonoBehaviour
         {
             if (!IsPlayingReverse)
             {
-                StartCoroutine(FirtReplayTowardFirtPosition());
+                //StartCoroutine(FirtReplayTowardFirtPosition());
+                InitialPosition();
             }
              
         }
@@ -79,7 +80,7 @@ public class RewindTime : MonoBehaviour
 
     private void Record()
     {
-        if (PointInTime1.Count > Mathf.Round(8f / Time.fixedDeltaTime))
+        if (PointInTime1.Count > Mathf.Round(20f / Time.fixedDeltaTime))
         {
             PointInTime1.RemoveAt(0); 
         }
@@ -107,12 +108,19 @@ public class RewindTime : MonoBehaviour
                     StopAllCoroutines();
                     StopRewind();
                     IsLenghtFinish = true;
-                    //IsPlayingReverse = !IsPlayingReverse;
                 }
 
             }
         }       
 
+    }
+
+    private void InitialPosition()
+    {
+        int lastIndex = PointInTime1.Count - 1;
+        PointInTime pointInTime = PointInTime1[lastIndex];
+        transform.position = pointInTime._position;
+        transform.rotation = pointInTime._rotation; 
     }
 
 
