@@ -336,10 +336,10 @@ public class BulletController : MonoBehaviour
 
             if (_cameraTargetRot != Vector3.zero)
             {
-                _rotationY += 0.4f;
+                _rotationY += 2000f*Time.deltaTime;
             }
 
-            _cameraMovementAlpha += 0.002f;
+            _cameraMovementAlpha += 10f*Time.deltaTime;
 
         }
 
