@@ -43,6 +43,7 @@ public class BulletController : MonoBehaviour
     private bool _dropped = false;
     private bool _moving = false;
     private bool _aimAssistActive = false;
+    private bool _rotating = false;
 
     private bool _windPowerUp = false;
     private bool _piercePowerUp = false;
@@ -178,6 +179,8 @@ public class BulletController : MonoBehaviour
     #region Bounce
     public void Bounce()
     {
+        _rotating = true;
+
         HUDManager.Instance.ToggleScreen(Screen.None);
 
         ScoreManager.Instance.Bounces++;
@@ -217,6 +220,8 @@ public class BulletController : MonoBehaviour
 
         _camera.transform.localPosition = Vector3.zero;
         _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+        _rotating = false;
     }
     #endregion Bounce
 
@@ -419,7 +424,7 @@ public class BulletController : MonoBehaviour
 
         transform.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
 
-        if (!_moving && !_controllable)
+        if (_rotating)
         {
             _bulletMesh.transform.Rotate(_bulletRotationSpeedOnImpact*Time.deltaTime, _bulletRotationSpeedOnImpact * Time.deltaTime, _bulletRotationSpeedOnImpact * Time.deltaTime);
         }
