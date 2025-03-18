@@ -7704,8 +7704,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _impactOffset
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _bulletRotationSpeedOnImpact
-      value: 0.25
+      value: 1300
       objectReference: {fileID: 0}
     - target: {fileID: 8907268255226555780, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_Intensity

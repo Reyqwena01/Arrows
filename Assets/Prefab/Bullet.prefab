@@ -75,6 +75,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2500
   _maxSpeed: 120
+  _impactOffset: 1.25
+  _bulletRotationSpeedOnImpact: 1300
   _sensitivity: 5
   _aimAssistStrength: 5
   _speedEffectStrength: 1

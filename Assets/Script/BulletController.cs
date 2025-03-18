@@ -180,7 +180,7 @@ public class BulletController : MonoBehaviour
 
         Time.timeScale = 0.1f;
 
-        transform.position = new Vector3(0, 0, -_impactOffset);
+        transform.localPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + (-transform.forward.z*_impactOffset));
         _direction = Vector3.zero;
 
         _virtualCamera.m_Lens.FieldOfView = 40;
@@ -218,7 +218,7 @@ public class BulletController : MonoBehaviour
     {
         Time.timeScale = 0.45f;
 
-        _rb.velocity = _direction * 2f;
+        _rb.velocity = _direction * 4f;
         Moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
@@ -411,7 +411,7 @@ public class BulletController : MonoBehaviour
 
         if (!_moving && !_controllable)
         {
-            _bulletMesh.transform.Rotate(_bulletRotationSpeedOnImpact, _bulletRotationSpeedOnImpact, _bulletRotationSpeedOnImpact);
+            _bulletMesh.transform.Rotate(_bulletRotationSpeedOnImpact*Time.deltaTime, _bulletRotationSpeedOnImpact * Time.deltaTime, _bulletRotationSpeedOnImpact * Time.deltaTime);
         }
 
     }
