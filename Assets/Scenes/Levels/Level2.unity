@@ -7611,6 +7611,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 1077784702895903329, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077784702895903329, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Color.r
+      value: 0.654902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077784702895903329, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1797490846407535692, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation
       value: 
@@ -7710,6 +7722,18 @@ PrefabInstance:
     - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _bulletRotationSpeedOnImpact
       value: 1300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410320741358529366, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: clearBehavior
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410320741358529386, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410320741358529387, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8907268255226555780, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_Intensity
