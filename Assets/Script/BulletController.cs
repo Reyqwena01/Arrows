@@ -8,6 +8,8 @@ public class BulletController : MonoBehaviour
     #region parameters
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _maxSpeed = 200f;
+    [SerializeField] private float _impactOffset = 1f;
+    [SerializeField] private float _bulletRotationSpeedOnImpact = 1f;
     [Space(10)]
     [SerializeField] private float _sensitivity = 15f;
     [SerializeField] private float _aimAssistStrength = 0.5f;
@@ -25,6 +27,7 @@ public class BulletController : MonoBehaviour
     [Space(25)]
     [SerializeField] private Rigidbody _rb = null;
     [SerializeField] private Collider _bulletCollider = null;
+    [SerializeField] private GameObject _bulletMesh = null;
     [Space(10)]
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Camera _dropCamera = null;
@@ -177,6 +180,7 @@ public class BulletController : MonoBehaviour
 
         Time.timeScale = 0.1f;
 
+        transform.position = new Vector3(0, 0, -_impactOffset);
         _direction = Vector3.zero;
 
         _virtualCamera.m_Lens.FieldOfView = 40;
@@ -198,6 +202,8 @@ public class BulletController : MonoBehaviour
 
     private void TakeControl()
     {
+        _bulletMesh.transform.forward = transform.forward;
+        
         _controllable = true;
 
         _timeoutCounter = _timeoutTimer;
@@ -402,6 +408,11 @@ public class BulletController : MonoBehaviour
         }
 
         transform.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
+
+        if (!_moving && !_controllable)
+        {
+            _bulletMesh.transform.Rotate(_bulletRotationSpeedOnImpact, _bulletRotationSpeedOnImpact, _bulletRotationSpeedOnImpact);
+        }
 
     }
 
