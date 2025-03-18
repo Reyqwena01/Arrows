@@ -36,8 +36,8 @@ public class BulletController : MonoBehaviour
     [SerializeField] private CameraBehavior _camBehavior = null;
 
     [SerializeField] private GameObject _bulletTrail = null;
-    [SerializeField] private ParticleSystem _bulletImpact = null;
 
+    [SerializeField] private GameObject _bounceImpactPrefab = null;
     [SerializeField] private GameObject _bloodImpactPrefab = null;
 
     #endregion
@@ -184,7 +184,8 @@ public class BulletController : MonoBehaviour
     public void Bounce()
     {
         _rotating = true;
-        _bulletImpact.Play();
+
+        Instantiate(_bounceImpactPrefab, transform.position, Quaternion.identity, transform);
 
         HUDManager.Instance.ToggleScreen(Screen.None);
 
