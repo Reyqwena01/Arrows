@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance = null;
 
     private BulletController _bullet = null;
+    [SerializeField] private List<EnemyController> _listEnemy = new List<EnemyController>(); 
 
     public static GameManager Instance { get => _instance; }
     public BulletController Bullet { get => _bullet;}
+    public List<EnemyController> ListEnemy { get => _listEnemy; set => _listEnemy = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,12 @@ public class GameManager : MonoBehaviour
     public void Init()
     {
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject); 
+    }
+
+    public void AddList(EnemyController value)
+    {
+        ListEnemy.Insert(0, value);
     }
 
 

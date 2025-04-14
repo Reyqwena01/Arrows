@@ -60,6 +60,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         FirstPosition = transform.position;
+        GameManager.Instance.ListEnemy.Insert(0, this);
     }
 
     // Update is called once per frame
