@@ -295,6 +295,7 @@ public class BulletController : MonoBehaviour
         _camera.enabled = true;
         _virtualCamera.Follow = null;
         Cursor.visible = false;
+        _rb.freezeRotation = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -336,10 +337,12 @@ public class BulletController : MonoBehaviour
     public void Rewind()
     {
         //_camera.enabled = false;
-        BulletTrail.SetActive(false); // ??? pourquoi le set a false 
-        Transform cam = gameObject.transform.GetChild(1);
-        cam.parent = null; 
+        BulletTrail.SetActive(false);  
+        Transform cam = gameObject.transform.GetChild(4);
+        cam.parent = null;
+        cam.transform.rotation = Quaternion.Euler(90, 0, 0);
 
+        _camBehavior.gameObject.SetActive(true);
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();

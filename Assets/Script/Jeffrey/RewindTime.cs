@@ -120,7 +120,8 @@ public class RewindTime : MonoBehaviour
         int lastIndex = PointInTime1.Count - 1;
         PointInTime pointInTime = PointInTime1[lastIndex];
         transform.position = pointInTime._position;
-        transform.rotation = pointInTime._rotation; 
+        transform.rotation = pointInTime._rotation;
+        transform.LookAt(transform.forward); 
     }
 
 
