@@ -15,6 +15,11 @@ public class GameLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadScene();
+    }
+
+    private void Awake()
+    {
         _gameManager.Init();
         _audioManager.Init();
         _scoreManager.Init();
