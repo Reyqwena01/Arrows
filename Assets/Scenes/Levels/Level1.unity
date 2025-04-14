@@ -4806,6 +4806,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 761557912026834740, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1797490846407535692, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation
       value: 

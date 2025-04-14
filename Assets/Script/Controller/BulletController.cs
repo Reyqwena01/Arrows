@@ -254,8 +254,8 @@ public class BulletController : MonoBehaviour
         if (!_dropped)
         {
             Time.timeScale = 0.3f;
-            _cameraRotationSpeed = 60f;
-            Invoke("StopTurnAround", 1.5f);
+            _cameraRotationSpeed = 100f;
+            Invoke("StopTurnAround", 1.65f);
         }
         else if (_dropped)
         {
