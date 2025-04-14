@@ -344,7 +344,7 @@ public class BulletController : MonoBehaviour
 
         _camBehavior.gameObject.SetActive(true);
         _camBehavior.CanMove = true;
-        HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
+        //HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
     }
 
