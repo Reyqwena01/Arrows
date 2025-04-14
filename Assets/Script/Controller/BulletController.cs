@@ -352,12 +352,18 @@ public class BulletController : MonoBehaviour
         cam.parent = null;
         _cameraEnd.enabled = true;
         _camBehavior.gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
+        
+        if (GameManager.Instance.ListEnemy.Count > 0)
+        {
+            for (int i = 0; i < GameManager.Instance.ListEnemy.Count; i++)
+            {
+                GameManager.Instance.ListEnemy[i].GetComponent<EnemyController>().SetRagdollOff();
+            }
+        }
 
-        _enemyController.SetRagdollOff();
-
-        GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
-        enemyChild.transform.position = _enemyController.FirstPosition;
-        enemyChild.GetComponent<Rigidbody>().freezeRotation = true; 
+        //GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
+        //enemyChild.transform.position = _enemyController.FirstPosition;
+        //enemyChild.GetComponent<Rigidbody>().freezeRotation = true; 
 
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());

@@ -31,12 +31,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); 
     }
 
-    public void AddList(EnemyController value)
-    {
-        ListEnemy.Insert(0, value);
-    }
-
-
     public void SetBulletController(BulletController value)
     {
         _bullet = value;
