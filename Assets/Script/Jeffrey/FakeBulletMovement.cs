@@ -52,8 +52,6 @@ public class FakeBulletMovement : MonoBehaviour
 
                 transform.position = pointInTime._position;
                 transform.rotation = pointInTime._rotation;
-                
-                Debug.Log("SecondRewind");
 
                 yield return new WaitForFixedUpdate();
             }
