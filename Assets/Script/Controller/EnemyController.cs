@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FirstPosition = transform.position; 
+        FirstPosition = transform.position;
     }
 
     // Update is called once per frame

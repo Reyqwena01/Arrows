@@ -33,10 +33,12 @@ public class BulletController : MonoBehaviour
     [Space(10)]
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Camera _dropCamera = null;
+    [SerializeField] private Camera _cameraEnd = null; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private CameraBehavior _camBehavior = null;
-    [SerializeField] private EnemyController _enemyController = null; 
+    [SerializeField] private EnemyController _enemyController = null;
+    [SerializeField] private TrailRenderer _trailRenderer = null; 
 
     [SerializeField] private GameObject _bulletTrail = null;
 
@@ -348,15 +350,20 @@ public class BulletController : MonoBehaviour
         BulletTrail.SetActive(false); // ??? pourquoi le set a false 
         Transform cam = gameObject.transform.GetChild(4);
         cam.parent = null;
+        _cameraEnd.enabled = true;
+        _camBehavior.gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 
         _enemyController.SetRagdollOff();
 
         GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
         enemyChild.transform.position = _enemyController.FirstPosition;
+        enemyChild.GetComponent<Rigidbody>().freezeRotation = true; 
 
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
+
+        _trailRenderer.enabled = true; 
     }
 
     // Update is called once per frame

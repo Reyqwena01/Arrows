@@ -88,14 +88,18 @@ MonoBehaviour:
   _raycastLayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  _killCameraDistance: 30
   _rb: {fileID: 4322587965039691808}
   _bulletCollider: {fileID: 1966675237762600248}
   _bulletMesh: {fileID: 8490279236164541001}
   _camera: {fileID: 2778717466505447536}
   _dropCamera: {fileID: 4759636309552335438}
+  _cameraEnd: {fileID: 761557912026834740}
   _virtualCamera: {fileID: 8354519217849223280}
   _rewindTime: {fileID: 3497470299192874448}
   _camBehavior: {fileID: 5154621565380427230}
+  _enemyController: {fileID: 0}
+  _trailRenderer: {fileID: 4732465611239457400}
   _bulletTrail: {fileID: 1880084378178696539}
   _bounceImpactPrefab: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   _bloodImpactPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
@@ -118,6 +122,7 @@ MonoBehaviour:
   _bulletController: {fileID: 4550925386468569817}
   _rewindTime: {fileID: 3497470299192874448}
   _meshesToDisable: []
+  _enemyController: {fileID: 0}
 --- !u!114 &1521343935750622399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +173,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99914005471901835}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -599,7 +604,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6448717403996478616}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
