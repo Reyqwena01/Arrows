@@ -352,10 +352,13 @@ public class BulletController : MonoBehaviour
 
         GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
         enemyChild.transform.position = _enemyController.FirstPosition;
+        enemyChild.GetComponent<Rigidbody>().freezeRotation = true; 
 
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
+
+        _trailRenderer.enabled = true; 
     }
 
     // Update is called once per frame

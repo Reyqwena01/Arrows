@@ -5178,11 +5178,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!96 &983601400 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 4732465611239457400, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
-  m_PrefabInstance: {fileID: 1394405045}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1089774986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6015,10 +6010,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
-    - target: {fileID: 761557912026834740, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _enemyController
       value: 
@@ -6064,21 +6055,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
-      propertyPath: _cameraEnd
-      value: 
-      objectReference: {fileID: 2062894507}
-    - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
-      propertyPath: _trailRenderer
-      value: 
-      objectReference: {fileID: 983601400}
-    - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _enemyController
       value: 
       objectReference: {fileID: 1267009877}
-    - target: {fileID: 4732465611239457400, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5154621565380427230, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation
       value: 
@@ -9440,11 +9419,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!20 &2062894507 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 761557912026834740, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
-  m_PrefabInstance: {fileID: 1394405045}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2104065780
 PrefabInstance:
   m_ObjectHideFlags: 0
