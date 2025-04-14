@@ -7716,6 +7716,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _cameraEnd
+      value: 
+      objectReference: {fileID: 2062894507}
     - target: {fileID: 5154621565380427230, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation
       value: 
@@ -11563,6 +11567,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!20 &2062894507 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 761557912026834740, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+  m_PrefabInstance: {fileID: 1394405045}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2092249796
 GameObject:
   m_ObjectHideFlags: 0

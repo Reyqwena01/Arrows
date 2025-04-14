@@ -31,6 +31,8 @@ public class BulletController : MonoBehaviour
     [Space(10)]
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Camera _dropCamera = null;
+    [SerializeField] private Camera _cameraEnd = null;
+    [SerializeField] private EnemyController = null; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private CameraBehavior _camBehavior = null;
@@ -342,8 +344,9 @@ public class BulletController : MonoBehaviour
         cam.parent = null;
         cam.transform.rotation = Quaternion.Euler(90, 0, 0);
 
-        _camBehavior.gameObject.SetActive(true);
+        _cameraEnd.enabled = true;
         _camBehavior.CanMove = true;
+
         //HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
     }

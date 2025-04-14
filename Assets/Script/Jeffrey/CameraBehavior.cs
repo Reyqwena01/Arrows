@@ -10,13 +10,12 @@ public class CameraBehavior : MonoBehaviour
     [SerializeField] private RewindTime _rewindTime = null;
     
     private bool _canMove = false;
-    private static event Action _callActions; 
     public bool CanMove { get => _canMove; set => _canMove = value; }
     
 
     private void Start()
     {
-        gameObject.SetActive(false);
+      
     }
 
     private void Update()
