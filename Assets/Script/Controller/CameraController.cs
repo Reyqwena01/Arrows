@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit hit;
-        Physics.Raycast(transform.position, transform.forward, out hit, 1000f);
+        
     }
 }

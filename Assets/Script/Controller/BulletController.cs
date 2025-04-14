@@ -21,6 +21,8 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float _timeoutTimer = 10f;
     [Space(10)]
     [SerializeField] private LayerMask _raycastLayer = 0;
+    [Header("Kill")]
+    [SerializeField] private float _killCameraDistance = 30f;
     #endregion
 
     #region references
@@ -240,7 +242,7 @@ public class BulletController : MonoBehaviour
         Moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
-        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - 30));
+        MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - _killCameraDistance));
         Invoke("TurnAround", 0.4f);
 
         Instantiate(_bloodImpactPrefab, transform.position, Quaternion.identity, transform);
@@ -436,6 +438,14 @@ public class BulletController : MonoBehaviour
         if (_rotating)
         {
             _bulletMesh.transform.Rotate(_bulletRotationSpeedOnImpact*Time.deltaTime, _bulletRotationSpeedOnImpact * Time.deltaTime, _bulletRotationSpeedOnImpact * Time.deltaTime);
+        }
+
+        if (_enemyToTrack != null)
+        {
+            RaycastHit hit;
+            Physics.Raycast(_enemyToTrack.transform.position, (_camera.transform.position- _enemyToTrack.transform.position).normalized, out hit, _killCameraDistance, _raycastLayer);
+
+            _camera.transform.position = hit.point;
         }
 
     }
