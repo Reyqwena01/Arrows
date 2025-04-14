@@ -255,7 +255,7 @@ public class BulletController : MonoBehaviour
         {
             Time.timeScale = 0.3f;
             _cameraRotationSpeed = 60f;
-            Invoke("StopTurnAround", 1.2f);
+            Invoke("StopTurnAround", 1.5f);
         }
         else if (_dropped)
         {
@@ -270,7 +270,7 @@ public class BulletController : MonoBehaviour
         _enemyToTrack = null;
         _cameraRotationSpeed = 0f;
         MoveCamera(_cameraStartPos);
-        Invoke("Shoot", 1f);
+        Invoke("Shoot", 0.4f);
         _camera.transform.localEulerAngles = Vector3.zero;
 
         _camera.transform.localPosition = Vector3.zero;
