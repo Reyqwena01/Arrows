@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int _animationSelection = 0;
     [SerializeField] private bool _isTarget = false;
     [SerializeField] private bool _isDead = false;
-    [SerializeField] private GameObject[] _bones = null;
+    [SerializeField] private Rigidbody _hips = null;
     
     private Rigidbody[] _rigidbodys = null;
     private Vector3 _firstPosition; 
@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
         {
             if (!IsDead)
             {
-                Die();
+                Die((bullet.transform.position - transform.position).normalized, 50f);
             }
             else if (IsDead)
             {
@@ -33,11 +33,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Die(Vector3 direction, float force)
     {
         IsDead = true;
         Debug.Log("Dead");
         SetRagdollOn();
+
+        _hips.AddForce(direction*force, ForceMode.Impulse);
 
         if (_isTarget)
         {

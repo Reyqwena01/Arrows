@@ -143,6 +143,7 @@ public class BulletController : MonoBehaviour
         _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
 
         _timeoutCounter = 0f;
 
@@ -238,6 +239,7 @@ public class BulletController : MonoBehaviour
     public void Kill(Transform enemyToTrack)
     {
         Time.timeScale = 0.45f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         _rb.velocity = _direction * 4f;
         Moving = false;
@@ -254,12 +256,14 @@ public class BulletController : MonoBehaviour
         if (!_dropped)
         {
             Time.timeScale = 0.3f;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
             _cameraRotationSpeed = 100f;
             Invoke("StopTurnAround", 1.65f);
         }
         else if (_dropped)
         {
             Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
             _bulletCollider.enabled = true;
         }
     }
@@ -267,6 +271,7 @@ public class BulletController : MonoBehaviour
     private void StopTurnAround()
     {
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
         _enemyToTrack = null;
         _cameraRotationSpeed = 0f;
         MoveCamera(_cameraStartPos);

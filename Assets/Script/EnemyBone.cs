@@ -12,7 +12,7 @@ public class EnemyBone : MonoBehaviour
 
         if (bullet != null && !_enemy.IsDead)
         {
-            _enemy.Die();
+            _enemy.Die((bullet.transform.position - transform.position).normalized, 50f);
         }
         else if (bullet != null && _enemy.IsDead)
         {

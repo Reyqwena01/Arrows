@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6105093524534947626, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_Name
-      value: cowboy Variant
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6248176782166565788, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_Enabled
@@ -314,7 +314,7 @@ MonoBehaviour:
   _animationSelection: 0
   _isTarget: 0
   _isDead: 0
-  _bones: []
+  _hips: {fileID: 7632974891027195893}
 --- !u!1 &3021324801990986403 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6514436643085422653, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
@@ -446,6 +446,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 6239504842645028894}
+--- !u!54 &7632974891027195893 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1902715051677318507, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
+  m_PrefabInstance: {fileID: 8325479483840993950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9140058045845765230 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 959839734399723248, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
