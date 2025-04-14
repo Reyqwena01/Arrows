@@ -353,8 +353,6 @@ public class BulletController : MonoBehaviour
         _cameraEnd.enabled = true;
         _camBehavior.gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 
-        Debug.Log(_enemyController);
-
         _enemyController.SetRagdollOff();
 
         GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
@@ -379,29 +377,6 @@ public class BulletController : MonoBehaviour
             if (TimeoutCounter <= 0)
             {
                 Shoot();
-            }
-        }
-        
-        if (_cameraMovementAlpha < 1f)
-        {
-            _camera.transform.localPosition = Vector3.Lerp(_cameraStartPos, _cameraTargetPos, _cameraMovementAlpha);
-
-            if (_cameraTargetRot != Vector3.zero)
-            {
-                _rotationY += 2000f*Time.deltaTime;
-            }
-
-            _cameraMovementAlpha += 10f*Time.deltaTime;
-
-        }
-
-        if (_enemyToTrack != null)
-        {
-            _camera.transform.LookAt(_enemyToTrack);
-            
-            if (_cameraRotationSpeed > 0f)
-            {
-                _camera.transform.Translate(Vector3.right * _cameraRotationSpeed * Time.deltaTime);
             }
         }
 
@@ -462,6 +437,9 @@ public class BulletController : MonoBehaviour
 
         if (_enemyToTrack != null)
         {
+            _virtualCamera.m_Lens.FieldOfView -= _virtualCamera.m_Lens.FieldOfView * 0.00500f * _speedEffectStrength * _rb.velocity.magnitude * 0.02f;
+            _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
+
             RaycastHit hit;
             Physics.Raycast(_enemyToTrack.transform.position, (_camera.transform.position- _enemyToTrack.transform.position).normalized, out hit, _killCameraDistance, _raycastLayer);
 
@@ -475,6 +453,31 @@ public class BulletController : MonoBehaviour
             }
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if (_cameraMovementAlpha < 1f)
+        {
+            _camera.transform.localPosition = Vector3.Lerp(_cameraStartPos, _cameraTargetPos, _cameraMovementAlpha);
+
+            if (_cameraTargetRot != Vector3.zero)
+            {
+                _rotationY += 2000f * Time.deltaTime;
+            }
+
+            _cameraMovementAlpha = Mathf.Clamp01(_cameraMovementAlpha + 10f * Time.deltaTime);
+        }
+
+        if (_enemyToTrack != null)
+        {
+            _camera.transform.LookAt(_enemyToTrack);
+
+            if (_cameraRotationSpeed > 0f)
+            {
+                _camera.transform.Translate(Vector3.right * _cameraRotationSpeed * Time.deltaTime);
+            }
+        }
     }
 
 }
