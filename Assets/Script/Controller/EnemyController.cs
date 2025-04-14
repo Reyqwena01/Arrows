@@ -77,6 +77,7 @@ public class EnemyController : MonoBehaviour
     {
         int randomValue = Random.Range(0, 3);
         _animator.SetInteger("SelectAnimation", randomValue);
+        _animator.enabled = true;
     }
 
 }

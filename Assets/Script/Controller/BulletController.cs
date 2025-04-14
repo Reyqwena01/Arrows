@@ -353,6 +353,8 @@ public class BulletController : MonoBehaviour
         _cameraEnd.enabled = true;
         _camBehavior.gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 
+        Debug.Log(_enemyController);
+
         _enemyController.SetRagdollOff();
 
         GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
