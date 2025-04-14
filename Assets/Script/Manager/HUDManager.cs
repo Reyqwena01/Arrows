@@ -9,7 +9,7 @@ public class HUDManager : MonoBehaviour
 {
     private static HUDManager _instance = null;
 
-    [SerializeField] private BulletController _playerBullet = null;
+    private BulletController _playerBullet = null;
 
     [Header("Crosshair")]
     [SerializeField] private RawImage _crosshair = null;
@@ -51,10 +51,17 @@ public class HUDManager : MonoBehaviour
     private float _alpha = 0f;
 
     public static HUDManager Instance { get => _instance; set => _instance = value; }
+    public BulletController Bullet { get => _playerBullet; set => _playerBullet = value; }
     public Screen CurrentScreen { get => _currentScreen;}
 
     // Start is called before the first frame update
     void Start()
+    {
+       
+    }
+
+
+    public void Init()
     {
         _instance = FindObjectOfType<HUDManager>();
         Object.DontDestroyOnLoad(gameObject);

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
 
-    [SerializeField] BulletController _bullet = null;
+    private BulletController _bullet = null;
 
     public static GameManager Instance { get => _instance; }
     public BulletController Bullet { get => _bullet;}
@@ -14,13 +14,26 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Init()
+    {
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+    public void SetBulletController(BulletController value)
+    {
+        _bullet = value;
+        HUDManager.Instance.Bullet = value;
+        ScoreManager.Instance.Bullet = value;
     }
 }

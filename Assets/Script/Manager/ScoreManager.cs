@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private BulletController _playerBullet = null;
+    private BulletController _playerBullet = null;
 
     [SerializeField] private int _bronzeMedalMaxBounces = 15;
     [SerializeField] private int _bronzeMedalMultiplier = 2;
@@ -41,9 +41,16 @@ public class ScoreManager : MonoBehaviour
     public int SilverMedalMultiplier { get => _silverMedalMultiplier; set => _silverMedalMultiplier = value; }
     public int GoldMedalMultiplier { get => _goldMedalMultiplier; set => _goldMedalMultiplier = value; }
 
+    public BulletController Bullet { get => _playerBullet; set => _playerBullet = value; }
+
 
     // Start is called before the first frame update
     void Awake()
+    {
+      
+    }
+
+    public void Init()
     {
         _instance = FindObjectOfType<ScoreManager>();
         DontDestroyOnLoad(gameObject);
