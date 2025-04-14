@@ -9,7 +9,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool _isTarget = false;
     [SerializeField] private bool _isDead = false;
     [SerializeField] private GameObject[] _bones = null;
+    
     private Rigidbody[] _rigidbodys = null;
+    private Vector3 _firstPosition; 
 
     public bool IsDead { get => _isDead; set => _isDead = value; }
 
@@ -30,6 +32,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+
     public void Die()
     {
         IsDead = true;
@@ -40,8 +43,6 @@ public class EnemyController : MonoBehaviour
         {
             //FIN DE NIVEAU
             Debug.Log("Level Finished");
-
-
             Invoke("StartRewind", 2f); //Attend 2 sec puis lance le rewind DEPUIS le début du lerp de la caméra
         }
     }
@@ -54,7 +55,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _firstPosition = transform.position; 
     }
 
     // Update is called once per frame
@@ -65,7 +66,6 @@ public class EnemyController : MonoBehaviour
 
     public void SetRagdollOn()
     {
-
         _animator.enabled = false;
     }
 

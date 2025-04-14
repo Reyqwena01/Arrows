@@ -6816,6 +6816,17 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &1267009877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6239504842645028894, guid: 0a226dec8c068184f8d225b51398f8e3, type: 3}
+  m_PrefabInstance: {fileID: 102063616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5ec7f96a74980499b9b10202303f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1267137589
 GameObject:
   m_ObjectHideFlags: 0
@@ -7676,6 +7687,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _enemyController
+      value: 
+      objectReference: {fileID: 1267009877}
     - target: {fileID: 3578089628362174631, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_LocalPosition.x
       value: 209.5
@@ -7720,6 +7735,10 @@ PrefabInstance:
       propertyPath: _cameraEnd
       value: 
       objectReference: {fileID: 2062894507}
+    - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _enemyController
+      value: 
+      objectReference: {fileID: 1267009877}
     - target: {fileID: 5154621565380427230, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation
       value: 

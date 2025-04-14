@@ -32,7 +32,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Camera _dropCamera = null;
     [SerializeField] private Camera _cameraEnd = null;
-    [SerializeField] private EnemyController = null; 
+    [SerializeField] private EnemyController _enemyController = null; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private CameraBehavior _camBehavior = null;
@@ -346,7 +346,7 @@ public class BulletController : MonoBehaviour
 
         _cameraEnd.enabled = true;
         _camBehavior.CanMove = true;
-
+       
         //HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
     }

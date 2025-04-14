@@ -14,6 +14,7 @@ public class RewindTime : MonoBehaviour
     [SerializeField] private BulletController _bulletController;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private MeshRenderer[] _meshesToDisable = null;
+    [SerializeField] private EnemyController _enemyController = null; 
 
     private int _indexPosition = 0;
     private int _rangeNumber = 5;
