@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
     {
         IsDead = true;
         Debug.Log("Dead");
+        SetRagdollOn();
 
         if (_isTarget)
         {
@@ -59,11 +60,9 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            SetRagdollOn();
-        }
+
     }
+
     public void SetRagdollOn()
     {
 
