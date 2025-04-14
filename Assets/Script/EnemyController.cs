@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 _firstPosition; 
 
     public bool IsDead { get => _isDead; set => _isDead = value; }
+    public Vector3 FirstPosition { get => _firstPosition; set => _firstPosition = value; }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -55,7 +56,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _firstPosition = transform.position; 
+        FirstPosition = transform.position;
+        Debug.Log("la position est égal à " + FirstPosition);
     }
 
     // Update is called once per frame

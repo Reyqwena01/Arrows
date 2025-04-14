@@ -346,7 +346,11 @@ public class BulletController : MonoBehaviour
 
         _cameraEnd.enabled = true;
         _camBehavior.CanMove = true;
-       
+        _enemyController.SetRagdollOff();
+
+        GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
+        enemyChild.transform.position = _enemyController.FirstPosition; 
+
         //HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
     }
