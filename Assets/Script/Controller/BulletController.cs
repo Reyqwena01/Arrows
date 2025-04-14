@@ -36,6 +36,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private CameraBehavior _camBehavior = null;
+    [SerializeField] private EnemyController _enemyController = null; 
 
     [SerializeField] private GameObject _bulletTrail = null;
 
@@ -340,8 +341,12 @@ public class BulletController : MonoBehaviour
     {
         //_camera.enabled = false;
         BulletTrail.SetActive(false); // ??? pourquoi le set a false 
-        Transform cam = gameObject.transform.GetChild(1);
-        cam.parent = null; 
+        Transform cam = gameObject.transform.GetChild(4);
+        cam.parent = null;
+
+        _enemyController.SetRagdollOff();
+        GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
+        enemyChild.transform.position = _enemyController.FirstPosition;
 
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
