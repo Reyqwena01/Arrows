@@ -65,8 +65,8 @@ public class HUDManager : MonoBehaviour
         ToggleScreen(Screen.None);
         SetCrosshairVisibility(true);
 
-        Color c = _imageToFade.color;
-        c.a = 1.0f;
+        //Color c = _imageToFade.color;
+        //c.a = 1.0f;
 
     }
 
