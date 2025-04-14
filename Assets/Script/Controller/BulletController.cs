@@ -345,6 +345,7 @@ public class BulletController : MonoBehaviour
         cam.parent = null;
 
         _enemyController.SetRagdollOff();
+
         GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
         enemyChild.transform.position = _enemyController.FirstPosition;
 
@@ -450,7 +451,14 @@ public class BulletController : MonoBehaviour
             RaycastHit hit;
             Physics.Raycast(_enemyToTrack.transform.position, (_camera.transform.position- _enemyToTrack.transform.position).normalized, out hit, _killCameraDistance, _raycastLayer);
 
-            _camera.transform.position = hit.point;
+            if (hit.collider != null && hit.collider.CompareTag("Bouncy"))
+            {
+                _camera.transform.position = hit.point;
+            }
+            else
+            {
+                _camera.transform.position = _enemyToTrack.transform.position + (_camera.transform.position - _enemyToTrack.transform.position).normalized * _killCameraDistance;
+            }
         }
 
     }
