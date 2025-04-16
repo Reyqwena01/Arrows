@@ -36,8 +36,21 @@ public class EnemyController : MonoBehaviour
     public void Die(Vector3 direction, float force)
     {
         IsDead = true;
-        Debug.Log("Dead");
         SetRagdollOn();
+        switch (Random.Range(1, 5))
+        {
+            case 0:
+                AudioManager.Instance.PlayTimeSound("Death1"); break;
+            case 1:
+                AudioManager.Instance.PlayTimeSound("Death2"); break;
+            case 2:
+                AudioManager.Instance.PlayTimeSound("Death3"); break;
+            case 3:
+                AudioManager.Instance.PlayTimeSound("Death4"); break;
+            case 4:
+                AudioManager.Instance.PlayTimeSound("Death5"); break;
+        }
+        
 
         _hips.AddForce(direction*force, ForceMode.Impulse);
 

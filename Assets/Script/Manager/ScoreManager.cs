@@ -61,21 +61,27 @@ public class ScoreManager : MonoBehaviour
     {
         int finalScore = 10;
 
+        AudioManager.Instance.PlayTimeSound("Blood");
+
         Debug.Log(bodypart + "shot");
 
         switch (bodypart)
         {
             case "Head":
                 finalScore = 50;
+                AudioManager.Instance.PlayTimeSound("Headshot");
                 break;
             case "Torso":
                 finalScore = 20;
+                AudioManager.Instance.PlayTimeSound("Bodyshot");
                 break;
             case "Arm":
                 finalScore = 40;
+                AudioManager.Instance.PlayTimeSound("Limbshot");
                 break;
             case "Leg":
                 finalScore = 30;
+                AudioManager.Instance.PlayTimeSound("Limbshot");
                 break;
         }
         return (int)Mathf.Round(finalScore*speed);

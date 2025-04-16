@@ -189,6 +189,9 @@ public class BulletController : MonoBehaviour
     #region Bounce
     public void Bounce()
     {
+        AudioManager.Instance.PlaySound("Bounce");
+        AudioManager.Instance.StopPlayingWind();
+
         _rotating = true;
 
         Instantiate(_bounceImpactPrefab, transform.position, Quaternion.identity, transform);
@@ -242,6 +245,8 @@ public class BulletController : MonoBehaviour
     {
         Time.timeScale = 0.45f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        AudioManager.Instance.PauseWind();
+        AudioManager.Instance.PlaySound("Slowdown");
 
         _rb.velocity = _direction * 4f;
         Moving = false;
@@ -278,6 +283,7 @@ public class BulletController : MonoBehaviour
         _cameraRotationSpeed = 0f;
         MoveCamera(_cameraStartPos);
         Invoke("Shoot", 0.4f);
+        AudioManager.Instance.UnpauseWind();
         _camera.transform.localEulerAngles = Vector3.zero;
 
         _camera.transform.localPosition = Vector3.zero;
@@ -383,6 +389,8 @@ public class BulletController : MonoBehaviour
             if (TimeoutCounter <= 0)
             {
                 Shoot();
+                AudioManager.Instance.PlaySound("Shoot");
+                AudioManager.Instance.StartPlayingWind();
             }
         }
 
@@ -409,6 +417,8 @@ public class BulletController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Shoot();
+                AudioManager.Instance.PlaySound("Shoot");
+                AudioManager.Instance.StartPlayingWind();
             }
 
             if (Input.GetKeyDown(KeyCode.D))
@@ -418,8 +428,8 @@ public class BulletController : MonoBehaviour
         }
         else if (Moving && !(HUDManager.Instance.CurrentScreen == Screen.FinalScore))
         {
-            _rb.AddForce(transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 0.02f, ForceMode.Acceleration);
-            _virtualCamera.m_Lens.FieldOfView += _virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 0.02f;
+            _rb.AddForce((transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 8.25f) * Time.deltaTime, ForceMode.Acceleration);
+            _virtualCamera.m_Lens.FieldOfView += (_virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 8.25f)* Time.deltaTime;
             _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
 
             if (Velocity > _maxCurrentSpeed)
