@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Device;
 using UnityEngine.UI;
@@ -39,9 +40,16 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TMP_Text _bronzeMedalText = null;
     [SerializeField] private TMP_Text _silverMedalText = null;
     [SerializeField] private TMP_Text _goldMedalText = null;
+    [SerializeField] private Vector3 _startScaleFactor = Vector3.one;
+    [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
 
     [Header("Fade")]
-    [SerializeField] private Image _imageToFade = null; 
+    [SerializeField] private Image _imageToFade = null;
+
+    [Header("VFX Score")]
+    [SerializeField] private Image _scoreEndVFX;
+    [SerializeField] private Image _scoreHeadShotVFX;
+
 
     private Screen _currentScreen;
 
@@ -138,6 +146,23 @@ public class HUDManager : MonoBehaviour
 
 
     #region finalscorescreen
+
+    #region FeedBack
+
+    private void ScaleScoreUp(float scaleFactor)
+    {
+        _scoreText.gameObject.transform.localScale = Vector3.Lerp(_startScaleFactor, _endScaleFactor, scaleFactor);
+    }
+
+    private void ScaleScoreDown()
+    {
+        _scoreText.gameObject.transform.localScale = _startScaleFactor;
+        _scoreEndVFX.enabled = true;
+        //SFX satisfaisant/ feedback  ( je ne sais pas si il doit être placée là mais ça serais le plus logique )
+        AudioManager.Instance.PlaySound("ScoreScaleDown");
+    }
+
+    #endregion
     private void ShowCurrentScore()
     {
         _alpha = 0f;
@@ -195,23 +220,16 @@ public class HUDManager : MonoBehaviour
         _alpha = 0f;
         _finalScore = _score * _multiplier;
     }
-    #endregion finalscorescreen
 
-    public void DisplayKillScreen(int score)
+    //Fonction pour set le score à la fin
+    private void UpdateScoreAtEnd()
     {
-        ToggleScreen(Screen.Kill);
-        _killScore.text = score.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateHUD();
-
+        //Mettre ce qu'il y a dans le update pour afficher le score et l'update
         if (_finalScore > 0 && _alpha < 1)
         {
             _scoreText.text = Mathf.Round(Mathf.Lerp(_score, _finalScore, _alpha)).ToString();
             _alpha += 0.001f;
+
         }
 
         else if (_score > 0 && _alpha < 1)
@@ -219,6 +237,28 @@ public class HUDManager : MonoBehaviour
             _scoreText.text = Mathf.Round(Mathf.Lerp(0, _score, _alpha)).ToString();
             _alpha += 0.001f;
         }
+
+
+    }
+    #endregion finalscorescreen
+
+    public void DisplayKillScreen(int score, string bodypart)
+    {
+        ToggleScreen(Screen.Kill);
+        _killScore.text = score.ToString();
+        //afficher l'image (VFX) pour un headshot
+        if(bodypart == "Headshot")
+        {
+            //_scoreHeadShotVFX possède une animation au lancement de lui même
+            _scoreHeadShotVFX.enabled = true;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateHUD();
+        UpdateScoreAtEnd();
     }
 
     public IEnumerator FadeInOut()
