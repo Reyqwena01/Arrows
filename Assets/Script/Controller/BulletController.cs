@@ -349,10 +349,13 @@ public class BulletController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if(!_dropped && other.CompareTag("Enemy") || other.CompareTag("Head") || other.CompareTag("Torso") || other.CompareTag("Arm") || other.CompareTag("Leg"))
+        if(!_dropped && other.CompareTag("Enemy") && !_rewindTime.IsPlayingReverse)
         {
-            GameObject enemyObject = other.gameObject; 
-            Debug.Log(enemyObject.name);
+            GameObject enemyObject = other.gameObject;
+            EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
+            enemyController.SetRagdollOn();
+            Debug.Log("Hit");
+
         }
     }
 
