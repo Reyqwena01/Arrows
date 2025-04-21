@@ -348,7 +348,15 @@ public class BulletController : MonoBehaviour
             GetPowerUp(powerup.Type);
             Destroy(other.gameObject);
         }
+
+        if(!_dropped && other.CompareTag("Enemy") || other.CompareTag("Head") || other.CompareTag("Torso") || other.CompareTag("Arm") || other.CompareTag("Leg"))
+        {
+            GameObject enemyObject = other.gameObject; 
+            Debug.Log(enemyObject.name);
+        }
     }
+
+    #region Rewind
 
     public void Rewind()
     {
@@ -377,6 +385,8 @@ public class BulletController : MonoBehaviour
 
         _trailRenderer.enabled = true; 
     }
+
+    #endregion
 
     // Update is called once per frame
     void Update()
