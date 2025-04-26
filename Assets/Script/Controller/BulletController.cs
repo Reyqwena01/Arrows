@@ -349,12 +349,15 @@ public class BulletController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if(!_dropped && other.CompareTag("Enemy") && !_rewindTime.IsPlayingReverse)
+        if(!_dropped && other.CompareTag("Enemy"))
         {
             GameObject enemyObject = other.gameObject;
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
             enemyController.SetRagdollOn();
             Debug.Log("Hit");
+
+            CinemachineBasicMultiChannelPerlin cinemachine = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            
 
         }
     }
@@ -377,10 +380,6 @@ public class BulletController : MonoBehaviour
                 GameManager.Instance.ListEnemy[i].GetComponent<EnemyController>().SetRagdollOff();
             }
         }
-
-        //GameObject enemyChild = _enemyController.transform.GetChild(1).gameObject;
-        //enemyChild.transform.position = _enemyController.FirstPosition;
-        //enemyChild.GetComponent<Rigidbody>().freezeRotation = true; 
 
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
