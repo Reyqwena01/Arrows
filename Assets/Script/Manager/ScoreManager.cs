@@ -19,6 +19,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int _goldMedalMaxBounces = 5;
     [SerializeField] private int _goldMedalMultiplier = 4;
 
+    private List<int> _scoresOnKill = new List<int>();
+
     private static ScoreManager _instance = null;
 
     private int _bounces = 0;
@@ -42,6 +44,7 @@ public class ScoreManager : MonoBehaviour
     public int GoldMedalMultiplier { get => _goldMedalMultiplier; set => _goldMedalMultiplier = value; }
 
     public BulletController Bullet { get => _playerBullet; set => _playerBullet = value; }
+    public List<int> Scores { get => _scoresOnKill; set => _scoresOnKill = value; }
 
 
     // Start is called before the first frame update
@@ -54,7 +57,6 @@ public class ScoreManager : MonoBehaviour
     {
         _instance = FindObjectOfType<ScoreManager>();
         DontDestroyOnLoad(gameObject);
-        Score += 1570;
     }
 
     public int GetScoreOnKill(float speed, string bodypart)
@@ -84,6 +86,9 @@ public class ScoreManager : MonoBehaviour
                 AudioManager.Instance.PlayTimeSound("Limbshot");
                 break;
         }
+
+        Scores.Add((int)Mathf.Round(finalScore * speed));
+
         return (int)Mathf.Round(finalScore*speed);
     }
 

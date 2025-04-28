@@ -53,6 +53,10 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Image _scoreEndVFX;
     [SerializeField] private Image _scoreHeadShotVFX;
 
+    [Header("Tutorial")]
+    [SerializeField] private Canvas _bounceTutorial = null;
+    [SerializeField] private Canvas _targetTutorial = null;
+    private int _bounces = 0;
 
     private Screen _currentScreen;
 
@@ -71,6 +75,32 @@ public class HUDManager : MonoBehaviour
        
     }
 
+    public void ContinueTutorial()
+    {
+        if (_bounces > 4) return;
+
+        _bounces++;
+
+        switch (_bounces)
+        {
+            case 1:
+                _targetTutorial.enabled = false;
+                _bounceTutorial.enabled = true;
+                break;
+            case 2:
+                _bounceTutorial.enabled = false;
+                _targetTutorial.enabled = true;
+                break;
+            case 3:
+                _bounceTutorial.enabled = false;
+                _targetTutorial.enabled = true;
+                break;
+            case 4:
+                _bounceTutorial.enabled = false;
+                _targetTutorial.enabled = false;
+                break;
+        }
+    }
 
     public void Init()
     {

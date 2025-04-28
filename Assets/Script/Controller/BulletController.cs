@@ -188,6 +188,8 @@ public class BulletController : MonoBehaviour
     #region Bounce
     public void Bounce()
     {
+        HUDManager.Instance.ContinueTutorial();
+
         AudioManager.Instance.PlaySound("Bounce");
         AudioManager.Instance.StopPlayingWind();
 

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Play : MonoBehaviour
 {
+    private bool _hit = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,9 @@ public class Play : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_hit) return;
+        HUDManager.Instance.ContinueTutorial();
+        _hit = true;
         SceneManager.LoadScene("Level1");
     }
 }
