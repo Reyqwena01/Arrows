@@ -25,17 +25,19 @@ public class CameraBehavior : MonoBehaviour
 
     private void MoveCamera()
     {
-        if (CanMove) 
+        if (_globalLocation != null)
         {
-            transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
-        }
+            if (CanMove)
+            {
+                transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
+            }
 
-        if (Vector3.Distance(transform.position, _globalLocation.position) < 2.5f)
-        {
-            _rewindTime.IsPlayingReverse = !_rewindTime.IsPlayingReverse;
-            CanMove = false; 
+            if (Vector3.Distance(transform.position, _globalLocation.position) < 2.5f)
+            {
+                _rewindTime.IsPlayingReverse = !_rewindTime.IsPlayingReverse;
+                CanMove = false;
+            }
         }
-
     }
 
 
