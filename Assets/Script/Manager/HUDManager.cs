@@ -121,7 +121,7 @@ public class HUDManager : MonoBehaviour
         _killScreen.enabled = false;
         _aimScreen.enabled = false;
         _finalScoreScreen.enabled = false;
-        _scoreScreen.enabled = false;
+        _scoreScreen.enabled = false; 
         SetCrosshairVisibility(false);
 
         _currentScreen = screen;

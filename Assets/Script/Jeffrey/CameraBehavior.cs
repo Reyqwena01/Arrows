@@ -28,6 +28,7 @@ public class CameraBehavior : MonoBehaviour
         if (CanMove) 
         {
             transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
+            transform.rotation = Quaternion.Euler(90, 0, 0);
         }
 
         if (Vector3.Distance(transform.position, _globalLocation.position) < 2.5f)
