@@ -47,7 +47,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
 
     [Header("Fade")]
-    [SerializeField] private Image _imageToFade = null;
+    [SerializeField] private Animator _imageAnimator = null;
 
     [Header("VFX Score")]
     [SerializeField] private Image _scoreEndVFX;
@@ -121,6 +121,7 @@ public class HUDManager : MonoBehaviour
         _killScreen.enabled = false;
         _aimScreen.enabled = false;
         _finalScoreScreen.enabled = false;
+        _scoreScreen.enabled = false;
         SetCrosshairVisibility(false);
 
         _currentScreen = screen;
@@ -267,19 +268,8 @@ public class HUDManager : MonoBehaviour
         UpdateScoreAtEnd();
     }
 
-    public IEnumerator FadeInOut()
+    public void FadeInOut()
     {
-        Color c = _imageToFade.color;
-        c.a = 1.0f; 
-        c = Color.red;
-        yield return null; 
-
-        //for (float alpha = 0f; alpha <= 1.0f; alpha += 0.1f)
-        //{
-        //    c.a = alpha;
-        //    Debug.Log(c.a);
-        //    yield return null;
-        //}
-
+        _imageAnimator.SetTrigger("Fade");
     }
 }

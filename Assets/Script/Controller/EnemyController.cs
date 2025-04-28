@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
             //FIN DE NIVEAU
             Debug.Log("Level Finished");
 
-
+            HUDManager.Instance.FadeInOut();
             Invoke("StartRewind", 2f); //Attend 2 sec puis lance le rewind DEPUIS le début du lerp de la caméra
         }
     }
