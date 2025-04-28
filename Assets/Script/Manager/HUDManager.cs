@@ -77,9 +77,10 @@ public class HUDManager : MonoBehaviour
 
     public void ContinueTutorial()
     {
-        if (_bounces > 4) return;
+        if (_bounces > 5) return;
 
         _bounces++;
+        Debug.Log(_bounces);
 
         switch (_bounces)
         {
@@ -87,15 +88,11 @@ public class HUDManager : MonoBehaviour
                 _targetTutorial.enabled = false;
                 _bounceTutorial.enabled = true;
                 break;
-            case 2:
-                _bounceTutorial.enabled = false;
-                _targetTutorial.enabled = true;
-                break;
             case 3:
                 _bounceTutorial.enabled = false;
                 _targetTutorial.enabled = true;
                 break;
-            case 4:
+            case 5:
                 _bounceTutorial.enabled = false;
                 _targetTutorial.enabled = false;
                 break;

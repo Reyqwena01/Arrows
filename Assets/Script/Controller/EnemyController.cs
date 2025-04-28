@@ -26,10 +26,6 @@ public class EnemyController : MonoBehaviour
             {
                 Die((bullet.transform.position - transform.position).normalized, 50f);
             }
-            else if (IsDead)
-            {
-                bullet.Drop();
-            }
         }
     }
 

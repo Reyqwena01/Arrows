@@ -21,9 +21,8 @@ public class Play : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_hit) return;
         HUDManager.Instance.ContinueTutorial();
-        _hit = true;
+        HUDManager.Instance.ToggleScreen(Screen.Aim);
         SceneManager.LoadScene("Level1");
     }
 }
