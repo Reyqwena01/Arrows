@@ -166,7 +166,7 @@ public class HUDManager : MonoBehaviour
         _scoreText.gameObject.transform.localScale = _startScaleFactor;
         _scoreEndVFX.enabled = true;
         //SFX satisfaisant/ feedback  ( je ne sais pas si il doit être placée là mais ça serais le plus logique )
-        AudioManager.Instance.PlaySound("ScoreScaleDown");
+        //AudioManager.Instance.PlaySound("ScoreScaleDown");
     }
 
     #endregion
