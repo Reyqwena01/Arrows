@@ -387,6 +387,7 @@ public class BulletController : MonoBehaviour
         _camBehavior.CanMove = true;
         HUDManager.Instance.StartCoroutine(HUDManager.Instance.FadeInOut());
         _rewindTime.StartRewind();
+        HUDManager.Instance.ToggleScreen(Screen.Score);
 
         _trailRenderer.enabled = true; 
     }

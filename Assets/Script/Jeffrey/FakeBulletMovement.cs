@@ -74,8 +74,8 @@ public class FakeBulletMovement : MonoBehaviour
 
     public void EndLevel()
     {
-        Time.timeScale = 0f;
-        HUDManager.Instance.ToggleScreen(Screen.FinalScore);
+        //Time.timeScale = 0f;
+        //HUDManager.Instance.ToggleScreen(Screen.FinalScore);
     }
 
 

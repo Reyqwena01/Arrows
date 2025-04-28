@@ -40,6 +40,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TMP_Text _bronzeMedalText = null;
     [SerializeField] private TMP_Text _silverMedalText = null;
     [SerializeField] private TMP_Text _goldMedalText = null;
+
+    [Header("Score")]
+    [SerializeField] private Canvas _scoreScreen = null;
     [SerializeField] private Vector3 _startScaleFactor = Vector3.one;
     [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
 
@@ -140,6 +143,9 @@ public class HUDManager : MonoBehaviour
             case Screen.FinalScore:
                 _finalScoreScreen.enabled = true;
                 ShowCurrentScore();
+                break;
+            case Screen.Score:
+                _scoreScreen.enabled = true;
                 break;
         }
     }

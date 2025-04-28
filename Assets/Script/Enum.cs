@@ -10,6 +10,7 @@ public enum Screen
     Kill,
     Aim,
     FinalScore,
+    Score,
     None
 }
 
