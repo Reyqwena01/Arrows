@@ -122,7 +122,8 @@ public class RewindTime : MonoBehaviour
         PointInTime pointInTime = PointInTime1[lastIndex];
         transform.position = pointInTime._position;
         transform.rotation = pointInTime._rotation;
-        transform.LookAt(transform.forward); 
+        transform.LookAt(transform.forward);
+        AudioManager.Instance.StopPlayingWind(); 
     }
 
 

@@ -354,10 +354,12 @@ public class BulletController : MonoBehaviour
             GameObject enemyObject = other.gameObject;
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
             enemyController.SetRagdollOn();
+            
+            //CinemachineBasicMultiChannelPerlin cinemachineBasic = _cinemachineCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            //cinemachineBasic.m_AmplitudeGain = 2.5f;
+            //cinemachineBasic.m_FrequencyGain = 1.8f;
             Debug.Log("Hit");
 
-            CinemachineBasicMultiChannelPerlin cinemachine = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            
 
         }
     }
@@ -372,7 +374,8 @@ public class BulletController : MonoBehaviour
         cam.parent = null;
         _cameraEnd.enabled = true;
         _camBehavior.gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
-        
+        _camBehavior.gameObject.AddComponent<CinemachineVirtualCamera>();
+
         if (GameManager.Instance.ListEnemy.Count > 0)
         {
             for (int i = 0; i < GameManager.Instance.ListEnemy.Count; i++)
