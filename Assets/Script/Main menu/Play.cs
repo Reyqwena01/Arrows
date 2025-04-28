@@ -24,5 +24,6 @@ public class Play : MonoBehaviour
         HUDManager.Instance.ContinueTutorial();
         HUDManager.Instance.ToggleScreen(Screen.Aim);
         SceneManager.LoadScene("Level1");
+        GameManager.Instance.ListEnemy.Clear();
     }
 }

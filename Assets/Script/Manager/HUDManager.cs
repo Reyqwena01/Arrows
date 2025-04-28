@@ -45,6 +45,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Canvas _scoreScreen = null;
     [SerializeField] private Vector3 _startScaleFactor = Vector3.one;
     [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
+    [SerializeField] private GameObject _prefabScoreText = null; 
 
     [Header("Fade")]
     [SerializeField] private Animator _imageAnimator = null;
@@ -298,5 +299,14 @@ public class HUDManager : MonoBehaviour
     public void FadeInOut()
     {
         _imageAnimator.SetTrigger("Fade");
+    }
+
+    public void ShowEnemyScoreAtLocation(Vector3 location, string text)
+    {
+        GameObject scoreObject = Instantiate(_prefabScoreText, location, Quaternion.identity);
+        TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        scoreTxt.text = text;
+
+        Destroy(scoreObject, 1f); 
     }
 }
