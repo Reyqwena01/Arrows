@@ -25,7 +25,7 @@ public class CameraBehavior : MonoBehaviour
 
     private void MoveCamera()
     {
-        if (CanMove) 
+        if (CanMove && _globalLocation != null) 
         {
             transform.position = Vector3.Lerp(transform.position, _globalLocation.position, Time.deltaTime);
             transform.rotation = Quaternion.Euler(90, 0, 0);

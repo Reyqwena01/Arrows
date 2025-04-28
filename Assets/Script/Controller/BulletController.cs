@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class BulletController : MonoBehaviour
 {
@@ -80,6 +81,8 @@ public class BulletController : MonoBehaviour
 
     private Vector3 _cameraStartRot = Vector3.zero;
     private Vector3 _cameraTargetRot = Vector3.zero;
+
+    private bool _isShaking = false; 
     #endregion
 
     #region properties
@@ -353,13 +356,20 @@ public class BulletController : MonoBehaviour
             GameObject enemyObject = other.gameObject;
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
             enemyController.SetRagdollOn();
+            _isShaking = true;
 
-            CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            cinemachineBasic.m_AmplitudeGain = 2.5f;
-            cinemachineBasic.m_FrequencyGain = 1.8f;
+            StartCoroutine(ShakeCamera(0.25f));
             Debug.Log("Hit");
 
 
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!_dropped && other.CompareTag("Enemy"))
+        {
+            _isShaking = false; 
         }
     }
 
@@ -385,6 +395,27 @@ public class BulletController : MonoBehaviour
         _rewindTime.StartRewind();
         HUDManager.Instance.ToggleScreen(Screen.Score);
         _trailRenderer.enabled = true; 
+    }
+
+    private IEnumerator ShakeCamera(float delay)
+    {
+        CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        if(_isShaking)
+        {
+            cinemachineBasic.m_AmplitudeGain = 2.5f;
+            cinemachineBasic.m_FrequencyGain = 1.8f;
+        }
+
+        yield return new WaitForSeconds(delay);
+
+        _isShaking = false;
+        cinemachineBasic.m_AmplitudeGain = 0f;
+        cinemachineBasic.m_FrequencyGain = 0f;
+
+
+        Debug.Log("Fin du shake");
+
     }
 
     #endregion
@@ -506,5 +537,6 @@ public class BulletController : MonoBehaviour
             }
         }
     }
+
 
 }
