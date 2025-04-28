@@ -1,1 +1,2 @@
-Assets/Scenes/Levels/MainMenu.unity
+Assets/Scenes/Levels/Level1.unity
+Assets/Scenes/Levels/PersistanteScene.unity

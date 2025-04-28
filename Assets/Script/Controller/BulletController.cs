@@ -33,7 +33,6 @@ public class BulletController : MonoBehaviour
     [Space(10)]
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Camera _dropCamera = null;
-    [SerializeField] private Camera _cameraEnd = null; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera = null;
     [SerializeField] private RewindTime _rewindTime = null;
     [SerializeField] private CameraBehavior _camBehavior = null;
@@ -354,10 +353,10 @@ public class BulletController : MonoBehaviour
             GameObject enemyObject = other.gameObject;
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
             enemyController.SetRagdollOn();
-            
-            //CinemachineBasicMultiChannelPerlin cinemachineBasic = _cinemachineCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            //cinemachineBasic.m_AmplitudeGain = 2.5f;
-            //cinemachineBasic.m_FrequencyGain = 1.8f;
+
+            CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            cinemachineBasic.m_AmplitudeGain = 2.5f;
+            cinemachineBasic.m_FrequencyGain = 1.8f;
             Debug.Log("Hit");
 
 
@@ -370,11 +369,9 @@ public class BulletController : MonoBehaviour
     {
         //_camera.enabled = false;
         BulletTrail.SetActive(false); // ??? pourquoi le set a false 
-        Transform cam = gameObject.transform.GetChild(4);
+        Transform cam = gameObject.transform.GetChild(1);
         cam.parent = null;
-        _cameraEnd.enabled = true;
-        _camBehavior.gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
-        _camBehavior.gameObject.AddComponent<CinemachineVirtualCamera>();
+
 
         if (GameManager.Instance.ListEnemy.Count > 0)
         {
