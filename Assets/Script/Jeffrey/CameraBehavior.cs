@@ -31,10 +31,12 @@ public class CameraBehavior : MonoBehaviour
             transform.rotation = Quaternion.Euler(90, 0, 0);
         }
 
-        if (Vector3.Distance(transform.position, _globalLocation.position) < 2.5f)
+        if (Vector3.Distance(transform.position, _globalLocation.position) < 2.5f && Vector3.Distance(transform.position, _globalLocation.position) > 0f)
         {
             _rewindTime.IsPlayingReverse = !_rewindTime.IsPlayingReverse;
-            CanMove = false; 
+            CanMove = false;
+            HUDManager.Instance.ToggleScreen(Screen.Score);
+            
         }
 
     }
