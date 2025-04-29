@@ -303,7 +303,8 @@ public class HUDManager : MonoBehaviour
 
     public void ShowEnemyScoreAtLocation(Vector3 location, string text)
     {
-        GameObject scoreObject = Instantiate(_prefabScoreText, location, Quaternion.identity);
+        
+        GameObject scoreObject = Instantiate(_prefabScoreText, location, Quaternion.Euler(75, 0, 0));
         TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         scoreTxt.text = text;
 

@@ -172,6 +172,7 @@ MonoBehaviour:
   _silverMedalMultiplier: 3
   _goldMedalMaxBounces: 0
   _goldMedalMultiplier: 4
+  _scoresOnKill: 
 --- !u!1 &75384334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,6 +2955,7 @@ MonoBehaviour:
   _scoreScreen: {fileID: 2060143909}
   _startScaleFactor: {x: 1, y: 1, z: 1}
   _endScaleFactor: {x: 1, y: 1, z: 1}
+  _prefabScoreText: {fileID: 4206037792548979846}
   _imageAnimator: {fileID: 1451129986}
   _scoreEndVFX: {fileID: 0}
   _scoreHeadShotVFX: {fileID: 0}
@@ -4457,11 +4459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4473,15 +4475,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8526402
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.5224985
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalRotation.y
@@ -4501,7 +4503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4520,6 +4522,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+--- !u!1 &4206037792548979846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8085789273631411866, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+  m_PrefabInstance: {fileID: 4206037792548979845}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

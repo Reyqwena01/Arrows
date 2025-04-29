@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int _goldMedalMaxBounces = 5;
     [SerializeField] private int _goldMedalMultiplier = 4;
 
-    private List<int> _scoresOnKill = new List<int>();
+    [SerializeField] private List<int> _scoresOnKill = new List<int>();
 
     private static ScoreManager _instance = null;
 

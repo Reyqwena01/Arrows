@@ -360,6 +360,13 @@ public class BulletController : MonoBehaviour
             enemyController.SetRagdollOn();
             _isShaking = true;
 
+            HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+            
+            if (ScoreManager.Instance.Scores.Count > 1)
+            {
+                ScoreManager.Instance.Scores.RemoveAt(0);
+            }
+
             StartCoroutine(ShakeCamera(0.25f));
             Debug.Log("Hit");
 
