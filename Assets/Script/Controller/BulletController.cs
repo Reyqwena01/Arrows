@@ -390,6 +390,9 @@ public class BulletController : MonoBehaviour
         BulletTrail.SetActive(false); // ??? pourquoi le set a false 
         Transform cam = gameObject.transform.GetChild(1);
         cam.parent = null;
+        
+        CinemachineVirtualCamera cinemachine = cam.GetComponent<CinemachineVirtualCamera>();
+        cinemachine.m_Lens.FieldOfView = 60; 
 
 
         if (GameManager.Instance.ListEnemy.Count > 0)
@@ -420,10 +423,6 @@ public class BulletController : MonoBehaviour
         _isShaking = false;
         cinemachineBasic.m_AmplitudeGain = 0f;
         cinemachineBasic.m_FrequencyGain = 0f;
-
-
-        Debug.Log("Fin du shake");
-
     }
 
     #endregion
