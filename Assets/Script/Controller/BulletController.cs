@@ -361,6 +361,7 @@ public class BulletController : MonoBehaviour
             _isShaking = true;
 
             HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+            HUDManager.Instance.CallLerpCoroutine(); 
             
             if (ScoreManager.Instance.Scores.Count > 1)
             {

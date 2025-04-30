@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Device;
@@ -45,7 +46,8 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Canvas _scoreScreen = null;
     [SerializeField] private Vector3 _startScaleFactor = Vector3.one;
     [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
-    [SerializeField] private GameObject _prefabScoreText = null; 
+    [SerializeField] private GameObject _prefabScoreText = null;
+    [SerializeField] private TMP_Text _scoreCumulatedText = null;
 
     [Header("Fade")]
     [SerializeField] private Animator _imageAnimator = null;
@@ -65,15 +67,18 @@ public class HUDManager : MonoBehaviour
     private int _multiplier = 1;
     private int _finalScore = 0;
     private float _alpha = 0f;
+    private bool _isScoreLerping = false;
+    private int _scoreCumulated = 0; 
 
     public static HUDManager Instance { get => _instance; set => _instance = value; }
     public BulletController Bullet { get => _playerBullet; set => _playerBullet = value; }
-    public Screen CurrentScreen { get => _currentScreen;}
+    public Screen CurrentScreen { get => _currentScreen; }
+    public bool IsScoreLerping { get => _isScoreLerping; set => _isScoreLerping = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        IsScoreLerping = false; 
     }
 
     public void ContinueTutorial()
@@ -126,7 +131,7 @@ public class HUDManager : MonoBehaviour
         switch (power)
         {
             case Power.Wind:
-                _powerUpWind.enabled = value; 
+                _powerUpWind.enabled = value;
                 break;
             case Power.Pierce:
                 _powerUpPierce.enabled = value;
@@ -149,7 +154,7 @@ public class HUDManager : MonoBehaviour
         _killScreen.enabled = false;
         _aimScreen.enabled = false;
         _finalScoreScreen.enabled = false;
-        _scoreScreen.enabled = false; 
+        _scoreScreen.enabled = false;
         SetCrosshairVisibility(false);
 
         _currentScreen = screen;
@@ -282,7 +287,7 @@ public class HUDManager : MonoBehaviour
         ToggleScreen(Screen.Kill);
         _killScore.text = score.ToString();
         //afficher l'image (VFX) pour un headshot
-        if(bodypart == "Headshot")
+        if (bodypart == "Headshot")
         {
             //_scoreHeadShotVFX possède une animation au lancement de lui même
             _scoreHeadShotVFX.enabled = true;
@@ -294,6 +299,7 @@ public class HUDManager : MonoBehaviour
     {
         UpdateHUD();
         UpdateScoreAtEnd();
+        UpdateScoreCumulated();
     }
 
     public void FadeInOut()
@@ -305,11 +311,48 @@ public class HUDManager : MonoBehaviour
     {
 
         Vector3 offset = new Vector3(0, 0, 20);
-        
+
         GameObject scoreObject = Instantiate(_prefabScoreText, location - offset, Quaternion.Euler(75, 0, 0));
         TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         scoreTxt.text = text;
 
-        Destroy(scoreObject, 1f); 
+        Destroy(scoreObject, 1f);
+    }
+
+    private void UpdateScoreCumulated()
+    {
+        if (IsScoreLerping)
+        {
+            float currentLerpTime = 0f;
+            float lerpValue = 1f; 
+            currentLerpTime += Time.deltaTime;
+
+            if (currentLerpTime > lerpValue) { currentLerpTime = lerpValue; }
+            
+            float perc = currentLerpTime/lerpValue;
+
+            _scoreCumulatedText.text = _scoreCumulated.ToString();
+        }
+
+        
+    }
+
+    public void CallLerpCoroutine()
+    {
+        StartCoroutine(LerpScore(0.75f));
+        _scoreCumulated += ScoreManager.Instance.Scores[0]; 
+    }
+
+    private IEnumerator LerpScore(float delay)
+    {
+        
+        IsScoreLerping = true;
+        yield return new WaitForSeconds(delay);
+        IsScoreLerping = false; 
+
+        //if (IsScoreLerping)
+        //{
+        //    _scoreCumulatedText.text = Mathf.Round(Mathf.Lerp(_score, _finalScore, 0.001f)).ToString();
+        //}
     }
 }
