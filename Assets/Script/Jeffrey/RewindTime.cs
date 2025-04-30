@@ -81,7 +81,7 @@ public class RewindTime : MonoBehaviour
 
     private void Record()
     {
-        if (PointInTime1.Count > Mathf.Round(20f / Time.fixedDeltaTime))
+        if (PointInTime1.Count > Mathf.Round(40f / Time.fixedDeltaTime))
         {
             PointInTime1.RemoveAt(0); 
         }

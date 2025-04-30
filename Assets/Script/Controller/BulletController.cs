@@ -405,7 +405,7 @@ public class BulletController : MonoBehaviour
 
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
-        _trailRenderer.enabled = true; 
+        if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
     private IEnumerator ShakeCamera(float delay)
