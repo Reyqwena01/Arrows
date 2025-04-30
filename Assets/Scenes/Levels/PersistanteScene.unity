@@ -1662,7 +1662,7 @@ GameObject:
   - component: {fileID: 1078145907}
   - component: {fileID: 1078145906}
   m_Layer: 5
-  m_Name: ScoreScreen
+  m_Name: MergedScoreScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4512,6 +4512,14 @@ PrefabInstance:
     - target: {fileID: 5416758378148978887, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554134494191392560, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554134494191392560, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8085789273631411866, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_Name
