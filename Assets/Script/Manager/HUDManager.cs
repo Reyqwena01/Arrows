@@ -47,6 +47,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Vector3 _startScaleFactor = Vector3.one;
     [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
     [SerializeField] private GameObject _prefabScoreText = null;
+    [SerializeField] private GameObject _prefabDamageScore = null; 
     [SerializeField] private TMP_Text _scoreCumulatedText = null;
 
     [Header("Fade")]
@@ -311,10 +312,13 @@ public class HUDManager : MonoBehaviour
     {
 
         Vector3 offset = new Vector3(0, 0, 20);
+        Vector3 offsetDamage = new Vector3(0, 0, 30);
 
         GameObject scoreObject = Instantiate(_prefabScoreText, location - offset, Quaternion.Euler(75, 0, 0));
         TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         scoreTxt.text = text;
+
+        GameObject damageObject = Instantiate(_prefabDamageScore, location, Quaternion.Euler(90, 0, 0)); 
 
         Destroy(scoreObject, 1f);
     }
