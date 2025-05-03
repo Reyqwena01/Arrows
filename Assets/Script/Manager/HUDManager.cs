@@ -49,6 +49,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject _prefabScoreText = null;
     [SerializeField] private GameObject _prefabDamageScore = null; 
     [SerializeField] private TMP_Text _scoreCumulatedText = null;
+    [SerializeField] private Animator _scoreMergedAnimator = null; 
 
     [Header("Fade")]
     [SerializeField] private Animator _imageAnimator = null;
@@ -79,7 +80,8 @@ public class HUDManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        IsScoreLerping = false; 
+        IsScoreLerping = false;
+        _scoreCumulatedText.text = 0.ToString();
     }
 
     public void ContinueTutorial()
@@ -300,13 +302,15 @@ public class HUDManager : MonoBehaviour
     {
         UpdateHUD();
         UpdateScoreAtEnd();
-        UpdateScoreCumulated();
+        //UpdateScoreCumulated();
     }
 
     public void FadeInOut()
     {
         _imageAnimator.SetTrigger("Fade");
     }
+
+    #region ScoreRewind
 
     public void ShowEnemyScoreAtLocation(Vector3 location, string text)
     {
@@ -316,9 +320,9 @@ public class HUDManager : MonoBehaviour
 
         GameObject scoreObject = Instantiate(_prefabScoreText, location - offset, Quaternion.Euler(75, 0, 0));
         TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        scoreTxt.text = text;
+        scoreTxt.text = "+ " + text;
 
-        GameObject damageObject = Instantiate(_prefabDamageScore, location, Quaternion.Euler(90, 0, 0)); 
+        GameObject damageObject = Instantiate(_prefabDamageScore, location, Quaternion.Euler(90, 0, 0));
 
         Destroy(scoreObject, 1f);
     }
@@ -336,22 +340,25 @@ public class HUDManager : MonoBehaviour
             float perc = currentLerpTime/lerpValue;
 
             _scoreCumulatedText.text = _scoreCumulated.ToString();
-        }
-
-        
+        }     
     }
 
     public void CallLerpCoroutine()
     {
         StartCoroutine(LerpScore(0.75f));
-        _scoreCumulated += ScoreManager.Instance.Scores[0]; 
+        _scoreCumulated += ScoreManager.Instance.Scores[0];
+        _scoreCumulatedText.text = _scoreCumulated.ToString();
     }
 
     private IEnumerator LerpScore(float delay)
     {
         
         IsScoreLerping = true;
+        _scoreMergedAnimator.SetBool("CanAnimBool", true);
+        
         yield return new WaitForSeconds(delay);
+        
+        _scoreMergedAnimator.SetBool("CanAnimBool", false);
         IsScoreLerping = false; 
 
         //if (IsScoreLerping)
@@ -359,4 +366,6 @@ public class HUDManager : MonoBehaviour
         //    _scoreCumulatedText.text = Mathf.Round(Mathf.Lerp(_score, _finalScore, 0.001f)).ToString();
         //}
     }
+
+    #endregion
 }

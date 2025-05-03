@@ -1661,6 +1661,7 @@ GameObject:
   - component: {fileID: 1078145908}
   - component: {fileID: 1078145907}
   - component: {fileID: 1078145906}
+  - component: {fileID: 1078145909}
   m_Layer: 5
   m_Name: MergedScoreScreen
   m_TagString: Untagged
@@ -1678,14 +1679,14 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1366263006}
   m_Father: {fileID: 1911535530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -271, y: -44}
+  m_AnchoredPosition: {x: -240, y: -44}
   m_SizeDelta: {x: 800, y: 810.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1078145906
@@ -1751,6 +1752,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &1078145909
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078145904}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42564ff7e0cc5344e95569e7f2489d94, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1125926093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2959,6 +2981,7 @@ MonoBehaviour:
   _prefabScoreText: {fileID: 4206037792548979846}
   _prefabDamageScore: {fileID: 1941739703}
   _scoreCumulatedText: {fileID: 1366263007}
+  _scoreMergedAnimator: {fileID: 1078145909}
   _imageAnimator: {fileID: 1451129986}
   _scoreEndVFX: {fileID: 0}
   _scoreHeadShotVFX: {fileID: 0}
