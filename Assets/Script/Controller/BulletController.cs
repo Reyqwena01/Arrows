@@ -121,6 +121,7 @@ public class BulletController : MonoBehaviour
 
     public bool Moving { get => _moving; set => _moving = value; }
     public GameObject BulletTrail { get => _bulletTrail; set => _bulletTrail = value; }
+    public bool IsShaking { get => _isShaking; set => _isShaking = value; }
 
     #endregion properties
 
@@ -390,21 +391,21 @@ public class BulletController : MonoBehaviour
 
         if(!_dropped && other.CompareTag("Enemy"))
         {
-            GameObject enemyObject = other.gameObject;
-            EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
-            enemyController.SetRagdollOn();
-            _isShaking = true;
+            //GameObject enemyObject = other.gameObject;
+            //EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
+            //enemyController.SetRagdollOn();
+            //IsShaking = true;
 
-            HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
-            HUDManager.Instance.CallLerpCoroutine(); 
+            //HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+            //HUDManager.Instance.CallLerpCoroutine(); 
             
-            if (ScoreManager.Instance.Scores.Count > 1)
-            {
-                ScoreManager.Instance.Scores.RemoveAt(0);
-            }
+            //if (ScoreManager.Instance.Scores.Count > 1)
+            //{
+            //    ScoreManager.Instance.Scores.RemoveAt(0);
+            //}
 
-            StartCoroutine(ShakeCamera(0.25f));
-            Debug.Log("Hit");
+            //StartCoroutine(ShakeCamera(0.25f));
+            //Debug.Log("Hit");
 
 
         }
@@ -414,7 +415,7 @@ public class BulletController : MonoBehaviour
     {
         if (!_dropped && other.CompareTag("Enemy"))
         {
-            _isShaking = false; 
+            IsShaking = false; 
         }
     }
 
@@ -441,15 +442,14 @@ public class BulletController : MonoBehaviour
 
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
-        Debug.Log("Le trail est" + _trailRenderer.name);
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
-    private IEnumerator ShakeCamera(float delay)
+    public IEnumerator ShakeCamera(float delay)
     {
         CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        if(_isShaking)
+        if(IsShaking)
         {
             cinemachineBasic.m_AmplitudeGain = 2.5f;
             cinemachineBasic.m_FrequencyGain = 1.8f;
@@ -457,7 +457,7 @@ public class BulletController : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        _isShaking = false;
+        IsShaking = false;
         cinemachineBasic.m_AmplitudeGain = 0f;
         cinemachineBasic.m_FrequencyGain = 0f;
     }

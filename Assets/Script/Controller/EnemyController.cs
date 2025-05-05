@@ -42,9 +42,6 @@ public class EnemyController : MonoBehaviour
             {
                 BulletController bullet = other.gameObject.GetComponent<BulletController>();
 
-                //GameObject enemyObject = other.gameObject;
-                //EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
-                //enemyController.SetRagdollOn();
                 SetRagdollOn();
 
                 switch (Random.Range(1, 3))
@@ -57,7 +54,7 @@ public class EnemyController : MonoBehaviour
                         AudioManager.Instance.PlayTimeSound("RewindKill3"); break;
                 }
 
-                //bullet.IsShaking = true;
+                bullet.IsShaking = true;
 
                 HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
                 HUDManager.Instance.CallLerpCoroutine();
@@ -67,8 +64,7 @@ public class EnemyController : MonoBehaviour
                     ScoreManager.Instance.Scores.RemoveAt(0);
                 }
 
-                //StartCoroutine(ShakeCamera(0.25f));
-                //bullet.CallCoroutineShakeCamera();
+                bullet.StartCoroutine(bullet.ShakeCamera(0.25f));
 
                 Debug.Log("Hit");
             }

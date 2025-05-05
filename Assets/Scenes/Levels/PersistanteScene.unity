@@ -2999,6 +2999,7 @@ MonoBehaviour:
   _prefabDamageScore: {fileID: 1941739703}
   _scoreCumulatedText: {fileID: 1366263007}
   _scoreMergedAnimator: {fileID: 1078145909}
+  _VFXRewind: {fileID: 208803348304041165, guid: 6b5954e832fb7ce48ac622c5d314c798, type: 3}
   _imageAnimator: {fileID: 1451129986}
   _scoreEndVFX: {fileID: 0}
   _scoreHeadShotVFX: {fileID: 0}
