@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     
     private Rigidbody[] _rigidbodys = null;
     private Vector3 _firstPosition; 
-    private List<bool> _animationBoolList = new List<bool>();
+    private List<string> _animationBoolList = new List<string>();
 
     public bool IsDead { get => _isDead; set => _isDead = value; }
     public Vector3 FirstPosition { get => _firstPosition; set => _firstPosition = value; }
@@ -120,7 +120,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        AddAnimatorBoolToList();
+        AddAnimatorNameBoolToList();
     }
 
 
@@ -129,6 +129,7 @@ public class EnemyController : MonoBehaviour
         FirstPosition = transform.position;
         GameManager.Instance.ListEnemy.Insert(0, this);
         SetRagdollOff();
+        _animator.SetBool("Music", true);
     }
 
     // Update is called once per frame
@@ -148,21 +149,21 @@ public class EnemyController : MonoBehaviour
         SetEnemiesAnimation();
     }
 
-    private void AddAnimatorBoolToList()
+    private void AddAnimatorNameBoolToList()
     {
-        _animationBoolList.Add(_animator.GetBool("Sad"));
-        _animationBoolList.Add(_animator.GetBool("Drunk"));
-        _animationBoolList.Add(_animator.GetBool("Idle"));
-        _animationBoolList.Add(_animator.GetBool("Bored"));
-        _animationBoolList.Add(_animator.GetBool("Music"));
-        _animationBoolList.Add(_animator.GetBool("LookAround"));
+        _animationBoolList.Add("Sad");
+        _animationBoolList.Add("Drunk");
+        _animationBoolList.Add("Idle");
+        _animationBoolList.Add("Bored");
+        _animationBoolList.Add("Music");
+        _animationBoolList.Add("LookAround");
     }
-
 
     private void SetEnemiesAnimation()
     {
         int i = Random.Range(0,_animationBoolList.ToArray().Length);
-        _animationBoolList[i] = true;
+        _animator.SetBool(_animationBoolList[i], true);
+        
     }
     #endregion
 }
