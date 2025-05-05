@@ -1800,14 +1800,14 @@ RectTransform:
   m_GameObject: {fileID: 1125926093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.5, y: 4.54, z: 3.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1182536563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.5, y: -1.5}
+  m_AnchoredPosition: {x: 277, y: 22}
   m_SizeDelta: {x: -135, y: -7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125926095
@@ -1996,7 +1996,7 @@ GameObject:
   - component: {fileID: 1182536567}
   - component: {fileID: 1182536566}
   m_Layer: 5
-  m_Name: '[PLACEHOLDER_SCORE_TEXT]'
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2145,7 +2145,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 42d144ef69d7fc041bcfe684e97788b9, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2313,7 +2313,7 @@ MonoBehaviour:
   - ID: Bounce
     Clip: {fileID: 8300000, guid: 6ed0e9f7779ca8046bf03d2d442cab49, type: 3}
   - ID: Headshot
-    Clip: {fileID: 8300000, guid: 01b983f0a3f4ca04ba47f7649d6c5c1f, type: 3}
+    Clip: {fileID: 8300000, guid: 56b881fd9660c664e8613d5c59cdd000, type: 3}
   - ID: Bodyshot
     Clip: {fileID: 8300000, guid: a5d31ba8593330040b47d89d4a9fefed, type: 3}
   - ID: Limbshot
@@ -2333,7 +2333,7 @@ MonoBehaviour:
   - ID: ScoreScaleDown
     Clip: {fileID: 8300000, guid: 9a3988b3ce8176d46920e40ae646946e, type: 3}
   - ID: HeadShotScore
-    Clip: {fileID: 8300000, guid: 9a3988b3ce8176d46920e40ae646946e, type: 3}
+    Clip: {fileID: 8300000, guid: 4f0f4e295fca0174bacb0a04acdb114b, type: 3}
   - ID: Whip
     Clip: {fileID: 8300000, guid: ff2d6d25b69db754c919bd88c3a26e05, type: 3}
   - ID: RewindKill1
@@ -2759,14 +2759,14 @@ RectTransform:
   m_GameObject: {fileID: 1309538379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1182536563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_AnchoredPosition: {x: 86, y: 275}
   m_SizeDelta: {x: -150, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309538381
@@ -2980,6 +2980,7 @@ MonoBehaviour:
   _velocityGradientEnd: {r: 0.8773585, g: 0.22761661, b: 0.22761661, a: 1}
   _killScreen: {fileID: 1535168099}
   _killScore: {fileID: 1182536565}
+  _scoreAnimator: {fileID: 1182536567}
   _aimScreen: {fileID: 1281424116}
   _aimTimer: {fileID: 1679687949}
   _aimTimerGoodColor: {r: 0.26400197, g: 0.6064689, b: 0.26400197, a: 1}
@@ -3080,8 +3081,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8e85feb7684c1a0468ef2d3e60a91215, type: 2}
+  m_sharedMaterial: {fileID: -8925160912900079055, guid: 8e85feb7684c1a0468ef2d3e60a91215, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3141,7 +3142,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -54.38977, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4072,14 +4073,14 @@ RectTransform:
   m_GameObject: {fileID: 1993956393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.5, y: 4.89, z: 3.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1182536563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -70, y: -7.5}
+  m_AnchoredPosition: {x: -291, y: 71}
   m_SizeDelta: {x: -160, y: -25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1993956395
@@ -4645,6 +4646,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 3138554605364724015, guid: 5c64d7d2d84275d4d98fa67d7137443c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138554605364724015, guid: 5c64d7d2d84275d4d98fa67d7137443c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138554605364724015, guid: 5c64d7d2d84275d4d98fa67d7137443c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5059828241147290227, guid: 5c64d7d2d84275d4d98fa67d7137443c, type: 3}
       propertyPath: m_Name
       value: DamageScreen
@@ -4833,6 +4846,18 @@ PrefabInstance:
     - target: {fileID: 8085789273631411866, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
       propertyPath: m_Name
       value: ScoreScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8480456448467863460, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8e85feb7684c1a0468ef2d3e60a91215, type: 2}
+    - target: {fileID: 8480456448467863460, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -8925160912900079055, guid: 8e85feb7684c1a0468ef2d3e60a91215, type: 2}
+    - target: {fileID: 8480456448467863460, guid: a1f35752286223c4cbfd1f7d2cd76669, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

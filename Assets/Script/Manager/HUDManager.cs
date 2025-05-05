@@ -30,6 +30,7 @@ public class HUDManager : MonoBehaviour
     [Header("Kill")]
     [SerializeField] private Canvas _killScreen = null;
     [SerializeField] private TMP_Text _killScore = null;
+    [SerializeField] private Animator _scoreAnimator = null;
 
     [Header("Aim")]
     [SerializeField] private Canvas _aimScreen = null;
@@ -81,6 +82,7 @@ public class HUDManager : MonoBehaviour
     public Screen CurrentScreen { get => _currentScreen; }
     public bool IsScoreLerping { get => _isScoreLerping; set => _isScoreLerping = value; }
     public TMP_Text AimTimer { get => _aimTimer; set => _aimTimer = value; }
+    public Animator ScoreAnimator { get => _scoreAnimator; set => _scoreAnimator = value; }
 
     // Start is called before the first frame update
     void Start()

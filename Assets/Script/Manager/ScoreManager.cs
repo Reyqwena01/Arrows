@@ -72,6 +72,7 @@ public class ScoreManager : MonoBehaviour
             case "Head":
                 finalScore = 50;
                 AudioManager.Instance.PlayTimeSound("Headshot");
+                HUDManager.Instance.ScoreAnimator.SetTrigger("Headshot");
                 break;
             case "Torso":
                 finalScore = 20;
