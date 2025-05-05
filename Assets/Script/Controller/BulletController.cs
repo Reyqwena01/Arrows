@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.SceneManagement;
 
 public class BulletController : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class BulletController : MonoBehaviour
     [Header("Kill")]
     [SerializeField] private float _killCameraDistance = 30f;
     private Vector3 _orbitalVector;
+
+    [Header("Menu")]
+    [SerializeField] private bool _isInMenu = false;
     #endregion
 
     #region references
@@ -313,15 +317,21 @@ public class BulletController : MonoBehaviour
         _dropCamera.enabled = true;
         Moving = false; 
 
-        HUDManager.Instance.ToggleScreen(Screen.GameOver);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void Start()
     {
+
+
        GameManager.Instance.SetBulletController(this);
-        _camera.enabled = true;
-        _virtualCamera.Follow = null;
-        Cursor.visible = false;
+       _camera.enabled = true;
+       _virtualCamera.Follow = null;
+       Cursor.visible = false;
+
+        HUDManager.Instance.ToggleScreen(Screen.Aim);
+        HUDManager.Instance.AimTimer.enabled = false;
+        AudioManager.Instance.StopPlayingWind();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -457,9 +467,8 @@ public class BulletController : MonoBehaviour
             RaycastHit hit;
             Physics.Raycast(transform.position, transform.forward, out hit, 1000f, _raycastLayer);
 
-            if (hit.collider != null && !_aimAssistActive && (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Head") || hit.collider.CompareTag("Torso") || hit.collider.CompareTag("Arm") || hit.collider.CompareTag("Leg")))
+            if (hit.collider != null && !_aimAssistActive && (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Head") || hit.collider.CompareTag("Torso") || hit.collider.CompareTag("Arm") || hit.collider.CompareTag("Leg") || hit.collider.CompareTag("Sign")))
             {
-                Debug.Log("Aim assist active");
                 _aimAssistActive = true;
                 _sensitivity /= _aimAssistStrength;
             }
@@ -472,7 +481,7 @@ public class BulletController : MonoBehaviour
             _rotationY += Input.GetAxis("Mouse X") * _sensitivity;
             _rotationX += Input.GetAxis("Mouse Y") * -1 * _sensitivity;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && (_isInMenu == false || _aimAssistActive))
             {
                 Shoot();
                 AudioManager.Instance.PlaySound("Shoot");
@@ -519,7 +528,7 @@ public class BulletController : MonoBehaviour
 
             if (hit.collider != null && hit.collider.CompareTag("Bouncy"))
             {
-                _camera.transform.position = new Vector3(hit.point.x - 2f, hit.point.y, hit.point.z);
+                _camera.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
             }
             else
             {

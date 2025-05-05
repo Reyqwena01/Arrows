@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Play : MonoBehaviour
 {
+    [SerializeField] private string _firstLevel = string.Empty;
     private bool _hit = false;
 
     // Start is called before the first frame update
@@ -23,7 +24,7 @@ public class Play : MonoBehaviour
     {
         HUDManager.Instance.ContinueTutorial();
         HUDManager.Instance.ToggleScreen(Screen.Aim);
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(_firstLevel);
         GameManager.Instance.ListEnemy.Clear();
     }
 }

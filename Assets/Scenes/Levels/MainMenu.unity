@@ -838,6 +838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Sign (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a8a84d002dd11248a921deb4872917b, type: 3}
+      propertyPath: m_TagString
+      value: Sign
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1900,7 +1904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0a8a84d002dd11248a921deb4872917b, type: 3}
       propertyPath: m_TagString
-      value: Bouncy
+      value: Sign
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1959,6 +1963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5dd148a0d6e2144bc71c76d75090dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _firstLevel: Level1
 --- !u!1001 &945909407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3516,6 +3521,10 @@ PrefabInstance:
     - target: {fileID: 3578089628362174631, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550925386468569817, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _isInMenu
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8829254772636507058, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation

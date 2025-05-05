@@ -34,6 +34,10 @@ public class HUDManager : MonoBehaviour
     [Header("Aim")]
     [SerializeField] private Canvas _aimScreen = null;
     [SerializeField] private TMP_Text _aimTimer = null;
+    [SerializeField] private Color _aimTimerGoodColor = Color.green;
+    [SerializeField] private Color _aimTimerBadColor = Color.yellow;
+    [SerializeField] private Color _aimTimerVeryBadColor = Color.red;
+    [SerializeField] private Animator _timerAnimator = null;
 
     [Header("Final Score")]
     [SerializeField] private Canvas _finalScoreScreen = null;
@@ -76,6 +80,7 @@ public class HUDManager : MonoBehaviour
     public BulletController Bullet { get => _playerBullet; set => _playerBullet = value; }
     public Screen CurrentScreen { get => _currentScreen; }
     public bool IsScoreLerping { get => _isScoreLerping; set => _isScoreLerping = value; }
+    public TMP_Text AimTimer { get => _aimTimer; set => _aimTimer = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -147,7 +152,22 @@ public class HUDManager : MonoBehaviour
         _velocity.text = _playerBullet.Velocity.ToString();
         _velocity.color = Color.Lerp(_velocityGradientStart, _velocityGradientEnd, _playerBullet.CurrentSpeedPerc);
 
-        _aimTimer.text = Mathf.Round(_playerBullet.TimeoutCounter).ToString();
+        if (_playerBullet.TimeoutCounter > 4)
+        {
+            AimTimer.color = _aimTimerGoodColor;
+        }
+        else if (_playerBullet.TimeoutCounter > 2)
+        {
+            AimTimer.color = _aimTimerBadColor;
+        }
+        else
+        {
+            AimTimer.color = _aimTimerVeryBadColor;
+        }
+
+        AimTimer.text = Mathf.Round(_playerBullet.TimeoutCounter).ToString();
+
+        _timerAnimator.SetTrigger("Pop");
     }
 
     public void ToggleScreen(Screen screen)
@@ -176,6 +196,7 @@ public class HUDManager : MonoBehaviour
             case Screen.Aim:
                 SetCrosshairVisibility(true);
                 _aimScreen.enabled = true;
+                _aimTimer.enabled = true;
                 break;
             case Screen.FinalScore:
                 _finalScoreScreen.enabled = true;
