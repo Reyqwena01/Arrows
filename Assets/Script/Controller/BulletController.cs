@@ -348,6 +348,8 @@ public class BulletController : MonoBehaviour
         HUDManager.Instance.ToggleScreen(Screen.Aim);
         HUDManager.Instance.AimTimer.enabled = false;
         AudioManager.Instance.StopPlayingWind();
+
+        Time.timeScale = 0.3f;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -65,8 +65,6 @@ public class ScoreManager : MonoBehaviour
 
         AudioManager.Instance.PlayTimeSound("Blood");
 
-        Debug.Log(bodypart + "shot");
-
         switch (bodypart)
         {
             case "Head":
