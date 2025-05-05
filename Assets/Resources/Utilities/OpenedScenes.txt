@@ -1,2 +1,2 @@
-Assets/Scenes/Levels/Level1.unity
 Assets/Scenes/Levels/PersistanteScene.unity
+Assets/Scenes/Levels/Level2.unity

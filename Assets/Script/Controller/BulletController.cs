@@ -406,6 +406,7 @@ public class BulletController : MonoBehaviour
 
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
+        Debug.Log("Le trail est" + _trailRenderer.name);
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
