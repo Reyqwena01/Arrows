@@ -152,11 +152,8 @@ public class EnemyController : MonoBehaviour
     private void AddAnimatorNameBoolToList()
     {
         _animationBoolList.Add("Sad");
-        _animationBoolList.Add("Drunk");
         _animationBoolList.Add("Idle");
         _animationBoolList.Add("Bored");
-        _animationBoolList.Add("Music");
-        _animationBoolList.Add("LookAround");
     }
 
     private void SetEnemiesAnimation()
