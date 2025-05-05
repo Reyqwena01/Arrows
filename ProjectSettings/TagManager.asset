@@ -12,6 +12,7 @@ TagManager:
   - Leg
   - Powerup
   - TriggerObject
+  - Stiff
   layers:
   - Default
   - TransparentFX

@@ -14,10 +14,6 @@ public class EnemyBone : MonoBehaviour
         {
             _enemy.Die((bullet.transform.position - transform.position).normalized, 50f);
         }
-        else if (bullet != null && _enemy.IsDead)
-        {
-            bullet.Drop();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
