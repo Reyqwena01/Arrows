@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Animator _animator = null;
-    [SerializeField] private int _animationSelection = 0;
     [SerializeField] private bool _isTarget = false;
     [SerializeField] private bool _isDead = false;
     [SerializeField] private Rigidbody _hips = null;
     
     private Rigidbody[] _rigidbodys = null;
     private Vector3 _firstPosition; 
+    private List<bool> _animationBoolList = new List<bool>();
 
     public bool IsDead { get => _isDead; set => _isDead = value; }
     public Vector3 FirstPosition { get => _firstPosition; set => _firstPosition = value; }
 
+
+    #region Colision
     private void OnCollisionEnter(Collision collision)
     {
         BulletController bullet = collision.gameObject.GetComponent<BulletController>();
@@ -60,7 +63,12 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+    #endregion
 
+
+    #region Methode
+
+    
     public void Die(Vector3 direction, float force)
     {
         IsDead = true;
@@ -98,10 +106,18 @@ public class EnemyController : MonoBehaviour
     }
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        AddAnimatorBoolToList();
+    }
+
+
     void Start()
     {
         FirstPosition = transform.position;
         GameManager.Instance.ListEnemy.Insert(0, this);
+        SetRagdollOff();
     }
 
     // Update is called once per frame
@@ -117,9 +133,25 @@ public class EnemyController : MonoBehaviour
 
     public void SetRagdollOff()
     {
-        int randomValue = Random.Range(0, 3);
-        _animator.SetInteger("SelectAnimation", randomValue);
         _animator.enabled = true;
+        SetEnemiesAnimation();
     }
 
+    private void AddAnimatorBoolToList()
+    {
+        _animationBoolList.Add(_animator.GetBool("Sad"));
+        _animationBoolList.Add(_animator.GetBool("Drunk"));
+        _animationBoolList.Add(_animator.GetBool("Idle"));
+        _animationBoolList.Add(_animator.GetBool("Bored"));
+        _animationBoolList.Add(_animator.GetBool("Music"));
+        _animationBoolList.Add(_animator.GetBool("LookAround"));
+    }
+
+
+    private void SetEnemiesAnimation()
+    {
+        int i = Random.Range(0,_animationBoolList.ToArray().Length);
+        _animationBoolList[i] = true;
+    }
+    #endregion
 }
