@@ -39,9 +39,7 @@ public class EnemyController : MonoBehaviour
             {
                 BulletController bullet = other.gameObject.GetComponent<BulletController>();
 
-                //GameObject enemyObject = other.gameObject;
-                //EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
-                //enemyController.SetRagdollOn();
+
                 SetRagdollOn();
                 bullet.IsShaking = true;
 
@@ -53,8 +51,7 @@ public class EnemyController : MonoBehaviour
                     ScoreManager.Instance.Scores.RemoveAt(0);
                 }
 
-                //StartCoroutine(ShakeCamera(0.25f));
-                bullet.CallCoroutineShakeCamera();
+                bullet.StartCoroutine(bullet.ShakeCamera(0.25f));
 
                 Debug.Log("Hit");
             }

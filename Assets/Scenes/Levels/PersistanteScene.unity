@@ -1336,7 +1336,7 @@ MonoBehaviour:
   _audioManager: {fileID: 1264349515}
   _scoreManager: {fileID: 60897018}
   _hudManager: {fileID: 1335812188}
-  _sceneInBuild: 1
+  _sceneInBuild: 2
 --- !u!4 &787584686
 Transform:
   m_ObjectHideFlags: 0
@@ -2973,7 +2973,7 @@ MonoBehaviour:
   _aimTimerGoodColor: {r: 0, g: 1, b: 0, a: 1}
   _aimTimerBadColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _aimTimerVeryBadColor: {r: 1, g: 0, b: 0, a: 1}
-  _timerAnimator: {fileID: 1679687950}
+  _timerAnimator: {fileID: 0}
   _finalScoreScreen: {fileID: 1826522302}
   _scoreText: {fileID: 1619015167}
   _bronzeMedalText: {fileID: 1141346360}

@@ -87,7 +87,8 @@ public class BulletController : MonoBehaviour
     private Vector3 _cameraStartRot = Vector3.zero;
     private Vector3 _cameraTargetRot = Vector3.zero;
 
-    private bool _isShaking = false; 
+    private bool _isShaking = false;
+    private float _delay = 5; 
     #endregion
 
     #region properties
@@ -371,26 +372,26 @@ public class BulletController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if(!_dropped && other.CompareTag("Enemy"))
-        {
-            GameObject enemyObject = other.gameObject;
-            EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
-            enemyController.SetRagdollOn();
-            IsShaking = true;
+        //if(!_dropped && other.CompareTag("Enemy"))
+        //{
+        //    GameObject enemyObject = other.gameObject;
+        //    EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
+        //    enemyController.SetRagdollOn();
+        //    IsShaking = true;
 
-            HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
-            HUDManager.Instance.CallLerpCoroutine(); 
+        //    HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+        //    HUDManager.Instance.CallLerpCoroutine(); 
             
-            if (ScoreManager.Instance.Scores.Count > 1)
-            {
-                ScoreManager.Instance.Scores.RemoveAt(0);
-            }
+        //    if (ScoreManager.Instance.Scores.Count > 1)
+        //    {
+        //        ScoreManager.Instance.Scores.RemoveAt(0);
+        //    }
 
-            StartCoroutine(ShakeCamera(0.25f));
-            Debug.Log("Hit");
+        //    StartCoroutine(ShakeCamera(0.25f));
+        //    Debug.Log("Hit");
 
 
-        }
+        //}
     }
 
     private void OnTriggerExit(Collider other)
@@ -424,16 +425,11 @@ public class BulletController : MonoBehaviour
 
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
-        Debug.Log("Le trail est" + _trailRenderer.name);
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
-    public void CallCoroutineShakeCamera()
-    {
-        StartCoroutine(ShakeCamera(0.25f));
-    }
 
-    private IEnumerator ShakeCamera(float delay)
+    public IEnumerator ShakeCamera(float delay)
     {
         CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
@@ -450,12 +446,13 @@ public class BulletController : MonoBehaviour
         cinemachineBasic.m_FrequencyGain = 0f;
     }
 
+
     #endregion
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (TimeoutCounter > 0)
         {
             _timeoutCounter -= Time.deltaTime/Time.timeScale;
