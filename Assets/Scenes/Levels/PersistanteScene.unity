@@ -2302,8 +2302,12 @@ MonoBehaviour:
   _windAudioSource: {fileID: 1264349516}
   _timeAudioSource: {fileID: 1264349517}
   _sounds:
-  - ID: Shoot
+  - ID: QuickShot
+    Clip: {fileID: 8300000, guid: e807276a856c7db499e955b3b8d69e1f, type: 3}
+  - ID: NormalShot
     Clip: {fileID: 8300000, guid: 56b881fd9660c664e8613d5c59cdd000, type: 3}
+  - ID: Shoot
+    Clip: {fileID: 8300000, guid: 532a65238b0978045a8b8f340aa7fe79, type: 3}
   - ID: Blood
     Clip: {fileID: 8300000, guid: cdc37ede1fbe96d4e81049787da81052, type: 3}
   - ID: Bounce
@@ -2330,6 +2334,14 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 9a3988b3ce8176d46920e40ae646946e, type: 3}
   - ID: HeadShotScore
     Clip: {fileID: 8300000, guid: 9a3988b3ce8176d46920e40ae646946e, type: 3}
+  - ID: Whip
+    Clip: {fileID: 8300000, guid: ff2d6d25b69db754c919bd88c3a26e05, type: 3}
+  - ID: RewindKill1
+    Clip: {fileID: 8300000, guid: d791aa3c10aaed64f878fc50b51dff8d, type: 3}
+  - ID: RewindKill2
+    Clip: {fileID: 8300000, guid: e76dd85a95b8c2141b43a3732aba1195, type: 3}
+  - ID: RewindKill3
+    Clip: {fileID: 8300000, guid: 8ead3a23353bc8440a0fd416943a2673, type: 3}
 --- !u!82 &1264349516
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2829,7 +2841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -288, y: -170.3}
+  m_AnchoredPosition: {x: 0, y: -105.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1333953142
@@ -2887,15 +2899,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2970,9 +2982,9 @@ MonoBehaviour:
   _killScore: {fileID: 1182536565}
   _aimScreen: {fileID: 1281424116}
   _aimTimer: {fileID: 1679687949}
-  _aimTimerGoodColor: {r: 0, g: 1, b: 0, a: 1}
-  _aimTimerBadColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  _aimTimerVeryBadColor: {r: 1, g: 0, b: 0, a: 1}
+  _aimTimerGoodColor: {r: 0.26400197, g: 0.6064689, b: 0.26400197, a: 1}
+  _aimTimerBadColor: {r: 0.86522907, g: 0.81626314, b: 0.2507065, a: 1}
+  _aimTimerVeryBadColor: {r: 0.74663067, g: 0.33972397, b: 0.07949296, a: 1}
   _timerAnimator: {fileID: 1679687950}
   _finalScoreScreen: {fileID: 1826522302}
   _scoreText: {fileID: 1619015167}

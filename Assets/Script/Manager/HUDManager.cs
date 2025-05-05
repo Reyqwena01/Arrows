@@ -91,26 +91,26 @@ public class HUDManager : MonoBehaviour
 
     public void ContinueTutorial()
     {
-        if (_bounces > 5) return;
-
-        _bounces++;
-        Debug.Log(_bounces);
-
-        switch (_bounces)
-        {
-            case 1:
-                _targetTutorial.enabled = false;
-                _bounceTutorial.enabled = true;
-                break;
-            case 3:
-                _bounceTutorial.enabled = false;
-                _targetTutorial.enabled = true;
-                break;
-            case 5:
-                _bounceTutorial.enabled = false;
-                _targetTutorial.enabled = false;
-                break;
-        }
+        //if (_bounces > 5) return;
+        //
+        //_bounces++;
+        //Debug.Log(_bounces);
+        //
+        //switch (_bounces)
+        //{
+        //    case 1:
+        //        _targetTutorial.enabled = false;
+        //        _bounceTutorial.enabled = true;
+        //        break;
+        //    case 3:
+        //        _bounceTutorial.enabled = false;
+        //        _targetTutorial.enabled = true;
+        //        break;
+        //    case 5:
+        //        _bounceTutorial.enabled = false;
+        //        _targetTutorial.enabled = false;
+        //        break;
+        //}
     }
 
     public void Init()
