@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 160806601}
   - component: {fileID: 160806602}
   m_Layer: 5
-  m_Name: '[PLACEHOLDER_CROSSHAIR]'
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9622642, g: 0.30411178, b: 0.30411178, a: 1}
+  m_Color: {r: 0.3058823, g: 0.9607843, b: 0.6416862, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1336,7 +1336,7 @@ MonoBehaviour:
   _audioManager: {fileID: 1264349515}
   _scoreManager: {fileID: 60897018}
   _hudManager: {fileID: 1335812188}
-  _sceneInBuild: 3
+  _sceneInBuild: 1
 --- !u!4 &787584686
 Transform:
   m_ObjectHideFlags: 0
@@ -2970,6 +2970,10 @@ MonoBehaviour:
   _killScore: {fileID: 1182536565}
   _aimScreen: {fileID: 1281424116}
   _aimTimer: {fileID: 1679687949}
+  _aimTimerGoodColor: {r: 0, g: 1, b: 0, a: 1}
+  _aimTimerBadColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _aimTimerVeryBadColor: {r: 1, g: 0, b: 0, a: 1}
+  _timerAnimator: {fileID: 1679687950}
   _finalScoreScreen: {fileID: 1826522302}
   _scoreText: {fileID: 1619015167}
   _bronzeMedalText: {fileID: 1141346360}
@@ -3555,8 +3559,9 @@ GameObject:
   - component: {fileID: 1679687947}
   - component: {fileID: 1679687948}
   - component: {fileID: 1679687949}
+  - component: {fileID: 1679687950}
   m_Layer: 5
-  m_Name: '[PLACEHOLDER_TIMER_TEXT]'
+  m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3678,6 +3683,27 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &1679687950
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679687946}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f15e4906872796d47ba827f168ec8573, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1826522298
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.SceneManagement;
 
 public class BulletController : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class BulletController : MonoBehaviour
     [SerializeField] private LayerMask _raycastLayer = 0;
     [Header("Kill")]
     [SerializeField] private float _killCameraDistance = 30f;
+    private Vector3 _orbitalVector;
+
+    [Header("Menu")]
+    [SerializeField] private bool _isInMenu = false;
     #endregion
 
     #region references
@@ -116,6 +121,7 @@ public class BulletController : MonoBehaviour
 
     public bool Moving { get => _moving; set => _moving = value; }
     public GameObject BulletTrail { get => _bulletTrail; set => _bulletTrail = value; }
+    public bool IsShaking { get => _isShaking; set => _isShaking = value; }
 
     #endregion properties
 
@@ -143,6 +149,8 @@ public class BulletController : MonoBehaviour
 
     public void Shoot()
     {
+        _camera.transform.rotation = Quaternion.Euler(Vector3.zero);
+
         _camera.transform.localPosition = Vector3.zero;
         _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
@@ -257,7 +265,10 @@ public class BulletController : MonoBehaviour
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
         MoveCamera(new Vector3(_camera.transform.localPosition.x, _camera.transform.localPosition.y, _camera.transform.localPosition.z - _killCameraDistance));
-        Invoke("TurnAround", 0.4f);
+        
+        _orbitalVector = new Vector3(Random.Range(-1, 2), Random.Range(-1f, 1f), 0);
+
+        TurnAround();
 
         Instantiate(_bloodImpactPrefab, transform.position, Quaternion.identity, transform);
     }
@@ -286,7 +297,7 @@ public class BulletController : MonoBehaviour
         _enemyToTrack = null;
         _cameraRotationSpeed = 0f;
         MoveCamera(_cameraStartPos);
-        Invoke("Shoot", 0.4f);
+        Invoke("Shoot", 0.3f);
         AudioManager.Instance.UnpauseWind();
         _camera.transform.localEulerAngles = Vector3.zero;
 
@@ -307,15 +318,21 @@ public class BulletController : MonoBehaviour
         _dropCamera.enabled = true;
         Moving = false; 
 
-        HUDManager.Instance.ToggleScreen(Screen.GameOver);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void Start()
     {
+
+
        GameManager.Instance.SetBulletController(this);
-        _camera.enabled = true;
-        _virtualCamera.Follow = null;
-        Cursor.visible = false;
+       _camera.enabled = true;
+       _virtualCamera.Follow = null;
+       Cursor.visible = false;
+
+        HUDManager.Instance.ToggleScreen(Screen.Aim);
+        HUDManager.Instance.AimTimer.enabled = false;
+        AudioManager.Instance.StopPlayingWind();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -325,6 +342,7 @@ public class BulletController : MonoBehaviour
         {
             Bounce();
         }
+
         else if (!_dropped && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Head") || collision.gameObject.CompareTag("Torso") || collision.gameObject.CompareTag("Arm") || collision.gameObject.CompareTag("Leg"))
         {
             //EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
@@ -338,7 +356,7 @@ public class BulletController : MonoBehaviour
             Kill(collision.gameObject.transform);
         }
 
-        else if (!_dropped)
+        else if (collision.gameObject.CompareTag("Stiff") && !_dropped)
         {
             Drop();
         }
@@ -358,7 +376,7 @@ public class BulletController : MonoBehaviour
             GameObject enemyObject = other.gameObject;
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
             enemyController.SetRagdollOn();
-            _isShaking = true;
+            IsShaking = true;
 
             HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
             HUDManager.Instance.CallLerpCoroutine(); 
@@ -379,7 +397,7 @@ public class BulletController : MonoBehaviour
     {
         if (!_dropped && other.CompareTag("Enemy"))
         {
-            _isShaking = false; 
+            IsShaking = false; 
         }
     }
 
@@ -410,11 +428,16 @@ public class BulletController : MonoBehaviour
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
+    public void CallCoroutineShakeCamera()
+    {
+        StartCoroutine(ShakeCamera(0.25f));
+    }
+
     private IEnumerator ShakeCamera(float delay)
     {
         CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        if(_isShaking)
+        if(IsShaking)
         {
             cinemachineBasic.m_AmplitudeGain = 2.5f;
             cinemachineBasic.m_FrequencyGain = 1.8f;
@@ -422,7 +445,7 @@ public class BulletController : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        _isShaking = false;
+        IsShaking = false;
         cinemachineBasic.m_AmplitudeGain = 0f;
         cinemachineBasic.m_FrequencyGain = 0f;
     }
@@ -450,9 +473,8 @@ public class BulletController : MonoBehaviour
             RaycastHit hit;
             Physics.Raycast(transform.position, transform.forward, out hit, 1000f, _raycastLayer);
 
-            if (hit.collider != null && !_aimAssistActive && (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Head") || hit.collider.CompareTag("Torso") || hit.collider.CompareTag("Arm") || hit.collider.CompareTag("Leg")))
+            if (hit.collider != null && !_aimAssistActive && (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Head") || hit.collider.CompareTag("Torso") || hit.collider.CompareTag("Arm") || hit.collider.CompareTag("Leg") || hit.collider.CompareTag("Sign")))
             {
-                Debug.Log("Aim assist active");
                 _aimAssistActive = true;
                 _sensitivity /= _aimAssistStrength;
             }
@@ -465,7 +487,7 @@ public class BulletController : MonoBehaviour
             _rotationY += Input.GetAxis("Mouse X") * _sensitivity;
             _rotationX += Input.GetAxis("Mouse Y") * -1 * _sensitivity;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && (_isInMenu == false || _aimAssistActive))
             {
                 Shoot();
                 AudioManager.Instance.PlaySound("Shoot");
@@ -512,7 +534,7 @@ public class BulletController : MonoBehaviour
 
             if (hit.collider != null && hit.collider.CompareTag("Bouncy"))
             {
-                _camera.transform.position = hit.point;
+                _camera.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
             }
             else
             {
@@ -536,14 +558,17 @@ public class BulletController : MonoBehaviour
             _cameraMovementAlpha = Mathf.Clamp01(_cameraMovementAlpha + 10f * Time.deltaTime);
         }
 
-        if (_enemyToTrack != null)
+        if (_enemyToTrack != null && _cameraRotationSpeed > 0f)
         {
-            _camera.transform.LookAt(_enemyToTrack);
+            // Fait tourner la caméra autour de l'ennemi selon le vecteur orbital
+            _camera.transform.RotateAround(
+                _enemyToTrack.position,
+                _orbitalVector.normalized,
+                _cameraRotationSpeed * Time.deltaTime
+            );
 
-            if (_cameraRotationSpeed > 0f)
-            {
-                _camera.transform.Translate(Vector3.right * _cameraRotationSpeed * Time.deltaTime);
-            }
+            // Regarde toujours l'ennemi
+            _camera.transform.LookAt(_enemyToTrack);
         }
     }
 

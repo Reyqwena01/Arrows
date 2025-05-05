@@ -29,6 +29,38 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        FakeBulletMovement fakeBulletMovement = other.GetComponent<FakeBulletMovement>();
+
+        if (fakeBulletMovement != null)
+        {
+            if (other.CompareTag("Bullet") && fakeBulletMovement.IsReplaying == true)
+            {
+                BulletController bullet = other.gameObject.GetComponent<BulletController>();
+
+                //GameObject enemyObject = other.gameObject;
+                //EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
+                //enemyController.SetRagdollOn();
+                SetRagdollOn();
+                bullet.IsShaking = true;
+
+                HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+                HUDManager.Instance.CallLerpCoroutine();
+
+                if (ScoreManager.Instance.Scores.Count > 1)
+                {
+                    ScoreManager.Instance.Scores.RemoveAt(0);
+                }
+
+                //StartCoroutine(ShakeCamera(0.25f));
+                bullet.CallCoroutineShakeCamera();
+
+                Debug.Log("Hit");
+            }
+        }
+    }
+
     public void Die(Vector3 direction, float force)
     {
         IsDead = true;
