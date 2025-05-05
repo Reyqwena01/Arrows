@@ -292,7 +292,7 @@ public class BulletController : MonoBehaviour
         _enemyToTrack = null;
         _cameraRotationSpeed = 0f;
         MoveCamera(_cameraStartPos);
-        Invoke("Shoot", 0.4f);
+        Invoke("Shoot", 0.3f);
         AudioManager.Instance.UnpauseWind();
         _camera.transform.localEulerAngles = Vector3.zero;
 
@@ -519,7 +519,7 @@ public class BulletController : MonoBehaviour
 
             if (hit.collider != null && hit.collider.CompareTag("Bouncy"))
             {
-                _camera.transform.position = hit.point;
+                _camera.transform.position = new Vector3(hit.point.x - 2f, hit.point.y, hit.point.z);
             }
             else
             {
