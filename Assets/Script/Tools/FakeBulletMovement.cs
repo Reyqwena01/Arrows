@@ -11,8 +11,9 @@ public class FakeBulletMovement : MonoBehaviour
 
     private int _lastIndex = 0;
     private bool _isReplaying = false;
-    private bool _canReplay = false; 
+    private bool _canReplay = false;
 
+    public bool IsReplaying { get => _isReplaying; set => _isReplaying = value; }
 
     private void FixedUpdate()
     {
@@ -24,12 +25,12 @@ public class FakeBulletMovement : MonoBehaviour
         if (_rewindTime != null)
         {
 
-            if (_rewindTime.IsPlayingReverse && !_isReplaying && _rewindTime.IsLenghtFinish)
+            if (_rewindTime.IsPlayingReverse && !IsReplaying && _rewindTime.IsLenghtFinish)
             {
                 //_sphereCollider.enabled = false C'est pas la meilleur soluce, si on veut faire rewind les ennemis également
                 _sphereCollider.isTrigger = true; 
                 _lastIndex = _rewindTime.PointInTime1.Count - 1;
-                _isReplaying = true;
+                IsReplaying = true;
                 //_bulletController.BulletTrail.SetActive(true);
                 
                 if (!_canReplay)
@@ -62,7 +63,7 @@ public class FakeBulletMovement : MonoBehaviour
 
             if (_lastIndex < 0)
             {
-                _isReplaying = false;
+                IsReplaying = false;
                 _canReplay = !_canReplay;
                 Invoke("EndLevel", 1.25f);
             }
