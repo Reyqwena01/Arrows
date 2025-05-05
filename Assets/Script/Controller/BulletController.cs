@@ -121,7 +121,6 @@ public class BulletController : MonoBehaviour
 
     public bool Moving { get => _moving; set => _moving = value; }
     public GameObject BulletTrail { get => _bulletTrail; set => _bulletTrail = value; }
-    public bool IsShaking { get => _isShaking; set => _isShaking = value; }
 
     #endregion properties
 
@@ -157,6 +156,22 @@ public class BulletController : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
 
+        if (TimeoutCounter > 4)
+        {
+            AudioManager.Instance.PlaySound("Whip");
+            AudioManager.Instance.PlaySound("QuickShot");
+            _speedEffectStrength = 1.4f;
+        }
+        else if (TimeoutCounter > 2)
+        {
+            AudioManager.Instance.PlaySound("QuickShot");
+            _speedEffectStrength = 1.2f;
+        }
+        else
+        {
+            _speedEffectStrength = 1f;
+        }
+
         _timeoutCounter = 0f;
 
         HUDManager.Instance.ToggleScreen(Screen.Flight);
@@ -165,7 +180,7 @@ public class BulletController : MonoBehaviour
         {
             _direction = transform.forward;
         }
-        
+
         _rb.AddForce(_direction * _speed, ForceMode.Acceleration);
 
         _controllable = false;
@@ -260,7 +275,7 @@ public class BulletController : MonoBehaviour
         AudioManager.Instance.PauseWind();
         AudioManager.Instance.PlaySound("Slowdown");
 
-        _rb.velocity = _direction * 4f;
+        _rb.velocity = _direction * 2f;
         Moving = false;
         _enemyToTrack = enemyToTrack;
         _bulletCollider.enabled = false;
@@ -376,7 +391,7 @@ public class BulletController : MonoBehaviour
             GameObject enemyObject = other.gameObject;
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
             enemyController.SetRagdollOn();
-            IsShaking = true;
+            _isShaking = true;
 
             HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
             HUDManager.Instance.CallLerpCoroutine(); 
@@ -397,7 +412,7 @@ public class BulletController : MonoBehaviour
     {
         if (!_dropped && other.CompareTag("Enemy"))
         {
-            IsShaking = false; 
+            _isShaking = false; 
         }
     }
 
@@ -428,16 +443,11 @@ public class BulletController : MonoBehaviour
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
-    public void CallCoroutineShakeCamera()
-    {
-        StartCoroutine(ShakeCamera(0.25f));
-    }
-
     private IEnumerator ShakeCamera(float delay)
     {
         CinemachineBasicMultiChannelPerlin cinemachineBasic = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        if(IsShaking)
+        if(_isShaking)
         {
             cinemachineBasic.m_AmplitudeGain = 2.5f;
             cinemachineBasic.m_FrequencyGain = 1.8f;
@@ -445,7 +455,7 @@ public class BulletController : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        IsShaking = false;
+        _isShaking = false;
         cinemachineBasic.m_AmplitudeGain = 0f;
         cinemachineBasic.m_FrequencyGain = 0f;
     }
@@ -501,7 +511,7 @@ public class BulletController : MonoBehaviour
         }
         else if (Moving && !(HUDManager.Instance.CurrentScreen == Screen.FinalScore))
         {
-            _rb.AddForce((transform.forward * _speed*0.0005f *_speedEffectStrength * _rb.velocity.magnitude * 8.25f) * Time.deltaTime, ForceMode.Acceleration);
+            _rb.AddForce((transform.forward * _speed*0.0005f * _speedEffectStrength * _rb.velocity.magnitude * 8.25f) * Time.deltaTime, ForceMode.Acceleration);
             _virtualCamera.m_Lens.FieldOfView += (_virtualCamera.m_Lens.FieldOfView*0.00045f*_speedEffectStrength* _rb.velocity.magnitude * 8.25f)* Time.deltaTime;
             _virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(_virtualCamera.m_Lens.FieldOfView, _minFovEffect, _maxFovEffect);
 

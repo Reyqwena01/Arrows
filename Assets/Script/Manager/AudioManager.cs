@@ -52,6 +52,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(string soundID)
     {
+        _audioSource.pitch = Random.Range(0.9f, 1.1f);
         _audioSource.PlayOneShot(_soundsDic[soundID]);
     }
 
