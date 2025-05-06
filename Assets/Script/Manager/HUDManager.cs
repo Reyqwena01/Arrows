@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -55,7 +56,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject _prefabDamageScore = null; 
     [SerializeField] private TMP_Text _scoreCumulatedText = null;
     [SerializeField] private Animator _scoreMergedAnimator = null;
-    [SerializeField] private GameObject _VFXRewind = null; 
+    [SerializeField] private GameObject[] _VFXRewind = null; 
 
     [Header("Fade")]
     [SerializeField] private Animator _imageAnimator = null;
@@ -349,7 +350,8 @@ public class HUDManager : MonoBehaviour
 
         GameObject damageObject = Instantiate(_prefabDamageScore, location, Quaternion.Euler(90, 0, 0));
 
-        GameObject vfxObject = Instantiate(_VFXRewind, location - offsetRandom, Quaternion.Euler(90, 0, 0));
+        int random = Random.Range(0, _VFXRewind.Length); 
+        GameObject vfxObject = Instantiate(_VFXRewind[random], location - offsetRandom, Quaternion.Euler(90, 0, 0));
 
         Destroy(scoreObject, 1f);
     }

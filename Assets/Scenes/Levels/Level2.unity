@@ -6266,6 +6266,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3743194816530270222, guid: 81e3b39af4f8abc468c00fb93095371b, type: 3}
+--- !u!23 &793293638 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 81e3b39af4f8abc468c00fb93095371b, type: 3}
+  m_PrefabInstance: {fileID: 793293634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &804569987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7633,6 +7638,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3743194816530270222, guid: 81e3b39af4f8abc468c00fb93095371b, type: 3}
+--- !u!23 &1050775930 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 81e3b39af4f8abc468c00fb93095371b, type: 3}
+  m_PrefabInstance: {fileID: 1050775926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1069584698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8170,6 +8180,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4392721436833467487, guid: ca8c22579e67d894fb26b9f1687fbad7, type: 3}
+--- !u!23 &1133371916 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ca8c22579e67d894fb26b9f1687fbad7, type: 3}
+  m_PrefabInstance: {fileID: 1133371912}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1135357755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10111,6 +10126,26 @@ PrefabInstance:
       propertyPath: _enemyController
       value: 
       objectReference: {fileID: 1267009877}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1399248908}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[1]
+      value: 
+      objectReference: {fileID: 1050775930}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[2]
+      value: 
+      objectReference: {fileID: 793293638}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[3]
+      value: 
+      objectReference: {fileID: 1957074539}
+    - target: {fileID: 3497470299192874448, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: _meshesToDisable.Array.data[4]
+      value: 
+      objectReference: {fileID: 1133371916}
     - target: {fileID: 3578089628362174631, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200.7
@@ -10155,6 +10190,18 @@ PrefabInstance:
       propertyPath: _enemyController
       value: 
       objectReference: {fileID: 1267009877}
+    - target: {fileID: 4732465611239457400, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.066082224
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732465611239457400, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.9339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732465611239457400, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.51975095
+      objectReference: {fileID: 0}
     - target: {fileID: 5154621565380427230, guid: 5706021f7c2c7e248a373e7de1a5c373, type: 3}
       propertyPath: _globalLocation
       value: 
@@ -10301,6 +10348,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4392721436833467487, guid: ca8c22579e67d894fb26b9f1687fbad7, type: 3}
+--- !u!23 &1399248908 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ca8c22579e67d894fb26b9f1687fbad7, type: 3}
+  m_PrefabInstance: {fileID: 1399248904}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412154852
 GameObject:
   m_ObjectHideFlags: 0
@@ -13000,6 +13052,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.037499998, y: 0.037499994, z: 0.32999998}
   m_Center: {x: 0, y: 0.00000006984919, z: 0}
+--- !u!23 &1957074539 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: f82dc201407262149bc4fcca5445e97d, type: 3}
+  m_PrefabInstance: {fileID: 1957074535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1969193382
 PrefabInstance:
   m_ObjectHideFlags: 0
