@@ -43,18 +43,19 @@ public class EnemyController : MonoBehaviour
             {
                 BulletController bullet = other.gameObject.GetComponent<BulletController>();
 
-                switch (Random.Range(1, 3))
-                {
-                    case 0:
-                        AudioManager.Instance.PlayTimeSound("RewindKill1"); break;
-                    case 1:
-                        AudioManager.Instance.PlayTimeSound("RewindKill2"); break;
-                    case 2:
-                        AudioManager.Instance.PlayTimeSound("RewindKill3"); break;
-                }
-
                 if (!_isTarget && ScoreManager.Instance.Scores.Count > 1)
                 {
+
+                    switch (Random.Range(1, 3))
+                    {
+                        case 0:
+                            AudioManager.Instance.PlayTimeSound("RewindKill1"); break;
+                        case 1:
+                            AudioManager.Instance.PlayTimeSound("RewindKill2"); break;
+                        case 2:
+                            AudioManager.Instance.PlayTimeSound("RewindKill3"); break;
+                    }
+
                     bullet.IsShaking = true;
                     SetRagdollOn(); 
 
@@ -75,6 +76,17 @@ public class EnemyController : MonoBehaviour
 
                 else if (_isTarget && ScoreManager.Instance.Scores.Count < 2)
                 {
+
+                    switch (Random.Range(1, 3))
+                    {
+                        case 0:
+                            AudioManager.Instance.PlayTimeSound("RewindKill1"); break;
+                        case 1:
+                            AudioManager.Instance.PlayTimeSound("RewindKill2"); break;
+                        case 2:
+                            AudioManager.Instance.PlayTimeSound("RewindKill3"); break;
+                    }
+
                     bullet.IsShaking = true;
                     SetRagdollOn(); 
 
