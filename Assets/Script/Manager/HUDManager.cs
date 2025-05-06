@@ -53,10 +53,11 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Vector3 _startScaleFactor = Vector3.one;
     [SerializeField] private Vector3 _endScaleFactor = Vector3.one;
     [SerializeField] private GameObject _prefabScoreText = null;
-    [SerializeField] private GameObject _prefabDamageScore = null; 
+    [SerializeField] private GameObject _prefabDamageScore = null;
+    [SerializeField] private GameObject _prefabBoingVFX = null;
     [SerializeField] private TMP_Text _scoreCumulatedText = null;
     [SerializeField] private Animator _scoreMergedAnimator = null;
-    [SerializeField] private GameObject[] _VFXRewind = null; 
+    [SerializeField] private GameObject[] _VFXRewind = null;
 
     [Header("Fade")]
     [SerializeField] private Animator _imageAnimator = null;
@@ -327,7 +328,6 @@ public class HUDManager : MonoBehaviour
     {
         UpdateHUD();
         UpdateScoreAtEnd();
-        //UpdateScoreCumulated();
     }
 
     public void FadeInOut()
@@ -344,16 +344,27 @@ public class HUDManager : MonoBehaviour
         Vector3 offsetDamage = new Vector3(0, 0, 30);
         Vector3 offsetRandom = new Vector3(Random.Range(2, 5), 0, Random.Range(5, 9));
 
+        //Score effect 
         GameObject scoreObject = Instantiate(_prefabScoreText, location - offset, Quaternion.Euler(75, 0, 0));
         TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         scoreTxt.text = "+ " + text;
 
+        //Damage effect 
         GameObject damageObject = Instantiate(_prefabDamageScore, location, Quaternion.Euler(90, 0, 0));
 
+        //Slash and Boom effect 
         int random = Random.Range(0, _VFXRewind.Length); 
         GameObject vfxObject = Instantiate(_VFXRewind[random], location - offsetRandom, Quaternion.Euler(90, 0, 0));
 
         Destroy(scoreObject, 1f);
+    }
+
+    public void ShowBoingEffectAtLocation(Vector3 location)
+    {
+        //Vector3 offsetRandom = new Vector3(Random.Range(2, 5), 0, 12);
+        Vector3 offsetRandom = new Vector3(0, 0, 2);
+
+        GameObject boingVFXObject = Instantiate(_prefabBoingVFX, location - offsetRandom, Quaternion.Euler(90, 0, 0));
     }
 
     private void UpdateScoreCumulated()

@@ -413,6 +413,8 @@ public class BulletController : MonoBehaviour
         if (other.CompareTag("Bouncy"))
         {
             Debug.Log("Touch Wall While Rewinding");
+            Vector3 position = transform.TransformDirection(transform.forward); 
+            HUDManager.Instance.ShowBoingEffectAtLocation(transform.localPosition); 
         }
     }
 
