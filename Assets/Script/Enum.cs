@@ -11,6 +11,7 @@ public enum Screen
     Aim,
     FinalScore,
     Score,
+    Bounce,
     None
 }
 

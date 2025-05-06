@@ -42,6 +42,11 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Color _aimTimerVeryBadColor = Color.red;
     [SerializeField] private Animator _timerAnimator = null;
 
+    [Header("Bounce")]
+    [SerializeField] private Canvas _bounceScreen = null;
+    [SerializeField] private TMP_Text _bounceText = null;
+    [SerializeField] private Animator _bounceTextAnimator = null;
+
     [Header("Final Score")]
     [SerializeField] private Canvas _finalScoreScreen = null;
     [SerializeField] private TMP_Text _scoreText = null;
@@ -90,6 +95,7 @@ public class HUDManager : MonoBehaviour
     public TMP_Text AimTimer { get => _aimTimer; set => _aimTimer = value; }
     public Animator ScoreAnimator { get => _scoreAnimator; set => _scoreAnimator = value; }
     public TMP_Text ScoreCumulatedText { get => _scoreCumulatedText; set => _scoreCumulatedText = value; }
+    public Animator BounceTextAnimator { get => _bounceTextAnimator; set => _bounceTextAnimator = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -186,6 +192,7 @@ public class HUDManager : MonoBehaviour
         _aimScreen.enabled = false;
         _finalScoreScreen.enabled = false;
         _scoreScreen.enabled = false;
+        _bounceScreen.enabled = false;
         SetCrosshairVisibility(false);
 
         _currentScreen = screen;
@@ -212,6 +219,11 @@ public class HUDManager : MonoBehaviour
                 break;
             case Screen.Score:
                 _scoreScreen.enabled = true;
+                break;
+            case Screen.Bounce:
+                _bounceScreen.enabled = true;
+                BounceTextAnimator.SetTrigger("Bounce");
+                _bounceText.text = ScoreManager.Instance.Bounces.ToString() + " bounces";
                 break;
         }
     }

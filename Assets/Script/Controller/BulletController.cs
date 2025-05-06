@@ -58,6 +58,7 @@ public class BulletController : MonoBehaviour
     private bool _moving = false;
     private bool _aimAssistActive = false;
     private bool _rotating = false;
+    private bool _boucing = false;
 
     private bool _windPowerUp = false;
     private bool _piercePowerUp = false;
@@ -157,6 +158,8 @@ public class BulletController : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
 
+        _boucing = false;
+
         if (TimeoutCounter > 4)
         {
             AudioManager.Instance.PlaySound("Whip");
@@ -227,9 +230,8 @@ public class BulletController : MonoBehaviour
 
         Instantiate(_bounceImpactPrefab, transform.position, Quaternion.identity, transform);
 
-        HUDManager.Instance.ToggleScreen(Screen.None);
-
         ScoreManager.Instance.Bounces++;
+        HUDManager.Instance.ToggleScreen(Screen.Bounce);
 
         Time.timeScale = 0.1f;
 
@@ -268,6 +270,8 @@ public class BulletController : MonoBehaviour
         _camera.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         _rotating = false;
+
+        HUDManager.Instance.BounceTextAnimator.SetTrigger("BounceExit");
     }
     #endregion Bounce
 
@@ -337,8 +341,16 @@ public class BulletController : MonoBehaviour
 
         _camera.enabled = false;
         _dropCamera.enabled = true;
-        Moving = false; 
+        Moving = false;
 
+        HUDManager.Instance.ToggleScreen(Screen.GameOver);
+
+        AudioManager.Instance.PlaySound("Drop");
+        Invoke("ReloadLevel", 1.5f);
+    }
+
+    private void ReloadLevel()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -367,9 +379,10 @@ public class BulletController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.CompareTag("Bouncy") && !_dropped)
+        if (collision.gameObject.CompareTag("Bouncy") && !_dropped && !_boucing)
         {
             Bounce();
+            _boucing = true;
         }
 
         else if (!_dropped && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Head") || collision.gameObject.CompareTag("Torso") || collision.gameObject.CompareTag("Arm") || collision.gameObject.CompareTag("Leg"))
