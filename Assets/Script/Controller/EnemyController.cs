@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     public Vector3 FirstPosition { get => _firstPosition; set => _firstPosition = value; }
 
 
-    #region Colision
+    #region Collision
     private void OnCollisionEnter(Collision collision)
     {
         BulletController bullet = collision.gameObject.GetComponent<BulletController>();
