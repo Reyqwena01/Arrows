@@ -161,6 +161,9 @@ public class BulletController : MonoBehaviour
         {
             AudioManager.Instance.PlaySound("Whip");
             AudioManager.Instance.PlaySound("QuickShot");
+
+            StartCoroutine(ShakeCamera(0.25f));
+
             _speedEffectStrength = 1.4f;
         }
         else if (TimeoutCounter > 2)
@@ -287,6 +290,8 @@ public class BulletController : MonoBehaviour
         TurnAround();
 
         Instantiate(_bloodImpactPrefab, transform.position, Quaternion.identity, transform);
+
+        StartCoroutine(ShakeCamera(0.25f));
     }
 
     private void TurnAround()
@@ -449,6 +454,9 @@ public class BulletController : MonoBehaviour
 
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
+
+        Time.timeScale = 2.0f;
+
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
 
