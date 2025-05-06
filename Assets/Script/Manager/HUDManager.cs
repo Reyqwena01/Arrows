@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Device;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
@@ -47,6 +48,8 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TMP_Text _bronzeMedalText = null;
     [SerializeField] private TMP_Text _silverMedalText = null;
     [SerializeField] private TMP_Text _goldMedalText = null;
+    [SerializeField] private Color _completedMedal = Color.green;
+    [SerializeField] private GameObject _nextLevelButton = null;
 
     [Header("Score")]
     [SerializeField] private Canvas _scoreScreen = null;
@@ -234,8 +237,27 @@ public class HUDManager : MonoBehaviour
     #endregion
     private void ShowCurrentScore()
     {
-        _alpha = 0f;
         _score = ScoreManager.Instance.Score;
+        _scoreText.text = ScoreManager.Instance.Score.ToString();
+        _bronzeMedalText.text = ScoreManager.Instance.BronzeMedalMaxBounces.ToString() + " or less";
+        _silverMedalText.text = ScoreManager.Instance.SilverMedalMaxBounces.ToString() + " or less";
+        _goldMedalText.text = ScoreManager.Instance.GoldMedalMaxBounces.ToString() + " or less";
+
+        _bronzeMedalText.color = Color.white;
+        _silverMedalText.color = Color.white;
+        _goldMedalText.color = Color.white;
+
+        Cursor.visible = true;
+
+        if (SceneManager.sceneCountInBuildSettings-1 == SceneManager.GetActiveScene().buildIndex)
+        {
+            _nextLevelButton.SetActive(false);
+        }
+        else
+        {
+            _nextLevelButton.SetActive(true);
+        }
+
         Invoke("ShowBronzeMedal", 1f);
     }
 
@@ -243,8 +265,8 @@ public class HUDManager : MonoBehaviour
     {
         if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.BronzeMedalMaxBounces)
         {
-            _bronzeMedalText.color = Color.white;
-            _multiplier *= ScoreManager.Instance.BronzeMedalMultiplier;
+            _bronzeMedalText.color = _completedMedal;
+            _multiplier += ScoreManager.Instance.BronzeMedalMultiplier;
             Invoke("ShowSilverMedal", 0.8f);
         }
 
@@ -258,8 +280,8 @@ public class HUDManager : MonoBehaviour
     {
         if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.SilverMedalMaxBounces)
         {
-            _silverMedalText.color = Color.white;
-            _multiplier *= ScoreManager.Instance.SilverMedalMultiplier;
+            _silverMedalText.color = _completedMedal;
+            _multiplier += ScoreManager.Instance.SilverMedalMultiplier;
             Invoke("ShowGoldMedal", 0.8f);
         }
 
@@ -273,8 +295,8 @@ public class HUDManager : MonoBehaviour
     {
         if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.GoldMedalMaxBounces)
         {
-            _goldMedalText.color = Color.white;
-            _multiplier *= ScoreManager.Instance.GoldMedalMultiplier;
+            _goldMedalText.color = _completedMedal;
+            _multiplier += ScoreManager.Instance.GoldMedalMultiplier;
             Invoke("ShowFinalScore", 0.8f);
         }
 
@@ -293,21 +315,12 @@ public class HUDManager : MonoBehaviour
     //Fonction pour set le score à la fin
     private void UpdateScoreAtEnd()
     {
-        //Mettre ce qu'il y a dans le update pour afficher le score et l'update
         if (_finalScore > 0 && _alpha < 1)
         {
             _scoreText.text = Mathf.Round(Mathf.Lerp(_score, _finalScore, _alpha)).ToString();
             _alpha += 0.001f;
 
         }
-
-        else if (_score > 0 && _alpha < 1)
-        {
-            _scoreText.text = Mathf.Round(Mathf.Lerp(0, _score, _alpha)).ToString();
-            _alpha += 0.001f;
-        }
-
-
     }
     #endregion finalscorescreen
 

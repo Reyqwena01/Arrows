@@ -355,6 +355,8 @@ public class BulletController : MonoBehaviour
         HUDManager.Instance.AimTimer.enabled = false;
         AudioManager.Instance.StopPlayingWind();
 
+        Cursor.visible = false;
+
         Time.timeScale = 0.3f;
     }
 
@@ -412,6 +414,8 @@ public class BulletController : MonoBehaviour
 
     public void Rewind()
     {
+        _rb.velocity = Vector3.zero;
+
         //_camera.enabled = false;
         BulletTrail.SetActive(false); // ??? pourquoi le set a false 
         Transform cam = gameObject.transform.GetChild(1);
@@ -426,7 +430,7 @@ public class BulletController : MonoBehaviour
         {
             for (int i = 0; i < GameManager.Instance.ListEnemy.Count; i++)
             {
-                GameManager.Instance.ListEnemy[i].GetComponent<EnemyController>().SetRagdollOff();
+                GameManager.Instance.ListEnemy[i].GetComponent<EnemyController>()?.SetRagdollOff();
             }
         }
 
@@ -492,7 +496,7 @@ public class BulletController : MonoBehaviour
             _rotationY += Input.GetAxis("Mouse X") * _sensitivity;
             _rotationX += Input.GetAxis("Mouse Y") * -1 * _sensitivity;
 
-            if (Input.GetKeyDown(KeyCode.Space) && (_isInMenu == false || _aimAssistActive))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && (_isInMenu == false || _aimAssistActive))
             {
                 Shoot();
                 AudioManager.Instance.PlaySound("Shoot");
