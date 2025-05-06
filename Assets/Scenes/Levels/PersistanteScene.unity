@@ -1341,7 +1341,7 @@ MonoBehaviour:
   _audioManager: {fileID: 1264349515}
   _scoreManager: {fileID: 60897018}
   _hudManager: {fileID: 1335812188}
-  _sceneInBuild: 3
+  _sceneInBuild: 2
 --- !u!4 &787584686
 Transform:
   m_ObjectHideFlags: 0
