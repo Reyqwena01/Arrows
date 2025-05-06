@@ -430,7 +430,7 @@ public class BulletController : MonoBehaviour
         {
             for (int i = 0; i < GameManager.Instance.ListEnemy.Count; i++)
             {
-                GameManager.Instance.ListEnemy[i].GetComponent<EnemyController>()?.SetRagdollOff();
+                GameManager.Instance.ListEnemy[i]?.GetComponent<EnemyController>().SetRagdollOff();
             }
         }
 
