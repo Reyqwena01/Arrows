@@ -409,6 +409,11 @@ public class BulletController : MonoBehaviour
 
 
         }
+
+        if (other.CompareTag("Bouncy"))
+        {
+            Debug.Log("Touch Wall While Rewinding");
+        }
     }
 
     private void OnTriggerExit(Collider other)

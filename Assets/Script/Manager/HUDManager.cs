@@ -341,7 +341,7 @@ public class HUDManager : MonoBehaviour
 
         Vector3 offset = new Vector3(0, 0, 20);
         Vector3 offsetDamage = new Vector3(0, 0, 30);
-        Vector3 offsetRandom = new Vector3(0, 0, Random.Range(5, 9));
+        Vector3 offsetRandom = new Vector3(Random.Range(2, 5), 0, Random.Range(5, 9));
 
         GameObject scoreObject = Instantiate(_prefabScoreText, location - offset, Quaternion.Euler(75, 0, 0));
         TextMeshProUGUI scoreTxt = scoreObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -349,7 +349,7 @@ public class HUDManager : MonoBehaviour
 
         GameObject damageObject = Instantiate(_prefabDamageScore, location, Quaternion.Euler(90, 0, 0));
 
-        GameObject vfxObject = Instantiate(_VFXRewind, location + offsetRandom, Quaternion.Euler(90, 0, 0));
+        GameObject vfxObject = Instantiate(_VFXRewind, location - offsetRandom, Quaternion.Euler(90, 0, 0));
 
         Destroy(scoreObject, 1f);
     }
