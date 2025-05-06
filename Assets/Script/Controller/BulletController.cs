@@ -345,6 +345,7 @@ public class BulletController : MonoBehaviour
 
         HUDManager.Instance.ToggleScreen(Screen.GameOver);
 
+        AudioManager.Instance.StopPlayingWind();
         AudioManager.Instance.PlaySound("Drop");
         Invoke("ReloadLevel", 1.5f);
     }
