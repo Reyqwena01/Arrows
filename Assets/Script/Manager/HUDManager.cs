@@ -66,6 +66,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TMP_Text _scoreCumulatedText = null;
     [SerializeField] private Animator _scoreMergedAnimator = null;
     [SerializeField] private GameObject[] _VFXRewind = null;
+    [SerializeField] private Image[] _scoresImagesMedales = null; 
 
     [Header("Fade")]
     [SerializeField] private Animator _imageAnimator = null;
@@ -100,7 +101,7 @@ public class HUDManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitialFirstImageColor(); 
     }
 
     public void ContinueTutorial()
@@ -125,6 +126,14 @@ public class HUDManager : MonoBehaviour
         //        _targetTutorial.enabled = false;
         //        break;
         //}
+    }
+
+    public void InitialFirstImageColor()
+    {
+        for (int i = 0; i < _scoresImagesMedales.Length; i++)
+        {
+            _scoresImagesMedales[i].color = Color.black;
+        }
     }
 
     public void Init()
@@ -278,6 +287,7 @@ public class HUDManager : MonoBehaviour
         if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.BronzeMedalMaxBounces)
         {
             _bronzeMedalText.color = _completedMedal;
+            _scoresImagesMedales[0].color = Color.white;
             _multiplier += ScoreManager.Instance.BronzeMedalMultiplier;
             Invoke("ShowSilverMedal", 0.8f);
         }
@@ -293,6 +303,7 @@ public class HUDManager : MonoBehaviour
         if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.SilverMedalMaxBounces)
         {
             _silverMedalText.color = _completedMedal;
+            _scoresImagesMedales[1].color = Color.white;
             _multiplier += ScoreManager.Instance.SilverMedalMultiplier;
             Invoke("ShowGoldMedal", 0.8f);
         }
@@ -308,6 +319,7 @@ public class HUDManager : MonoBehaviour
         if (ScoreManager.Instance.Bounces <= ScoreManager.Instance.GoldMedalMaxBounces)
         {
             _goldMedalText.color = _completedMedal;
+            _scoresImagesMedales[2].color = Color.white;
             _multiplier += ScoreManager.Instance.GoldMedalMultiplier;
             Invoke("ShowFinalScore", 0.8f);
         }
@@ -387,9 +399,9 @@ public class HUDManager : MonoBehaviour
     public void ShowBoingEffectAtLocation(Vector3 location)
     {
         //Vector3 offsetRandom = new Vector3(Random.Range(2, 5), 0, 12);
-        Vector3 offsetRandom = new Vector3(0, 0, 2);
+        Vector3 offsetRandom = new Vector3(0, 5, 2);
 
-        GameObject boingVFXObject = Instantiate(_prefabBoingVFX, location - offsetRandom, Quaternion.Euler(90, 0, 0));
+        GameObject boingVFXObject = Instantiate(_prefabBoingVFX, location + offsetRandom, Quaternion.Euler(90, 0, 0));
     }
 
     private void UpdateScoreCumulated()
