@@ -101,10 +101,7 @@ public class HUDManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < _scoresImagesMedales.Length; i++)
-        {
-            _scoresImagesMedales[i].color = Color.black; 
-        }
+        InitialFirstImageColor(); 
     }
 
     public void ContinueTutorial()
@@ -129,6 +126,14 @@ public class HUDManager : MonoBehaviour
         //        _targetTutorial.enabled = false;
         //        break;
         //}
+    }
+
+    public void InitialFirstImageColor()
+    {
+        for (int i = 0; i < _scoresImagesMedales.Length; i++)
+        {
+            _scoresImagesMedales[i].color = Color.black;
+        }
     }
 
     public void Init()
@@ -394,9 +399,9 @@ public class HUDManager : MonoBehaviour
     public void ShowBoingEffectAtLocation(Vector3 location)
     {
         //Vector3 offsetRandom = new Vector3(Random.Range(2, 5), 0, 12);
-        Vector3 offsetRandom = new Vector3(0, 0, 2);
+        Vector3 offsetRandom = new Vector3(0, 5, 2);
 
-        GameObject boingVFXObject = Instantiate(_prefabBoingVFX, location - offsetRandom, Quaternion.Euler(90, 0, 0));
+        GameObject boingVFXObject = Instantiate(_prefabBoingVFX, location + offsetRandom, Quaternion.Euler(90, 0, 0));
     }
 
     private void UpdateScoreCumulated()

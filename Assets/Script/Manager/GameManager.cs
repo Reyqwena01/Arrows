@@ -42,15 +42,23 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        _listEnemy.Clear();
+        HUDManager.Instance.InitialFirstImageColor(); 
+        ScoreManager.Instance.Scores.Clear();
     }
 
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        HUDManager.Instance.InitialFirstImageColor();
+        ScoreManager.Instance.Scores.Clear();
     }
 
     public void StartNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        _listEnemy.Clear();
+        HUDManager.Instance.InitialFirstImageColor();
+        ScoreManager.Instance.Scores.Clear();
     }
 }
