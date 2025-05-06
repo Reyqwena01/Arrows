@@ -89,12 +89,12 @@ public class HUDManager : MonoBehaviour
     public bool IsScoreLerping { get => _isScoreLerping; set => _isScoreLerping = value; }
     public TMP_Text AimTimer { get => _aimTimer; set => _aimTimer = value; }
     public Animator ScoreAnimator { get => _scoreAnimator; set => _scoreAnimator = value; }
+    public TMP_Text ScoreCumulatedText { get => _scoreCumulatedText; set => _scoreCumulatedText = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-        IsScoreLerping = false;
-        _scoreCumulatedText.text = 0.ToString();
+        
     }
 
     public void ContinueTutorial()
@@ -392,7 +392,7 @@ public class HUDManager : MonoBehaviour
             
             float perc = currentLerpTime/lerpValue;
 
-            _scoreCumulatedText.text = _scoreCumulated.ToString();
+            ScoreCumulatedText.text = _scoreCumulated.ToString();
         }     
     }
 
@@ -400,7 +400,7 @@ public class HUDManager : MonoBehaviour
     {
         StartCoroutine(LerpScore(0.75f));
         _scoreCumulated += ScoreManager.Instance.Scores[0];
-        _scoreCumulatedText.text = _scoreCumulated.ToString();
+        ScoreCumulatedText.text = _scoreCumulated.ToString();
     }
 
     private IEnumerator LerpScore(float delay)

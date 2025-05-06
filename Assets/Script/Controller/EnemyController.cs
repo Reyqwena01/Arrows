@@ -150,7 +150,7 @@ public class EnemyController : MonoBehaviour
         FirstPosition = transform.position;
         GameManager.Instance.ListEnemy.Insert(0, this);
         SetRagdollOff();
-        _animator.SetBool("Music", true);
+        //_animator.SetBool("Music", true);
     }
 
     // Update is called once per frame

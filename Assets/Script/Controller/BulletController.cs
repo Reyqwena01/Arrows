@@ -344,8 +344,6 @@ public class BulletController : MonoBehaviour
 
     void Start()
     {
-
-
        GameManager.Instance.SetBulletController(this);
        _camera.enabled = true;
        _virtualCamera.Follow = null;
@@ -357,6 +355,9 @@ public class BulletController : MonoBehaviour
 
         ScoreManager.Instance.Score = 0;
         ScoreManager.Instance.Bounces = 0;
+
+        HUDManager.Instance.IsScoreLerping = false;
+        HUDManager.Instance.ScoreCumulatedText.text = 0.ToString();
 
         Cursor.visible = false;
 
