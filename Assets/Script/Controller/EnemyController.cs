@@ -43,8 +43,6 @@ public class EnemyController : MonoBehaviour
             {
                 BulletController bullet = other.gameObject.GetComponent<BulletController>();
 
-                SetRagdollOn();
-
                 switch (Random.Range(1, 3))
                 {
                     case 0:
@@ -55,21 +53,45 @@ public class EnemyController : MonoBehaviour
                         AudioManager.Instance.PlayTimeSound("RewindKill3"); break;
                 }
 
-                bullet.IsShaking = true;
-
-                HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
-                HUDManager.Instance.CallLerpCoroutine();
-
-                if (ScoreManager.Instance.Scores.Count > 1)
+                if (!_isTarget && ScoreManager.Instance.Scores.Count > 1)
                 {
-                    ScoreManager.Instance.Scores.RemoveAt(0);
+                    bullet.IsShaking = true;
+                    SetRagdollOn(); 
+
+                    HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+                    HUDManager.Instance.CallLerpCoroutine();
+
+                    if (ScoreManager.Instance.Scores.Count > 1)
+                    {
+                        ScoreManager.Instance.Scores.RemoveAt(0);
+                    }
+
+                    bullet.StartCoroutine(bullet.ShakeCamera(0.25f));
+
+                    Debug.Log("Hit");
+
+                    _enemyCollider.enabled = false;
                 }
 
-                bullet.StartCoroutine(bullet.ShakeCamera(0.25f));
+                else if (_isTarget && ScoreManager.Instance.Scores.Count < 2)
+                {
+                    bullet.IsShaking = true;
+                    SetRagdollOn(); 
 
-                Debug.Log("Hit");
+                    HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
+                    HUDManager.Instance.CallLerpCoroutine();
 
-                _enemyCollider.enabled = false; 
+                    if (ScoreManager.Instance.Scores.Count > 1)
+                    {
+                        ScoreManager.Instance.Scores.RemoveAt(0);
+                    }
+
+                    bullet.StartCoroutine(bullet.ShakeCamera(0.25f));
+
+                    Debug.Log("Hit");
+
+                    _enemyCollider.enabled = false;
+                }
             }
         }
     }

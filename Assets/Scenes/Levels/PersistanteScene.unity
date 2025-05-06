@@ -1341,7 +1341,7 @@ MonoBehaviour:
   _audioManager: {fileID: 1264349515}
   _scoreManager: {fileID: 60897018}
   _hudManager: {fileID: 1335812188}
-  _sceneInBuild: 1
+  _sceneInBuild: 3
 --- !u!4 &787584686
 Transform:
   m_ObjectHideFlags: 0
@@ -3004,7 +3004,9 @@ MonoBehaviour:
   _prefabDamageScore: {fileID: 1941739703}
   _scoreCumulatedText: {fileID: 1366263007}
   _scoreMergedAnimator: {fileID: 1078145909}
-  _VFXRewind: {fileID: 208803348304041165, guid: 6b5954e832fb7ce48ac622c5d314c798, type: 3}
+  _VFXRewind:
+  - {fileID: 208803348304041165, guid: 6b5954e832fb7ce48ac622c5d314c798, type: 3}
+  - {fileID: 613509886894836417, guid: fe5ea104e9ad1ea41a5c84b0c1e456b3, type: 3}
   _imageAnimator: {fileID: 1451129986}
   _scoreEndVFX: {fileID: 0}
   _scoreHeadShotVFX: {fileID: 0}
