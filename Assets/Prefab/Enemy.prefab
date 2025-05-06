@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 87.48831
+      value: 125.68
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -130,11 +130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -155.464
+      value: -91.88
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.45925832
+      value: 0.8317506
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -142,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.8883028
+      value: 0.55514956
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalRotation.z
@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 125.322
+      value: 67.442
       objectReference: {fileID: 0}
     - target: {fileID: 6913718783790101904, guid: aaa4e15884aa30c42bccb2fced9b224e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -362,10 +362,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 4807664124202735525}
-  _animationSelection: 0
   _isTarget: 1
   _isDead: 0
   _hips: {fileID: 7632974891027195893}
+  _enemyCollider: {fileID: 2060077336583652853}
 --- !u!136 &2060077336583652853
 CapsuleCollider:
   m_ObjectHideFlags: 0

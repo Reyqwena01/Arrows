@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool _isTarget = false;
     [SerializeField] private bool _isDead = false;
     [SerializeField] private Rigidbody _hips = null;
+    [SerializeField] private Collider _enemyCollider = null; 
     
     private Rigidbody[] _rigidbodys = null;
     private Vector3 _firstPosition; 
@@ -67,6 +68,8 @@ public class EnemyController : MonoBehaviour
                 bullet.StartCoroutine(bullet.ShakeCamera(0.25f));
 
                 Debug.Log("Hit");
+
+                _enemyCollider.enabled = false; 
             }
         }
     }
