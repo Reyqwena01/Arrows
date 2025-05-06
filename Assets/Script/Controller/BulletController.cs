@@ -355,6 +355,9 @@ public class BulletController : MonoBehaviour
         HUDManager.Instance.AimTimer.enabled = false;
         AudioManager.Instance.StopPlayingWind();
 
+        ScoreManager.Instance.Score = 0;
+        ScoreManager.Instance.Bounces = 0;
+
         Cursor.visible = false;
 
         Time.timeScale = 0.3f;
@@ -423,23 +426,23 @@ public class BulletController : MonoBehaviour
         HUDManager.Instance.ToggleScreen(Screen.Score);
 
         CinemachineVirtualCamera cinemachine = cam.GetComponent<CinemachineVirtualCamera>();
-        cinemachine.m_Lens.FieldOfView = 60; 
-
-
-        if (GameManager.Instance.ListEnemy.Count > 0)
-        {
-            for (int i = 0; i < GameManager.Instance.ListEnemy.Count; i++)
-            {
-                GameManager.Instance.ListEnemy[i]?.GetComponent<EnemyController>().SetRagdollOff();
-            }
-        }
+        cinemachine.m_Lens.FieldOfView = 60;
 
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
 
         Time.timeScale = 1.75f;
 
-        if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
+        if (_trailRenderer != null) { _trailRenderer.enabled = true; }
+
+
+        if (GameManager.Instance.ListEnemy.Count > 0)
+        {
+            for (int i = 0; i < GameManager.Instance.ListEnemy.Count; i++)
+            {
+                GameManager.Instance.ListEnemy[i].GetComponent<EnemyController>().SetRagdollOff();
+            }
+        }
     }
 
     public IEnumerator ShakeCamera(float delay)
