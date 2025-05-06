@@ -35,7 +35,6 @@ public class CameraBehavior : MonoBehaviour
         {
             _rewindTime.IsPlayingReverse = !_rewindTime.IsPlayingReverse;
             CanMove = false;
-            HUDManager.Instance.ToggleScreen(Screen.Score);
         }
 
     }

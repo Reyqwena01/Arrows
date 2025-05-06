@@ -368,8 +368,6 @@ public class BulletController : MonoBehaviour
 
         else if (!_dropped && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Head") || collision.gameObject.CompareTag("Torso") || collision.gameObject.CompareTag("Arm") || collision.gameObject.CompareTag("Leg"))
         {
-            //EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
-            //enemy.Die();
 
             int score = ScoreManager.Instance.GetScoreOnKill(_maxCurrentSpeed, collision.gameObject.tag);
 
@@ -392,27 +390,6 @@ public class BulletController : MonoBehaviour
             Powerup powerup = other.gameObject.GetComponent<Powerup>();
             GetPowerUp(powerup.Type);
             Destroy(other.gameObject);
-        }
-
-        if(!_dropped && other.CompareTag("Enemy"))
-        {
-            //GameObject enemyObject = other.gameObject;
-            //EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
-            //enemyController.SetRagdollOn();
-            //IsShaking = true;
-
-            //HUDManager.Instance.ShowEnemyScoreAtLocation(other.transform.position, ScoreManager.Instance.Scores[0].ToString());
-            //HUDManager.Instance.CallLerpCoroutine();
-
-            //if (ScoreManager.Instance.Scores.Count > 1)
-            //{
-            //    ScoreManager.Instance.Scores.RemoveAt(0);
-            //}
-
-            //StartCoroutine(ShakeCamera(0.25f));
-            //Debug.Log("Hit");
-
-
         }
 
         if (other.CompareTag("Bouncy"))
@@ -439,7 +416,8 @@ public class BulletController : MonoBehaviour
         BulletTrail.SetActive(false); // ??? pourquoi le set a false 
         Transform cam = gameObject.transform.GetChild(1);
         cam.parent = null;
-        
+        HUDManager.Instance.ToggleScreen(Screen.Score);
+
         CinemachineVirtualCamera cinemachine = cam.GetComponent<CinemachineVirtualCamera>();
         cinemachine.m_Lens.FieldOfView = 60; 
 
@@ -455,7 +433,7 @@ public class BulletController : MonoBehaviour
         _camBehavior.CanMove = true;
         _rewindTime.StartRewind();
 
-        Time.timeScale = 2.0f;
+        Time.timeScale = 1.75f;
 
         if (_trailRenderer != null) { _trailRenderer.enabled = true; } 
     }
